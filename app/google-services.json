@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "52067991719",
+    "project_id": "serviceflex-44fb6",
+    "storage_bucket": "serviceflex-44fb6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52067991719:android:1bc3fba30c80e671ebdb82",
+        "android_client_info": {
+          "package_name": "com.example.serviceflexapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB08RZ5lkH4xwzqfzL2KWGysHNaUdAfjPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
