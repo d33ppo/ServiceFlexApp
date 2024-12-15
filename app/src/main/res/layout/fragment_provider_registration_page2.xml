@@ -27,7 +27,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@drawable/orange_square"
             android:layout_width="355dp"
-            android:layout_height="485dp"
+            android:layout_height="510dp"
             android:layout_marginStart="28dp"
             android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,9 +106,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
             <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:padding="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TV_Certificate">
@@ -117,8 +117,9 @@
                 <LinearLayout
                     android:id="@+id/upload_prompt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:background="@drawable/white_square"
+                    android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp"
@@ -127,7 +128,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="" />
+                        android:src="@drawable/upload" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -137,8 +138,199 @@
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
+
+                <!-- Next state: uploaded file -->
+                <LinearLayout
+                    android:id="@+id/file_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/IV_FirstFile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/file_icon" />
+
+                        <TextView
+                            android:id="@+id/TV_FirstFile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="TextView"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/BTN_XFirstFile"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/x_button"
+                            android:contentDescription="NULL"
+                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/IV_SecondFile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/file_icon" />
+
+                        <TextView
+                            android:id="@+id/TV_SecondFile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="TextView"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/BTN_XSecondFile"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/x_button"
+                            android:contentDescription="NULL"
+                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/IV_ThirdFile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/file_icon" />
+
+                        <TextView
+                            android:id="@+id/TV_ThirdFile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="TextView"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/BTN_XThirdFile"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/x_button"
+                            android:contentDescription="NULL"
+                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="1dp"
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/BTN_AddFile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/add_file"
+                            android:contentDescription="NULL" />
+                    </LinearLayout>
+                </LinearLayout>
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/TV_Pricing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="Pricing Range"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+            <EditText
+                android:id="@+id/ETV_MinPrice"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/white_square"
+                android:ems="10"
+                android:hint="  Min"
+                android:inputType="number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TV_Pricing" />
+
+            <ImageView
+                android:id="@+id/Iv_Dash"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/icons8_dash"
+                app:layout_constraintStart_toEndOf="@+id/ETV_MinPrice"
+                app:layout_constraintTop_toTopOf="@+id/ETV_MinPrice" />
+
+            <EditText
+                android:id="@+id/ETV_MaxPrice"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/white_square"
+                android:ems="10"
+                android:hint="  Max"
+                android:inputType="number"
+                app:layout_constraintStart_toEndOf="@+id/Iv_Dash"
+                app:layout_constraintTop_toTopOf="@+id/ETV_MinPrice" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/Btn_Create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange_square"
+            android:text="Create"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
