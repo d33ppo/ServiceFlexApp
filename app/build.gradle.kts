@@ -60,6 +60,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:2.8.5")
     implementation("androidx.navigation:navigation-ui:2.8.5")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.5")
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
     androidTestImplementation("androidx.navigation:navigation-testing:2.8.5")
 
     testImplementation(libs.junit)
@@ -72,4 +74,8 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.4.0")
+    implementation("com.google.firebase:firebase-auth:23.1.0")
+
 }
