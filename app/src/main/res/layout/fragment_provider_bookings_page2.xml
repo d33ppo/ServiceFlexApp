@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".provider.ProviderBookingsActivity" >
+    tools:context=".provider.ProviderBookingsPage2Fragment">
 
     <ScrollView
         android:layout_width="355dp"
@@ -24,29 +24,29 @@
             <!-- Card 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="4dp"
-                app:cardBackgroundColor="#F6AE65">
+                app:cardBackgroundColor="#D9D9D9">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/IV_Sender"
+                        android:id="@+id/IV_SenderCompleted1"
                         android:layout_width="84dp"
                         android:layout_height="65dp"
                         android:layout_marginStart="12dp"
-                        android:layout_marginBottom="28dp"
-                        app:layout_constraintBottom_toTopOf="@+id/BTN_Reschedule"
+                        android:layout_marginBottom="48dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/TV_AddressUpcomingBooking"
+                        app:layout_constraintStart_toEndOf="@+id/TV_AddressCompleted1"
                         app:srcCompat="@drawable/profile_circle_icon" />
 
                     <ImageView
-                        android:id="@+id/IV_Mail"
+                        android:id="@+id/IV_MailCompleted1"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginStart="24dp"
@@ -57,7 +57,7 @@
                         app:srcCompat="@drawable/spanner" />
 
                     <TextView
-                        android:id="@+id/TV_Date"
+                        android:id="@+id/TV_DateCompleted1"
                         android:layout_width="84dp"
                         android:layout_height="39dp"
                         android:layout_marginStart="8dp"
@@ -65,14 +65,14 @@
                         android:text="22 December 2025"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking"
+                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressCompleted1"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/IV_Mail"
+                        app:layout_constraintTop_toBottomOf="@+id/IV_MailCompleted1"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/TV_Sender"
+                        android:id="@+id/TV_SenderCompleted1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -84,7 +84,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/TV_AddressUpcomingBooking"
+                        android:id="@+id/TV_AddressCompleted1"
                         android:layout_width="151dp"
                         android:layout_height="62dp"
                         android:layout_marginStart="32dp"
@@ -92,20 +92,8 @@
                         android:text="Jalan Universiti, Kuala Lumpur"
                         android:textColor="@color/black"
                         android:textSize="10sp"
-                        app:layout_constraintStart_toEndOf="@+id/IV_Mail"
-                        app:layout_constraintTop_toBottomOf="@id/TV_Sender" />
-
-                    <Button
-                        android:id="@+id/BTN_Reschedule"
-                        android:layout_width="83dp"
-                        android:layout_height="57dp"
-                        android:layout_marginEnd="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:backgroundTint="@color/white"
-                        android:text="Reschedule"
-                        android:textSize="7sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/IV_MailCompleted1"
+                        app:layout_constraintTop_toBottomOf="@id/TV_SenderCompleted1" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -116,10 +104,10 @@
             <!-- Card 2 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="4dp"
-                app:cardBackgroundColor="#92F6B265">
+                app:cardBackgroundColor="#D7D7D7">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -128,19 +116,19 @@
                     <!-- ImageView: Left-Centered -->
 
                     <ImageView
-                        android:id="@+id/IV_Sender2"
+                        android:id="@+id/IV_SenderCompleted2"
                         android:layout_width="84dp"
                         android:layout_height="65dp"
                         android:layout_marginStart="12dp"
-                        android:layout_marginBottom="28dp"
-                        app:layout_constraintBottom_toTopOf="@+id/BTN_Reschedule2"
+                        android:layout_marginBottom="48dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.142"
-                        app:layout_constraintStart_toEndOf="@+id/TV_AddressUpcomingBooking2"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/TV_AddressCompleted2"
                         app:srcCompat="@drawable/profile_circle_icon" />
 
                     <ImageView
-                        android:id="@+id/IV_Mail2"
+                        android:id="@+id/IV_MailCompleted2"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginStart="24dp"
@@ -151,7 +139,7 @@
                         app:srcCompat="@drawable/spanner" />
 
                     <TextView
-                        android:id="@+id/TV_Date2"
+                        android:id="@+id/TV_DateCompleted2"
                         android:layout_width="84dp"
                         android:layout_height="39dp"
                         android:layout_marginStart="8dp"
@@ -159,14 +147,14 @@
                         android:text="22 December 2025"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking2"
+                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressCompleted2"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/IV_Mail2"
+                        app:layout_constraintTop_toBottomOf="@+id/IV_MailCompleted2"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/TV_Sender2"
+                        android:id="@+id/TV_SenderCompleted2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -178,7 +166,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/TV_AddressUpcomingBooking2"
+                        android:id="@+id/TV_AddressCompleted2"
                         android:layout_width="151dp"
                         android:layout_height="62dp"
                         android:layout_marginStart="32dp"
@@ -186,20 +174,8 @@
                         android:text="Jalan Universiti, Kuala Lumpur"
                         android:textColor="@color/black"
                         android:textSize="10sp"
-                        app:layout_constraintStart_toEndOf="@+id/IV_Mail2"
-                        app:layout_constraintTop_toBottomOf="@id/TV_Sender2" />
-
-                    <Button
-                        android:id="@+id/BTN_Reschedule2"
-                        android:layout_width="83dp"
-                        android:layout_height="57dp"
-                        android:layout_marginEnd="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:backgroundTint="@color/white"
-                        android:text="Reschedule"
-                        android:textSize="7sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/IV_MailCompleted2"
+                        app:layout_constraintTop_toBottomOf="@id/TV_SenderCompleted2" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -208,7 +184,7 @@
     </ScrollView>
 
     <ImageButton
-        android:id="@+id/BTN_Previous3"
+        android:id="@+id/BTN_Previous5"
         android:layout_width="58dp"
         android:layout_height="43dp"
         android:layout_marginStart="10dp"
