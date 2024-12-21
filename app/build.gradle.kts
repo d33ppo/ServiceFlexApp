@@ -42,6 +42,18 @@ android {
 }
 
 dependencies {
+    // RecyclerView for displaying dynamic lists
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+
+    // Material Design components (includes TabLayout)
+    implementation("com.google.android.material:material:1.6.1")
+
+    // CardView for card layout
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // Navigation components for tab switching
+    implementation("androidx.navigation:navigation-fragment:2.8.5")
+    implementation("androidx.navigation:navigation-ui:2.8.5")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -72,4 +84,6 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+
 }
