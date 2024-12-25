@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.serviceflexapp" />
-                  <option name="mobileSdkAppId" value="1:267318038263:android:63b394c4b34c7a00608df2" />
-                  <option name="projectId" value="serviceflex-d8ff7" />
-                  <option name="projectNumber" value="267318038263" />
+                  <option name="mobileSdkAppId" value="1:785604444115:android:6ed43608492c2c458b7926" />
+                  <option name="projectId" value="serviceflexapp" />
+                  <option name="projectNumber" value="785604444115" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

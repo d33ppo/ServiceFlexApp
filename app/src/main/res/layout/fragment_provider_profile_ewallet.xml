@@ -8,6 +8,17 @@
 
     <!-- Current Balance -->
 
+    <ImageButton
+        android:id="@+id/IB_Previous2"
+        android:layout_width="84dp"
+        android:layout_height="58dp"
+        android:backgroundTint="@color/white"
+        android:src="?attr/actionModeCloseDrawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
     <TextView
         android:id="@+id/TV_EWallet2"
         android:layout_width="wrap_content"
@@ -26,7 +37,7 @@
         android:id="@+id/TV_wallet_balance_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="64dp"
         android:text="Current Balance"
         android:textColor="#FF5722"
         android:textSize="16sp"
@@ -46,34 +57,23 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Add Funds Button -->
-    <Button
-        android:id="@+id/BTN_add_funds"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Add Funds"
-        android:backgroundTint="#FF9800"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/TV_wallet_balance"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/BTN_withdraw_funds"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp" />
 
     <!-- Withdraw Funds Button -->
-    <Button
-        android:id="@+id/BTN_withdraw_funds"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Withdraw Funds"
-        android:backgroundTint="#FF9800"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/TV_wallet_balance"
-        app:layout_constraintStart_toEndOf="@id/BTN_add_funds"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp" />
 
     <!-- Transaction History Label -->
+
+    <Button
+        android:id="@+id/BTN_add_funds"
+        android:layout_width="223dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#FF9800"
+        android:text="Add Funds"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/TV_wallet_balance" />
+
     <TextView
         android:id="@+id/TV_transaction_history_label"
         android:layout_width="wrap_content"

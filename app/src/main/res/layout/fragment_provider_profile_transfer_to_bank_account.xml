@@ -23,6 +23,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!-- Confirm Button -->
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
@@ -126,8 +129,6 @@
         <!-- Add other cards similarly -->
     </RadioGroup>
 
-
-    <!-- Confirm Button -->
     <Button
         android:id="@+id/btnConfirmTransfer"
         android:layout_width="match_parent"
@@ -135,6 +136,15 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#F6AE65"
         android:text="Confirm Transfer"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#F6AE65"
+        android:text="RETURN TO PROFILE"
         android:textColor="@color/black" />
 
 </LinearLayout>

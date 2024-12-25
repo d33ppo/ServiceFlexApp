@@ -9,10 +9,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.serviceflexapp.R;
 
-public class ProviderBookingsPage2Fragment extends Fragment {
+public class ProviderBookingsFragment extends Fragment {
 
-    public ProviderBookingsPage2Fragment() {
-        super(R.layout.fragment_provider_bookings_page2);
+    public ProviderBookingsFragment() {
+        super(R.layout.fragment_provider_bookings);
     }
 
     @Override
@@ -22,6 +22,8 @@ public class ProviderBookingsPage2Fragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
 
         view.findViewById(R.id.BTN_Upcoming).setOnClickListener(v ->
-                navController.navigate(R.id.action_providerBookingsPage2Fragment_to_providerBookingsPage1Fragment));
+                navController.navigate(R.id.action_providerBookingsFragment_to_providerBookingsPage1Fragment));
+        view.findViewById(R.id.BTN_Completed).setOnClickListener(v ->
+                navController.navigate(R.id.action_providerBookingsFragment_to_providerBookingsPage2Fragment));
     }
 }
