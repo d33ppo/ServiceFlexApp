@@ -2,21 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/provider_inbox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".provider.ProviderInboxActivity">
-
-    <ImageButton
-        android:id="@+id/BTN_Previous2"
-        android:layout_width="58dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:background="#F8F8F8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?android:attr/actionModeCloseDrawable" />
+    tools:context=".provider.ProviderInboxFragment">
 
     <TextView
         android:id="@+id/TV_Inbox"
@@ -33,15 +22,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="355dp"
-        android:layout_height="534dp"
+        android:layout_width="410dp"
+        android:layout_height="775dp"
         android:layout_margin="1dp"
+        android:layout_marginTop="12dp"
         android:background="#F8F8F8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BTN_Previous2"
-        app:layout_constraintVertical_bias="0.232">
+        app:layout_constraintTop_toBottomOf="@+id/TV_Inbox"
+        app:layout_constraintVertical_bias="0.246">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +42,7 @@
             <!-- Card 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="210dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="4dp"
                 app:cardBackgroundColor="#F6AE65">
@@ -61,17 +52,18 @@
                     android:layout_height="match_parent">
 
                     <!-- ImageView: Left-Centered -->
+
+                    <!-- TextView 1: Right-Centered (Top) -->
                     <ImageView
                         android:id="@+id/IV_Mail"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_width="130dp"
+                        android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
                         app:srcCompat="@drawable/mail" />
 
-                    <!-- TextView 1: Right-Centered (Top) -->
                     <TextView
                         android:id="@+id/TV_Sender"
                         android:layout_width="wrap_content"
@@ -80,44 +72,48 @@
                         android:layout_marginEnd="20dp"
                         android:text="From: System"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <!-- TextView 2: Right-Centered (Below TextView 1) -->
                     <TextView
                         android:id="@+id/TV_AddressUpcomingBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="373dp"
+                        android:layout_height="94dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginEnd="20dp"
                         android:text="Your service provider application has been approved!"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/TV_Sender" />
 
                     <Button
                         android:id="@+id/BTN_Delete"
-                        android:layout_width="70dp"
+                        android:layout_width="103dp"
                         android:layout_height="55dp"
-                        android:layout_marginEnd="85dp"
+                        android:layout_marginEnd="164dp"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/white"
                         android:text="Delete"
-                        android:textSize="7sp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                     <Button
                         android:id="@+id/BTN_Reply"
-                        android:layout_width="70dp"
+                        android:layout_width="103dp"
                         android:layout_height="55dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/white"
                         android:text="Reply"
-                        android:textSize="7sp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -130,7 +126,7 @@
             <!-- Card 2 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="210dp"
                 android:layout_marginBottom="8dp"
                 android:elevation="4dp"
                 app:cardBackgroundColor="#92F6B265">
@@ -140,17 +136,18 @@
                     android:layout_height="match_parent">
 
                     <!-- ImageView: Left-Centered -->
+
+                    <!-- TextView 1: Right-Centered (Top) -->
                     <ImageView
                         android:id="@+id/IV_Mail2"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_width="130dp"
+                        android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
                         app:srcCompat="@drawable/mail" />
 
-                    <!-- TextView 1: Right-Centered (Top) -->
                     <TextView
                         android:id="@+id/TV_Sender2"
                         android:layout_width="wrap_content"
@@ -159,44 +156,46 @@
                         android:layout_marginEnd="20dp"
                         android:text="From: System"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <!-- TextView 2: Right-Centered (Below TextView 1) -->
                     <TextView
                         android:id="@+id/TV_Message2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="373dp"
+                        android:layout_height="94dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginEnd="20dp"
                         android:text="Payment received RM200"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/TV_Sender2" />
 
                     <Button
                         android:id="@+id/BTN_Delete2"
-                        android:layout_width="70dp"
+                        android:layout_width="103dp"
                         android:layout_height="55dp"
-                        android:layout_marginEnd="85dp"
+                        android:layout_marginEnd="164dp"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/white"
                         android:text="Delete"
-                        android:textSize="7sp"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                     <Button
                         android:id="@+id/BTN_Reply2"
-                        android:layout_width="70dp"
+                        android:layout_width="103dp"
                         android:layout_height="55dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/white"
                         android:text="Reply"
-                        android:textSize="7sp"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

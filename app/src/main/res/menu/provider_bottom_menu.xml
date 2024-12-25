@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/bottom_booking"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="Booking" />
+
+    <item
+        android:id="@+id/bottom_inbox"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="Inbox" />
+
+    <item
+        android:id="@+id/bottom_profile"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Profile" />
+</menu>

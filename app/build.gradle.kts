@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -89,6 +93,16 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.3.1")
     implementation("com.google.firebase:firebase-firestore-ktx:24.4.0")
     implementation("com.google.firebase:firebase-auth:23.1.0")
+
+    // Navigation components
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
+
+    // Material Design for BottomNavigationView
+    implementation("com.google.android.material:material:1.10.0")
+
+    // (Optional) For animations during navigation transitions
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.3")
 
 
 }

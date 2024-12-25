@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/provider_navigation"
+    app:startDestination="@id/providerHomeFragment">
+
+    <fragment
+        android:id="@+id/providerBookingsFragment"
+        android:name="com.example.serviceflexapp.provider.ProviderBookingsFragment"
+        android:label="fragment_provider_bookings"
+        tools:layout="@layout/fragment_provider_bookings" >
+        <action
+            android:id="@+id/action_providerBookingsFragment_to_providerInboxFragment"
+            app:destination="@id/providerInboxFragment" />
+        <action
+            android:id="@+id/action_providerBookingsFragment_to_providerBookingsPage1Fragment"
+            app:destination="@id/providerBookingsPage1Fragment" />
+        <action
+            android:id="@+id/action_providerBookingsFragment_to_providerBookingsPage2Fragment"
+            app:destination="@id/providerBookingsPage2Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/providerProfileFragment"
+        android:name="com.example.serviceflexapp.provider.ProviderProfileFragment"
+        android:label="fragment_provider_profile"
+        tools:layout="@layout/fragment_provider_profile" >
+        <action
+            android:id="@+id/action_providerProfileFragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+        <action
+            android:id="@+id/action_providerProfileFragment_to_providerProfileAccountInfo"
+            app:destination="@id/providerProfileAccountInfo" />
+        <action
+            android:id="@+id/action_providerProfileFragment_to_providerProfileEwallet"
+            app:destination="@id/providerProfileEwallet" />
+        <action
+            android:id="@+id/action_providerProfileFragment_to_providerProfileTransferToBankAccount"
+            app:destination="@id/providerProfileTransferToBankAccount" />
+        <action
+            android:id="@+id/action_providerProfileFragment_to_providerProfileUpdateWorkProfile"
+            app:destination="@id/providerProfileUpdateWorkProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerInboxFragment"
+        android:name="com.example.serviceflexapp.provider.ProviderInboxFragment"
+        android:label="fragment_provider_inbox"
+        tools:layout="@layout/fragment_provider_inbox" >
+        <action
+            android:id="@+id/action_providerInboxFragment_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerHomeFragment"
+        android:name="com.example.serviceflexapp.provider.ProviderHomeFragment"
+        android:label="fragment_provider_home"
+        tools:layout="@layout/fragment_provider_home" >
+        <action
+            android:id="@+id/action_providerHomeFragment_to_providerBookingsFragment"
+            app:destination="@id/providerBookingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerProfileAccountInfo"
+        android:name="com.example.serviceflexapp.provider.ProviderProfileAccountInfo"
+        android:label="fragment_provider_profile_account_info"
+        tools:layout="@layout/fragment_provider_profile_account_info" >
+        <action
+            android:id="@+id/action_providerProfileAccountInfo_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerProfileEwallet"
+        android:name="com.example.serviceflexapp.provider.ProviderProfileEwallet"
+        android:label="fragment_provider_profile_ewallet"
+        tools:layout="@layout/fragment_provider_profile_ewallet" >
+        <action
+            android:id="@+id/action_providerProfileEwallet_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerProfileTransferToBankAccount"
+        android:name="com.example.serviceflexapp.provider.ProviderProfileTransferToBankAccount"
+        android:label="fragment_provider_profile_transfer_to_bank_account"
+        tools:layout="@layout/fragment_provider_profile_transfer_to_bank_account" >
+        <action
+            android:id="@+id/action_providerProfileTransferToBankAccount_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerProfileUpdateWorkProfile"
+        android:name="com.example.serviceflexapp.provider.ProviderProfileUpdateWorkProfile"
+        android:label="fragment_provider_profile_update_work_profile"
+        tools:layout="@layout/fragment_provider_profile_update_work_profile" >
+        <action
+            android:id="@+id/action_providerProfileUpdateWorkProfile_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerBookingsPage1Fragment"
+        android:name="com.example.serviceflexapp.provider.ProviderBookingsPage1Fragment"
+        android:label="ProviderBookingsPage1Fragment" >
+        <action
+            android:id="@+id/action_providerBookingsPage1Fragment_to_providerBookingsPage2Fragment"
+            app:destination="@id/providerBookingsPage2Fragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage1Fragment_to_providerBookingsFragment"
+            app:destination="@id/providerBookingsFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage1Fragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage1Fragment_to_providerInboxFragment"
+            app:destination="@id/providerInboxFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage1Fragment_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerBookingsPage2Fragment"
+        android:name="com.example.serviceflexapp.provider.ProviderBookingsPage2Fragment"
+        android:label="ProviderBookingsPage2Fragment" >
+        <action
+            android:id="@+id/action_providerBookingsPage2Fragment_to_providerBookingsPage1Fragment"
+            app:destination="@id/providerBookingsPage1Fragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage2Fragment_to_providerBookingsFragment"
+            app:destination="@id/providerBookingsFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage2Fragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage2Fragment_to_providerInboxFragment"
+            app:destination="@id/providerInboxFragment" />
+        <action
+            android:id="@+id/action_providerBookingsPage2Fragment_to_providerProfileFragment"
+            app:destination="@id/providerProfileFragment" />
+    </fragment>
+</navigation>

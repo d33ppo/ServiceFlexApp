@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/provider_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".provider.ProviderProfileActivity">
+    tools:context=".provider.ProviderProfileFragment">
 
     <TextView
         android:id="@+id/TV_Profile"
@@ -28,7 +28,7 @@
         android:layout_marginTop="12dp"
         android:text="Jim Halpert"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="352dp"
-        android:layout_height="31dp"
+        android:layout_height="47dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/orange_square"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jimmy0"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,61 +71,61 @@
 
     <ImageView
         android:id="@+id/IV_AccountInfo"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="43dp"
+        android:layout_height="75dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/orange_square"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/user"
-        android:padding="10dp"/>
+        app:srcCompat="@drawable/user" />
 
     <TextView
         android:id="@+id/TV_AccountInfo"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
+        android:layout_width="258dp"
+        android:layout_height="75dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Account Info"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/IV_AccountInfo"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <ImageButton
         android:id="@+id/BTN_AccountInfo"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="48dp"
+        android:layout_height="75dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
-        android:background="#F8F8F8"
+        android:background="@color/white"
+        android:contentDescription="Navigate to Account info"
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TV_AccountInfo"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/right_arrow"
-        android:contentDescription="Navigate to Account info"/>
+        app:srcCompat="@drawable/right_arrow" />
 
     <ImageView
         android:id="@+id/IV_Ewallet"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="43dp"
+        android:layout_height="75dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/orange_square"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IV_AccountInfo"
-        app:srcCompat="@drawable/wallet"
-        android:padding="10dp"/>
+        app:srcCompat="@drawable/wallet" />
 
     <TextView
         android:id="@+id/TV_Ewallet"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
+        android:layout_width="258dp"
+        android:layout_height="75dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="21dp"
         android:gravity="center"
@@ -136,35 +137,35 @@
 
     <ImageButton
         android:id="@+id/BTN_Ewallet"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="48dp"
+        android:layout_height="75dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
-        android:background="#F8F8F8"
+        android:background="@color/white"
+        android:contentDescription="Navigate to E-Wallet"
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TV_Ewallet"
         app:layout_constraintTop_toBottomOf="@+id/BTN_AccountInfo"
-        app:srcCompat="@drawable/right_arrow"
-        android:contentDescription="Navigate to E-Wallet"/>
+        app:srcCompat="@drawable/right_arrow" />
 
     <ImageView
         android:id="@+id/IV_Transfer"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="43dp"
+        android:layout_height="75dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/orange_square"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IV_Ewallet"
-        app:srcCompat="@drawable/bank_building"
-        android:padding="10dp"/>
+        app:srcCompat="@drawable/bank_building" />
 
     <TextView
         android:id="@+id/TV_Transfer"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
+        android:layout_width="258dp"
+        android:layout_height="75dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
@@ -175,35 +176,35 @@
 
     <ImageButton
         android:id="@+id/BTN_Transfer"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="48dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="28dp"
-        android:background="#F8F8F8"
+        android:background="@color/white"
+        android:contentDescription="Navigate to Transfer to Bank Account"
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TV_Transfer"
         app:layout_constraintTop_toBottomOf="@+id/BTN_Ewallet"
-        app:srcCompat="@drawable/right_arrow"
-        android:contentDescription="Navigate to Transfer to Bank Account"/>
+        app:srcCompat="@drawable/right_arrow" />
 
     <ImageView
         android:id="@+id/IV_UpdateWorkProfile"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="43dp"
+        android:layout_height="75dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="21dp"
         android:background="@drawable/orange_square"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IV_Transfer"
-        app:srcCompat="@drawable/portfolio"
-        android:padding="10dp"/>
+        app:srcCompat="@drawable/portfolio" />
 
     <TextView
         android:id="@+id/TV_UpdateWorkProfile"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
+        android:layout_width="258dp"
+        android:layout_height="75dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="21dp"
         android:gravity="center"
@@ -214,28 +215,17 @@
 
     <ImageButton
         android:id="@+id/BTN_UpdateWorkProfile"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="48dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="28dp"
-        android:background="#F8F8F8"
+        android:background="@color/white"
+        android:contentDescription="Navigate to Update Work Profile"
         android:padding="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TV_UpdateWorkProfile"
         app:layout_constraintTop_toBottomOf="@+id/BTN_Transfer"
-        app:srcCompat="@drawable/right_arrow"
-        android:contentDescription="Navigate to Update Work Profile"/>
-
-    <ImageButton
-        android:id="@+id/BTN_Previous"
-        android:layout_width="58dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:background="#F8F8F8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?android:attr/actionModeCloseDrawable" />
+        app:srcCompat="@drawable/right_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
