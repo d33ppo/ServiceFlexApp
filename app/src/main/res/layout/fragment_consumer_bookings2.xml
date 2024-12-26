@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".consumer.ConsumerBookingsFragment2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/TV_Booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="16dp"
+            android:text="Book Now"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TV_SelectDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="20dp"
+            android:text="Select Date and Time"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TV_Booking" />
+
+        <CalendarView
+            android:id="@+id/CV_ChooseDate"
+            android:layout_width="254dp"
+            android:layout_height="230dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/orange_square"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TV_SelectDateTime" />
+
+        <TimePicker
+            android:id="@+id/TP_PickTime"
+            android:layout_width="274dp"
+            android:layout_height="199dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/orange_square"
+            android:timePickerMode="spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CV_ChooseDate" />
+
+        <Button
+            android:id="@+id/BTN_Confirm"
+            android:layout_width="95dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/orange_square"
+            android:text="Confirm"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
