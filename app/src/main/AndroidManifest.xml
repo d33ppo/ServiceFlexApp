@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,31 +12,63 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BottomNavActivityPractice"
+        android:theme="@style/Theme.ServiceFlexApp"
         tools:targetApi="31">
 
-        <!-- Main Launcher Activity -->
+        <!-- Login Activity as Launcher -->
         <activity
-            android:name=".provider.ProviderMainActivity"
+            android:name=".common.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.BottomNavActivityPractice"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ServiceFlexApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Consumer Activities -->
-        <activity android:name=".consumer.ConsumerProfileActivity" android:exported="true" />
-        <activity android:name=".consumer.ConsumerInboxActivity" android:exported="true" />
-        <activity android:name=".consumer.ConsumerHomeActivity" android:exported="true" />
-        <activity android:name=".consumer.ConsumerBookingsActivity" android:exported="true" />
+        <!-- RegisterAs Activities -->
+        <activity
+            android:name=".common.RegisterAsActivity"
+            android:exported="true" />
+
+        <!-- Main Activity for Provider -->
+        <activity
+            android:name=".provider.ProviderMainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.BottomNavActivityPractice" />
 
         <!-- Common Activities -->
-        <activity android:name=".common.ProviderRegistrationActivity" android:exported="true" />
-        <activity android:name=".common.LoginActivity" android:exported="true" />
-        <activity android:name=".common.ForgotPasswordActivity" android:exported="true" />
-        <activity android:name=".common.ConsumerRegistrationActivity" android:exported="true" />
+        <activity
+            android:name=".common.ConsumerRegistrationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".common.ProviderRegistrationActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".common.ForgotPasswordActivity"
+            android:exported="true" />
+
+        <!-- Consumer Activities -->
+        <activity
+            android:name=".consumer.ConsumerMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".consumer.ConsumerProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".consumer.ConsumerInboxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".consumer.ConsumerHomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".consumer.ConsumerBookingsActivity"
+            android:exported="true" />
+
     </application>
+
 </manifest>

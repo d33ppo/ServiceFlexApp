@@ -100,5 +100,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Add a FrameLayout to act as a container for the fragment -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
