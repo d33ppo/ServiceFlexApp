@@ -136,4 +136,47 @@
             android:id="@+id/action_providerBookingsPage2Fragment_to_providerProfileFragment"
             app:destination="@id/providerProfileFragment" />
     </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.serviceflexapp.common.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/registerAsActivity"
+        android:name="com.example.serviceflexapp.common.RegisterAsActivity"
+        android:label="activity_register_as"
+        tools:layout="@layout/activity_register_as" />
+    <activity
+        android:id="@+id/forgotPasswordActivity"
+        android:name="com.example.serviceflexapp.common.ForgotPasswordActivity"
+        android:label="activity_forgot_password"
+        tools:layout="@layout/activity_forgot_password" />
+    <activity
+        android:id="@+id/consumerRegistrationActivity"
+        android:name="com.example.serviceflexapp.common.ConsumerRegistrationActivity"
+        android:label="activity_consumer_registration"
+        tools:layout="@layout/activity_consumer_registration" />
+    <fragment
+        android:id="@+id/providerRegistrationPage1Fragment"
+        android:name="com.example.serviceflexapp.common.ProviderRegistrationPage1Fragment"
+        android:label="fragment_provider_registration_page1"
+        tools:layout="@layout/fragment_provider_registration_page1" >
+        <action
+            android:id="@+id/action_providerRegistrationPage1Fragment_to_providerRegistrationPage2Fragment"
+            app:destination="@id/providerRegistrationPage2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerRegistrationPage2Fragment"
+        android:name="com.example.serviceflexapp.common.ProviderRegistrationPage2Fragment"
+        android:label="fragment_provider_registration_page2"
+        tools:layout="@layout/fragment_provider_registration_page2" >
+        <action
+            android:id="@+id/action_providerRegistrationPage2Fragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/providerRegistrationActivity"
+        android:name="com.example.serviceflexapp.common.ProviderRegistrationActivity"
+        android:label="activity_provider_registration"
+        tools:layout="@layout/activity_provider_registration" />
 </navigation>

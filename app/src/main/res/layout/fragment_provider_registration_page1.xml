@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FL_PRP1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".common.ProviderRegistrationPage1Fragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/TV_CreateYourAccount"
@@ -93,8 +93,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/orange_square"
-            android:hint="   Phone Number"
             android:ems="10"
+            android:hint="   Phone Number"
             android:inputType="phone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TV_PhoneNumber" />
@@ -117,8 +117,8 @@
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="14dp"
-            android:ems="10"
             android:background="@drawable/orange_square"
+            android:ems="10"
             android:hint="   Email"
             android:inputType="textEmailAddress"
             app:layout_constraintStart_toStartOf="parent"
