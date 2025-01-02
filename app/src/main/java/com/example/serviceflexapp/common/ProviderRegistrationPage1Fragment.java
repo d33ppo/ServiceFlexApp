@@ -16,7 +16,8 @@ import com.example.serviceflexapp.R;
 
 public class ProviderRegistrationPage1Fragment extends Fragment {
 
-    private EditText ETV_FirstName, ETV_LastName,ETV_PhoneNumber,  ETV_Email, ETV_Password, ETV_Address;
+    private EditText ETV_FirstName, ETV_LastName, ETV_PhoneNumber, ETV_Email, ETV_Password, ETV_Address;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,14 +25,13 @@ public class ProviderRegistrationPage1Fragment extends Fragment {
 
         ETV_FirstName = view.findViewById(R.id.ETV_FirstName);
         ETV_LastName = view.findViewById(R.id.ETV_LastName);
+        ETV_PhoneNumber = view.findViewById(R.id.ETV_PhoneNumber);
         ETV_Email = view.findViewById(R.id.ETV_Email);
         ETV_Password = view.findViewById(R.id.ETV_Password);
         ETV_Address = view.findViewById(R.id.ETV_Address);
 
-
-
         view.findViewById(R.id.Button_Next).setOnClickListener(v -> {
-            //Collect data and pass to the next fragment
+            // Collect data and pass to the next fragment
             Bundle bundle = new Bundle();
             bundle.putString("firstName", ETV_FirstName.getText().toString().trim());
             bundle.putString("lastName", ETV_LastName.getText().toString().trim());
@@ -39,8 +39,14 @@ public class ProviderRegistrationPage1Fragment extends Fragment {
             bundle.putString("email", ETV_Email.getText().toString().trim());
             bundle.putString("password", ETV_Password.getText().toString().trim());
             bundle.putString("address", ETV_Address.getText().toString().trim());
-            // Navigate to Fragment 2 (if needed)
-            ((ProviderRegistrationActivity) requireActivity()).loadFragment(new ProviderRegistrationPage2Fragment());
+
+            ProviderRegistrationPage2Fragment fragment = new ProviderRegistrationPage2Fragment();
+            fragment.setArguments(bundle);
+
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         return view;
