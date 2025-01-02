@@ -7,182 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".provider.ProviderBookingsFragment" >
 
-    <ScrollView
-        android:layout_width="406dp"
-        android:layout_height="674dp"
-        android:layout_margin="1dp"
-        android:background="#F8F8F8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Card 1 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp"
-                app:cardBackgroundColor="@color/grey">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/IV_Sender"
-                        android:layout_width="130dp"
-                        android:layout_height="73dp"
-                        android:layout_marginStart="12dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.14"
-                        app:layout_constraintStart_toEndOf="@+id/TV_AddressUpcomingBooking"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/profile_circle_icon" />
-
-                    <ImageView
-                        android:id="@+id/IV_Mail"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginStart="24dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.213"
-                        app:srcCompat="@drawable/spanner" />
-
-                    <TextView
-                        android:id="@+id/TV_Date"
-                        android:layout_width="85dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="22 December 2025"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/IV_Mail"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/TV_Sender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="171dp"
-                        android:text="Martha Salmah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/TV_AddressUpcomingBooking"
-                        android:layout_width="155dp"
-                        android:layout_height="141dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Jalan Universiti, Kuala Lumpur"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/IV_Mail"
-                        app:layout_constraintTop_toBottomOf="@id/TV_Sender" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Duplicate cards as needed -->
-
-            <!-- Card 2 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp"
-                app:cardBackgroundColor="@color/grey">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <!-- ImageView: Left-Centered -->
-
-                    <ImageView
-                        android:id="@+id/IV_Sender2"
-                        android:layout_width="130dp"
-                        android:layout_height="73dp"
-                        android:layout_marginStart="12dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.14"
-                        app:layout_constraintStart_toEndOf="@+id/TV_AddressUpcomingBooking2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/profile_circle_icon" />
-
-                    <ImageView
-                        android:id="@+id/IV_Mail2"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginStart="24dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.213"
-                        app:srcCompat="@drawable/spanner" />
-
-                    <TextView
-                        android:id="@+id/TV_Date2"
-                        android:layout_width="85dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="22 December 2025"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking2"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/IV_Mail2"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <TextView
-                        android:id="@+id/TV_Sender2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="171dp"
-                        android:text="Martha Salmah"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/TV_AddressUpcomingBooking2"
-                        android:layout_width="155dp"
-                        android:layout_height="141dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Jalan Universiti, Kuala Lumpur"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/IV_Mail2"
-                        app:layout_constraintTop_toBottomOf="@id/TV_Sender2" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-
     <TextView
         android:id="@+id/TV_Bookings"
         android:layout_width="wrap_content"
@@ -196,6 +20,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -219,7 +54,8 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck"/>
 
         <Button
             android:id="@+id/BTN_Completed"
@@ -232,7 +68,8 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
