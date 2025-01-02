@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".consumer.ConsumerBookingsActivity">
+    tools:context=".consumer.ConsumerBookingsFragment">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

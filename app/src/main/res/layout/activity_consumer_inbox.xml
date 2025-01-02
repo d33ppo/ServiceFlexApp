@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".consumer.ConsumerInboxActivity">
+    tools:context=".consumer.ConsumerInboxFragment">
 
     <TextView
         android:id="@+id/TV_Inbox"
