@@ -12,11 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.serviceflexapp.ui.theme.ServiceFlexAppTheme
+import com.google.firebase.FirebaseApp
+import com.google.firebase.initialize
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        FirebaseApp.initializeApp(this);
         setContent {
             ServiceFlexAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

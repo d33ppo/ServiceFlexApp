@@ -13,19 +13,26 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.consumer.ConsumerMainActivity;
 import com.example.serviceflexapp.provider.ProviderMainActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterAsActivity extends AppCompatActivity {
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_as);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // Consumer Button
         findViewById(R.id.BTN_Consumer).setOnClickListener(v -> {
             // Navigate to Consumer Registration Activity
             Intent intent = new Intent(RegisterAsActivity.this, ConsumerRegistrationActivity.class);
             startActivity(intent);
+
         });
 
         Button providerButton = findViewById(R.id.BTN_Provider);
