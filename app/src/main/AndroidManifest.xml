@@ -56,18 +56,7 @@
         <activity
             android:name=".consumer.ConsumerMainActivity"
             android:exported="false" />
-        <activity
-            android:name=".consumer.ConsumerProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".consumer.ConsumerInboxActivity"
-            android:exported="true" />
-        <activity
-            android:name=".consumer.ConsumerHomeActivity"
-            android:exported="true" />
-        <activity
-            android:name=".consumer.ConsumerBookingsActivity"
-            android:exported="true" />
+
 
     </application>
 

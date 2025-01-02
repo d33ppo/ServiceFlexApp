@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.serviceflexapp.R;
-import com.example.serviceflexapp.consumer.ConsumerHomeActivity;
 import com.example.serviceflexapp.consumer.ConsumerMainActivity;
 
 public class ConsumerRegistrationActivity extends AppCompatActivity {
