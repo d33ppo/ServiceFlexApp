@@ -1,0 +1,36 @@
+* [33m9f3bb4e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m repair
+* [33m28ed4a8[m git commit -m "provider registration dh setup for auth"
+* [33m930de95[m git commit -m "firebase auth, login, provider p1 frag, provider p2 frag, register"
+*   [33m1ab9ea6[m Merge pull request #6 from d33ppo/frontend-backend-integration
+[32m|[m[33m\[m  
+[32m|[m * [33maece1b2[m[33m ([m[1;31morigin/frontend-backend-integration[m[33m, [m[1;32mfrontend-backend-integration[m[33m)[m login -> service provider main activity
+[32m|[m[32m/[m  
+* [33m2ae02bc[m imran2 - Consumer partial
+[33m|[m *   [33m2892399[m[33m ([m[1;31morigin/frontend-bot-nav-menu[m[33m)[m Merge pull request #5 from d33ppo/master
+[33m|[m [34m|[m[33m\[m  
+[33m|[m [34m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m   
+* [34m|[m [33mdcb4003[m Merge pull request #4 from d33ppo/frontend-bot-nav-menu
+[36m|[m[34m\[m[34m|[m 
+[36m|[m * [33me346c1e[m[33m ([m[1;32mfrontend-bot-nav-menu[m[33m)[m Bottom Navigation Bar for service provider setellllll
+[36m|[m * [33m805a805[m Bottom Navigation Bar for service provider setellllll
+[36m|[m[36m/[m  
+*   [33m6fe3e8d[m Merge pull request #3 from d33ppo/frontend
+[1;32m|[m[1;33m\[m  
+[1;32m|[m *   [33m9953791[m[33m ([m[1;31morigin/frontend[m[33m)[m Merge branch 'master' into frontend
+[1;32m|[m [1;34m|[m[1;32m\[m  
+[1;32m|[m [1;34m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;34m|[m   
+* [1;34m|[m   [33m80e01a4[m Merge pull request #2 from d33ppo/Frontend-adib
+[1;36m|[m[31m\[m [1;34m\[m  
+[1;36m|[m * [1;34m|[m [33mcbf7a78[m[33m ([m[1;31morigin/Frontend-adib[m[33m)[m Design page for service provider (without bottom navigation bar)
+[1;36m|[m[1;36m/[m [1;34m/[m  
+* [1;34m|[m   [33ma335255[m Merge pull request #1 from d33ppo/frontend
+[32m|[m[33m\[m [1;34m\[m  
+[32m|[m [33m|[m * [33mbc74db1[m dah update error dkt firebase
+[32m|[m [33m|[m[33m/[m  
+[32m|[m * [33m3ff28b6[m imran
+[32m|[m * [33m77617d3[m imran
+[32m|[m[32m/[m  
+* [33mfb884bd[m git commit -m "dah update FirebaseHelper"
+* [33mff71a9e[m Initial Commit

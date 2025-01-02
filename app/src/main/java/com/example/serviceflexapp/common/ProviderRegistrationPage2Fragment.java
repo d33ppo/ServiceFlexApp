@@ -74,29 +74,34 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         Log.d("ProviderRegistration", "Price Range: " + priceRange);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    if (user != null) {
-                        String providerId = user.getUid();
-                        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age,  priceRange);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            String providerId = user.getUid();
+                            Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age, priceRange);
 
-                        mDatabase.child("providers").child(providerId).setValue(provider)
-                            .addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    Log.d("ProviderRegistration", "Provider registered successfully.");
-                                    navigateToProviderMainActivity();
-                                } else {
-                                    Log.e("ProviderRegistration", "Failed to register provider.", task1.getException());
-                                    Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            // Set the role as "Provider" in the database
+                            mDatabase.child("users").child(providerId).child("role").setValue("Provider");
+
+                            // Save the provider details
+                            mDatabase.child("Provider").child(providerId).setValue(provider)
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            Log.d("ProviderRegistration", "Provider registered successfully.");
+                                            navigateToProviderMainActivity();
+                                        } else {
+                                            Log.e("ProviderRegistration", "Failed to register provider.", task1.getException());
+                                            Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    } else {
+                        Log.e("ProviderRegistration", "Failed to create user.", task.getException());
+                        Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Log.e("ProviderRegistration", "Failed to create user.", task.getException());
-                    Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                });
+
     }
 
     private void navigateToProviderMainActivity() {
