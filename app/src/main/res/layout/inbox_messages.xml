@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LL_inboxMessages"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:orientation="horizontal"
+    android:background="@drawable/orange_square"
+    android:layout_margin="20dp">
+
+
+    <ImageView
+        android:id="@+id/IV_messagesIcon"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/messages_icon" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/TV_messages"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Messages" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/BTN_Chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
+                android:text="Chat"
+                tools:ignore="TouchTargetSizeCheck"/>
+
+            <Button
+                android:id="@+id/BTN_Reschedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:text="Reschedule"
+                tools:ignore="TouchTargetSizeCheck"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

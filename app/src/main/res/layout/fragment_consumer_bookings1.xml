@@ -13,9 +13,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="367dp"
             android:layout_height="582dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="72dp"
             android:background="@drawable/orange_square"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -23,8 +23,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="149dp"
                 android:layout_height="154dp"
-                android:layout_marginStart="108dp"
                 android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
@@ -33,11 +33,11 @@
                 android:id="@+id/LL_ProviderTextLayout"
                 android:layout_width="345dp"
                 android:layout_height="341dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/partially_orange_square"
                 android:orientation="vertical"
                 android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -45,6 +45,7 @@
                     android:id="@+id/TV_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -54,45 +55,50 @@
                     android:id="@+id/TV_YearsOfExperience"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="Years of Experience"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/TV_Education"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Learn where"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/TV_Availability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Availability"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/TV_ProviderRating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Many stars"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/TV_Pricing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Pricing"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -100,7 +106,6 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="132dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/white_square"
                 android:elevation="10dp"
@@ -110,7 +115,8 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,12 +124,12 @@
             android:id="@+id/TV_Category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
             android:layout_marginTop="12dp"
             android:text="Category"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
