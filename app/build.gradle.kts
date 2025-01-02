@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.gms.google-services") version "4.4.2" apply false
-
+    id("com.google.gms.google-services") version "4.4.2"
 }
 
 android {
@@ -46,19 +45,7 @@ android {
 }
 
 dependencies {
-    // RecyclerView for displaying dynamic lists
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-
-    // Material Design components (includes TabLayout)
-    implementation("com.google.android.material:material:1.6.1")
-
-    // CardView for card layout
-    implementation("androidx.cardview:cardview:1.0.0")
-
-    // Navigation components for tab switching
-    implementation("androidx.navigation:navigation-fragment:2.8.5")
-    implementation("androidx.navigation:navigation-ui:2.8.5")
-
+    // Core libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -68,18 +55,29 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    implementation("androidx.navigation:navigation-fragment:2.8.5")
-    implementation("androidx.navigation:navigation-ui:2.8.5")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.5")
-    implementation(libs.firebase.firestore)
-    implementation(libs.firebase.database)
-    androidTestImplementation("androidx.navigation:navigation-testing:2.8.5")
+    // Material Design Components
+    implementation("com.google.android.material:material:1.10.0")
 
+    // RecyclerView and CardView
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // Navigation Components (for Compose)
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.5")
+
+
+    // Firebase Libraries (using the BOM for consistency)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -87,23 +85,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-database:20.3.1")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.4.0")
-    implementation("com.google.firebase:firebase-auth:23.1.0")
-
-    // Navigation components
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
-
-    // Material Design for BottomNavigationView
-    implementation("com.google.android.material:material:1.10.0")
-
-    // (Optional) For animations during navigation transitions
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.3")
-
-
 }

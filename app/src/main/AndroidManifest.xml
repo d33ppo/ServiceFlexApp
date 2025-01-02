@@ -30,7 +30,7 @@
         <!-- RegisterAs Activities -->
         <activity
             android:name=".common.RegisterAsActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <!-- Main Activity for Provider -->
         <activity
