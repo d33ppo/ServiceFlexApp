@@ -1,30 +1,33 @@
 package com.example.serviceflexapp.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.database.Provider;
+import com.example.serviceflexapp.provider.ProviderMainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ProviderRegistrationPage2Fragment extends Fragment {
 
     private EditText ETV_Age, ETV_MinPrice, ETV_MaxPrice;
-    private Spinner SP_JobChoice;
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
@@ -34,16 +37,11 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         ETV_Age = view.findViewById(R.id.ETV_Age);
         ETV_MinPrice = view.findViewById(R.id.ETV_MinPrice);
         ETV_MaxPrice = view.findViewById(R.id.ETV_MaxPrice);
-        SP_JobChoice = view.findViewById(R.id.SP_JobChoice);
         Button BTN_Create = view.findViewById(R.id.Btn_Create);
 
-        // Initialize Firebase Database
+        // Initialize Firebase Database and Auth
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Set up the job choice spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.job_choices, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        SP_JobChoice.setAdapter(adapter);
+        mAuth = FirebaseAuth.getInstance();
 
         BTN_Create.setOnClickListener(v -> registerProvider());
 
@@ -64,19 +62,45 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         String password = bundle.getString("password");
         String address = bundle.getString("address");
         int age = Integer.parseInt(ETV_Age.getText().toString().trim());
-        String jobChoice = SP_JobChoice.getSelectedItem().toString();
         String priceRange = ETV_MinPrice.getText().toString().trim() + " - " + ETV_MaxPrice.getText().toString().trim();
 
-        String providerId = mDatabase.push().getKey();
-        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, password, address, age, jobChoice, priceRange);
+        Log.d("ProviderRegistration", "First Name: " + firstName);
+        Log.d("ProviderRegistration", "Last Name: " + lastName);
+        Log.d("ProviderRegistration", "Phone Number: " + phoneNumber);
+        Log.d("ProviderRegistration", "Email: " + email);
+        Log.d("ProviderRegistration", "Password: " + password);
+        Log.d("ProviderRegistration", "Address: " + address);
+        Log.d("ProviderRegistration", "Age: " + age);
+        Log.d("ProviderRegistration", "Price Range: " + priceRange);
 
-        mDatabase.child("providers").child(providerId).setValue(provider)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        ((ProviderRegistrationActivity) requireActivity()).navigateToHomeProvider();
-                    } else {
-                        Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        String providerId = user.getUid();
+                        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age,  priceRange);
+
+                        mDatabase.child("providers").child(providerId).setValue(provider)
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    Log.d("ProviderRegistration", "Provider registered successfully.");
+                                    navigateToProviderMainActivity();
+                                } else {
+                                    Log.e("ProviderRegistration", "Failed to register provider.", task1.getException());
+                                    Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     }
-                });
+                } else {
+                    Log.e("ProviderRegistration", "Failed to create user.", task.getException());
+                    Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
+
+    private void navigateToProviderMainActivity() {
+        Intent intent = new Intent(getActivity(), ProviderMainActivity.class);
+        startActivity(intent);
     }
 }
