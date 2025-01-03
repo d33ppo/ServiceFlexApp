@@ -16,6 +16,10 @@ public class ConsumerRegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_consumer_registration);
+
         findViewById(R.id.Button_Next).setOnClickListener(v -> {
             // Navigate to HomeActivity with Consumer HomeFragment
             Intent intent = new Intent(ConsumerRegistrationActivity.this, ConsumerMainActivity.class);
@@ -24,9 +28,6 @@ public class ConsumerRegistrationActivity extends AppCompatActivity {
             finish();
         });
 
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_consumer_registration);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
