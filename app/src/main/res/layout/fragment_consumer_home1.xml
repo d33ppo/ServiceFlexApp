@@ -28,11 +28,11 @@
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="174dp"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent">
 
             <!-- Content Inside ScrollView -->
@@ -99,9 +99,9 @@
                         android:id="@+id/IV_Electrician"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/electrician_category"
                         android:paddingTop="5dp"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY"
+                        android:src="@drawable/electrician_category" />
                 </LinearLayout>
 
                 <!-- Category Barber -->

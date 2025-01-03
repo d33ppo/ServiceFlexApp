@@ -32,7 +32,7 @@ public class ConsumerMainActivity extends AppCompatActivity {
                 navController.navigate(R.id.consumerHomeFragment); // Navigate to the home fragment
                 return true;
             } else if (itemId == R.id.bottom_booking) {
-                navController.navigate(R.id.consumerBookingsFragment); // Navigate to the bookings fragment
+                navController.navigate(R.id.consumerUpcomingBookings); // Navigate to the bookings fragment
                 return true;
             } else if (itemId == R.id.bottom_inbox) {
                 navController.navigate(R.id.consumerInboxFragment); // Navigate to the inbox fragment

@@ -81,6 +81,6 @@ public class ConsumerBookingsFragment3 extends Fragment {
 
         // Navigate to the next fragment or start payment process here
         NavController navController = Navigation.findNavController(requireView());
-        navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerBookingsFragment1);
+        navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerHomeFragment);
     }
 }
