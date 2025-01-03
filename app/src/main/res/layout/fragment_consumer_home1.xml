@@ -24,143 +24,178 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Scrollable Area -->
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/TV_Home"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Content Inside ScrollView -->
+        <Button
+            android:id="@+id/IB_Category"
+            android:layout_width="117dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:text="Category"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.029" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TV_Home"
+            app:layout_constraintVertical_bias="1.0">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingBottom="16dp">
 
                 <!-- Category Plumber -->
-                <LinearLayout
-                    android:id="@+id/LL_CategoryPlumber"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/Card_Plumber"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/orange_square"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:id="@+id/TV_Plumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:text="Plumber"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/IV_Plumber"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/plumber_category_pic" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/orange_square"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/TV_Plumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plumber"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/IV_Plumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/plumber_category_pic" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Category Electrician -->
-                <LinearLayout
-                    android:id="@+id/LL_CategoryElectrician"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/Card_Electrician"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/orange_square"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:id="@+id/TV_Electrician"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:text="Electrician"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/IV_Electrician"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/electrician_category"
-                        android:paddingTop="5dp"
-                        android:scaleType="fitXY"/>
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/orange_square"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/TV_Electrician"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Electrician"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/IV_Electrician"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/electrician_category" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Category Barber -->
-                <LinearLayout
-                    android:id="@+id/LL_CategoryBarber"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/Card_Barber"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/orange_square"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:id="@+id/TV_Barber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:text="Barber"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/IV_Barber"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/barber_category" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/orange_square"
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
-                <LinearLayout
-                    android:id="@+id/LL_CategoryMaid"
+                        <TextView
+                            android:id="@+id/TV_Barber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Barber"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/IV_Barber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/barber_category" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Category Maid -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/Card_Maid"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/orange_square"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
-                    <TextView
-                        android:id="@+id/TV_Maid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:text="Maid"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/IV_Maid"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/maid_category" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/orange_square"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/TV_Maid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maid"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/IV_Maid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/maid_category" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
         </ScrollView>
 
