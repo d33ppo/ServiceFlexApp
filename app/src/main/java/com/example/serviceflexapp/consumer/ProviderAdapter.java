@@ -61,7 +61,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             bundle.putString("imageURL", provider.getImageURL());
 
             // Trigger navigation to ConsumerBookingsFragment1 with the bundle
-            navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
+            navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
         });
     }
 

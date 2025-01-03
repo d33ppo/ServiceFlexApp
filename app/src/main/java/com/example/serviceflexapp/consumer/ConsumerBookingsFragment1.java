@@ -82,7 +82,7 @@ public class ConsumerBookingsFragment1 extends Fragment {
         Button bookNowButton = view.findViewById(R.id.button2);
         bookNowButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerBookingsFragment1_to_consumerBookingsFragment2);
+            navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2);
         });
     }
 

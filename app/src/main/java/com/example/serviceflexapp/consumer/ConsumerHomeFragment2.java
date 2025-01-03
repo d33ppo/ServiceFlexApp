@@ -134,6 +134,6 @@ public class ConsumerHomeFragment2 extends Fragment {
         bundle.putString("priceRange", provider.getPriceRange());
         bundle.putString("imageUrl", provider.getImageURL());
 
-        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
+        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
     }
 }
