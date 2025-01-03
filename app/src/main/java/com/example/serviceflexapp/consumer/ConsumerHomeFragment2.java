@@ -40,8 +40,8 @@ public class ConsumerHomeFragment2 extends Fragment {
     private DatabaseReference databaseReference;
     private String selectedCategory;
     private RecyclerView recyclerView;
-    private ServiceProviderAdapter adapter;
-    private List<Provider> serviceProviderList;
+    private ProviderAdapter adapter;
+    private List<Provider> providerList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -67,8 +67,8 @@ public class ConsumerHomeFragment2 extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize data list and adapter
-        serviceProviderList = new ArrayList<>();
-        adapter = new ServiceProviderAdapter(requireActivity().getSupportFragmentManager(), serviceProviderList);
+        providerList = new ArrayList<>();
+        adapter = new ProviderAdapter(requireActivity().getSupportFragmentManager(), providerList);
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -82,16 +82,17 @@ public class ConsumerHomeFragment2 extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        serviceProviderList.clear();
+                        providerList.clear();
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 String firstName = snapshot.child("firstName").getValue(String.class);
                                 String priceRange = snapshot.child("priceRange").getValue(String.class);
                                 String imageURL = snapshot.child("imageURL").getValue(String.class);
                                 String rating = snapshot.child("rating").getValue(String.class);
+                                String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
 
-                                Provider serviceProvider = new Provider(firstName, priceRange, imageURL, rating);
-                                serviceProviderList.add(serviceProvider);
+                                Provider provider = new Provider(firstName, priceRange, imageURL, rating, yearsOfExperience);
+                                providerList.add(provider);
                             }
                             adapter.notifyDataSetChanged();
                         } else {

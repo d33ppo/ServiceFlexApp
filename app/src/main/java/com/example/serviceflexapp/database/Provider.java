@@ -45,11 +45,12 @@ public class Provider {
     }
 
     //Constructor for Consumer Home Fragment2
-    public Provider(String firstName, String priceRange, String imageURL, String rating) {
+    public Provider(String firstName, String priceRange, String imageURL, String rating, String yearsOfExperience) {
         this.firstName = firstName;
         this.priceRange = priceRange;
         this.imageURL = imageURL;
         this.rating = rating;
+        this.yearsOfExperience = yearsOfExperience;
     }
 
     // Getters and setters for all fields
