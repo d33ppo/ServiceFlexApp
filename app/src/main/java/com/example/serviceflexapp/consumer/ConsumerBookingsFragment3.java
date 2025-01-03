@@ -22,17 +22,8 @@ import android.widget.Toast;
 
 import com.example.serviceflexapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConsumerBookingsFragment3#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ConsumerBookingsFragment3 extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_consumer_bookings3, container, false);
     private RadioButton rbEWallet, rbCreditDebitCard, rbOnlineBanking, rbGPay, rbCash;
     private Button finishButton;
 
@@ -41,7 +32,13 @@ public class ConsumerBookingsFragment3 extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_consumer_bookings3, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize UI components
@@ -69,33 +66,21 @@ public class ConsumerBookingsFragment3 extends Fragment {
                 Toast.makeText(getContext(), "Please select a payment method", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    private void proceedToPayment(String paymentMethod) {
-        // You can handle the payment UI transition based on the payment method
-        // Here, we just show a Toast message for simplicity
-
-        Toast.makeText(getContext(), "Proceeding with " + paymentMethod, Toast.LENGTH_SHORT).show();
-
-        // Here, you would replace the Toast with your actual payment flow, such as:
-        // - Navigate to a payment gateway
-        // - Open a corresponding activity/fragment for the selected payment type
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Button finishButton = view.findViewById(R.id.BTN_Finish);
-        finishButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerBookingsFragment1);
-        });
-
+        // Handle navigation to the previous fragment
         ImageButton previousButton = view.findViewById(R.id.IB_Previous5);
         previousButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         });
+    }
+
+    private void proceedToPayment(String paymentMethod) {
+        // Handle the payment process based on the selected payment method
+        Toast.makeText(getContext(), "Proceeding with " + paymentMethod, Toast.LENGTH_SHORT).show();
+
+        // Navigate to the next fragment or start payment process here
+        NavController navController = Navigation.findNavController(requireView());
+        navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerBookingsFragment1);
     }
 }

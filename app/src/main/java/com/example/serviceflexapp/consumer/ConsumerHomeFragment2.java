@@ -68,7 +68,8 @@ public class ConsumerHomeFragment2 extends Fragment {
 
         // Initialize data list and adapter
         providerList = new ArrayList<>();
-        adapter = new ProviderAdapter(requireActivity().getSupportFragmentManager(), providerList);
+        NavController navController = Navigation.findNavController(view); // Get the NavController here
+        adapter = new ProviderAdapter(providerList, navController); // Pass NavController to Adapter
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -116,5 +117,23 @@ public class ConsumerHomeFragment2 extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         });
+    }
+
+    private void navigateToProviderDetails(View view, Provider provider) {
+        NavController navController = Navigation.findNavController(view);
+        Bundle bundle = new Bundle();
+
+        // Pass the category
+        bundle.putString("category", selectedCategory);
+
+        // Pass provider-specific data if needed
+        bundle.putString("providerId", provider.getProviderId());
+        bundle.putString("name", provider.getFirstName());
+        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
+        bundle.putString("rating", provider.getRating());
+        bundle.putString("priceRange", provider.getPriceRange());
+        bundle.putString("imageUrl", provider.getImageURL());
+
+        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
     }
 }

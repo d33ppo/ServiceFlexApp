@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,12 +20,12 @@ import java.util.List;
 
 public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> {
 
-    private final FragmentManager fragmentManager;
+    private final NavController navController; // NavController for navigation
     private final List<Provider> providers;
 
-    public ProviderAdapter(FragmentManager fragmentManager, List<Provider> providers) {
-        this.fragmentManager = fragmentManager;
+    public ProviderAdapter(List<Provider> providers, NavController navController) {
         this.providers = providers;
+        this.navController = navController;
     }
 
     @NonNull
@@ -52,19 +53,15 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         // Set up item click listener for navigation
         holder.itemView.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putString("providerName", provider.getFirstName());
-            bundle.putString("providerYearsOfExperience", provider.getYearsOfExperience());
-            bundle.putString("providerRating", provider.getRating());
-            bundle.putString("providerPriceRange", provider.getPriceRange());
-            bundle.putString("providerImageUrl", provider.getImageURL());
+            bundle.putString("providerId", provider.getProviderId()); // Pass provider ID to fetch detailed data later
+            bundle.putString("name", provider.getFirstName());
+            bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
+            bundle.putString("rating", provider.getRating());
+            bundle.putString("priceRange", provider.getPriceRange());
+            bundle.putString("imageURL", provider.getImageURL());
 
-            ConsumerBookingsFragment1 consumerBookingsFragment1 = new ConsumerBookingsFragment1();
-            consumerBookingsFragment1.setArguments(bundle);
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, consumerBookingsFragment1) // Replace with your fragment container ID
-                    .addToBackStack(null)
-                    .commit();
+            // Trigger navigation to ConsumerBookingsFragment1 with the bundle
+            navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
         });
     }
 
