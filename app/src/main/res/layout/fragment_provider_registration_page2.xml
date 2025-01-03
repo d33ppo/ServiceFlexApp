@@ -25,11 +25,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/orange_square"
             android:layout_width="355dp"
-            android:layout_height="510dp"
+            android:layout_height="580dp"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/orange_square"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TV_CreateYourAccount">
 
@@ -40,8 +40,8 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="12dp"
                 android:text="Age"
-                android:textSize="18sp"
                 android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,12 +50,12 @@
                 android:id="@+id/ETV_Age"
                 android:layout_width="322dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/white_square"
                 android:ems="10"
                 android:hint="  Age"
                 android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TV_Age" />
 
@@ -66,8 +66,8 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="12dp"
                 android:text="Job Choice"
-                android:textSize="18sp"
                 android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ETV_Age" />
@@ -76,10 +76,10 @@
                 android:id="@+id/relativeLayout"
                 android:layout_width="322dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="18dp"
                 android:layout_marginTop="12dp"
                 android:background="#FFFFFF"
                 android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TV_JobChoice">
 
@@ -89,198 +89,35 @@
                     android:layout_height="48dp"
                     tools:ignore="TouchTargetSizeCheck"
                     tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="137dp" />
+                    tools:layout_editor_absoluteY="137dp"
+                    android:entries="@array/job_choice"/>
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/TV_Certificate"
+                android:id="@+id/TV_Qualifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="12dp"
-                android:text="Certifications/Qualifications(if applicable)"
+                android:text="Qualifications"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
-            <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TV_Certificate">
-
-                <!-- Initial State: File Upload Prompt -->
-                <LinearLayout
-                    android:id="@+id/upload_prompt"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/white_square"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:visibility="visible">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/upload" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Upload files here"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <!-- Next state: uploaded file -->
-                <LinearLayout
-                    android:id="@+id/file_display"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@android:color/white"
-                    android:orientation="horizontal"
-                    android:padding="12dp"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/IV_FirstFile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/file_icon" />
-
-                        <TextView
-                            android:id="@+id/TV_FirstFile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="TextView"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/BTN_XFirstFile"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/x_button"
-                            android:contentDescription="NULL"
-                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/IV_SecondFile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/file_icon" />
-
-                        <TextView
-                            android:id="@+id/TV_SecondFile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="TextView"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/BTN_XSecondFile"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/x_button"
-                            android:contentDescription="NULL"
-                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/IV_ThirdFile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/file_icon" />
-
-                        <TextView
-                            android:id="@+id/TV_ThirdFile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:text="TextView"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/BTN_XThirdFile"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/x_button"
-                            android:contentDescription="NULL"
-                            tools:ignore="SmallSP,TouchTargetSizeCheck" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="1dp"
-                        android:visibility="gone">
-
-                        <Button
-                            android:id="@+id/BTN_AddFile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/add_file"
-                            android:contentDescription="NULL" />
-                    </LinearLayout>
-                </LinearLayout>
-            </FrameLayout>
-
             <TextView
                 android:id="@+id/TV_Pricing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:text="Pricing Range"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_Availability" />
 
             <EditText
                 android:id="@+id/ETV_MinPrice"
@@ -316,6 +153,111 @@
                 android:inputType="number"
                 app:layout_constraintStart_toEndOf="@+id/Iv_Dash"
                 app:layout_constraintTop_toTopOf="@+id/ETV_MinPrice" />
+
+            <EditText
+                android:id="@+id/ETV_Qualifications"
+                android:layout_width="322dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/white_square"
+                android:ems="10"
+                android:inputType="text"
+                android:text="  Qualifications"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TV_Qualifications" />
+
+            <TextView
+                android:id="@+id/TV_Availability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="  Availability"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ETV_Qualifications" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_Availability"
+                android:layout_width="340dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/white_square"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TV_Availability">
+
+                <CheckBox
+                    android:id="@+id/CB_Sunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1dp"
+                    android:text="Sunday"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/CB_Monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Monday"
+                    app:layout_constraintStart_toStartOf="@+id/CB_Sunday"
+                    app:layout_constraintTop_toBottomOf="@+id/CB_Sunday" />
+
+                <CheckBox
+                    android:id="@+id/CB_Tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="Tuesday"
+                    app:layout_constraintEnd_toStartOf="@+id/CB_Thursday"
+                    app:layout_constraintStart_toEndOf="@+id/CB_Sunday"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/CB_Wednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Wednesday"
+                    app:layout_constraintEnd_toStartOf="@+id/CB_Friday"
+                    app:layout_constraintStart_toEndOf="@+id/CB_Monday"
+                    app:layout_constraintTop_toBottomOf="@+id/CB_Tuesday" />
+
+                <CheckBox
+                    android:id="@+id/CB_Thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Thursday"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/CB_Friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Friday"
+                    app:layout_constraintStart_toStartOf="@+id/CB_Thursday"
+                    app:layout_constraintTop_toBottomOf="@+id/CB_Thursday" />
+
+                <CheckBox
+                    android:id="@+id/CB_Saturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Saturday"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/CB_Wednesday" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
