@@ -40,8 +40,8 @@ public class ConsumerHomeFragment2 extends Fragment {
     private DatabaseReference databaseReference;
     private String selectedCategory;
     private RecyclerView recyclerView;
-    private ServiceProviderAdapter adapter;
-    private List<Provider> serviceProviderList;
+    private ProviderAdapter adapter;
+    private List<Provider> providerList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -67,8 +67,9 @@ public class ConsumerHomeFragment2 extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize data list and adapter
-        serviceProviderList = new ArrayList<>();
-        adapter = new ServiceProviderAdapter(requireActivity().getSupportFragmentManager(), serviceProviderList);
+        providerList = new ArrayList<>();
+        NavController navController = Navigation.findNavController(view); // Get the NavController here
+        adapter = new ProviderAdapter(providerList, navController); // Pass NavController to Adapter
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -82,16 +83,17 @@ public class ConsumerHomeFragment2 extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        serviceProviderList.clear();
+                        providerList.clear();
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 String firstName = snapshot.child("firstName").getValue(String.class);
                                 String priceRange = snapshot.child("priceRange").getValue(String.class);
                                 String imageURL = snapshot.child("imageURL").getValue(String.class);
                                 String rating = snapshot.child("rating").getValue(String.class);
+                                String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
 
-                                Provider serviceProvider = new Provider(firstName, priceRange, imageURL, rating);
-                                serviceProviderList.add(serviceProvider);
+                                Provider provider = new Provider(firstName, priceRange, imageURL, rating, yearsOfExperience);
+                                providerList.add(provider);
                             }
                             adapter.notifyDataSetChanged();
                         } else {
@@ -115,5 +117,23 @@ public class ConsumerHomeFragment2 extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         });
+    }
+
+    private void navigateToProviderDetails(View view, Provider provider) {
+        NavController navController = Navigation.findNavController(view);
+        Bundle bundle = new Bundle();
+
+        // Pass the category
+        bundle.putString("category", selectedCategory);
+
+        // Pass provider-specific data if needed
+        bundle.putString("providerId", provider.getProviderId());
+        bundle.putString("name", provider.getFirstName());
+        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
+        bundle.putString("rating", provider.getRating());
+        bundle.putString("priceRange", provider.getPriceRange());
+        bundle.putString("imageUrl", provider.getImageURL());
+
+        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
     }
 }

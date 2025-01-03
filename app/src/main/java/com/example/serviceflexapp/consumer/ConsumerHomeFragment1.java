@@ -21,14 +21,9 @@ import com.example.serviceflexapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConsumerHomeFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ConsumerHomeFragment1 extends Fragment {
 
-    LinearLayout LL_CategoryPlumber, LL_CategoryElectrician, LL_CategoryBarber, LL_CategoryMaid;
+    private LinearLayout LL_CategoryPlumber, LL_CategoryElectrician, LL_CategoryBarber, LL_CategoryMaid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,43 +36,24 @@ public class ConsumerHomeFragment1 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button categoryButton = view.findViewById(R.id.IB_Category);
-        categoryButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerHomeFragment1_to_consumerHomeFragment2);
-        });
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Initialize views
+        // Initialize category LinearLayouts
         LL_CategoryPlumber = view.findViewById(R.id.LL_CategoryPlumber);
         LL_CategoryElectrician = view.findViewById(R.id.LL_CategoryElectrician);
         LL_CategoryBarber = view.findViewById(R.id.LL_CategoryBarber);
         LL_CategoryMaid = view.findViewById(R.id.LL_CategoryMaid);
 
-        // Set up click listeners with category passing
-        LL_CategoryPlumber.setOnClickListener(v -> navigateToCategory("plumber"));
-        LL_CategoryElectrician.setOnClickListener(v -> navigateToCategory("electrician"));
-        LL_CategoryBarber.setOnClickListener(v -> navigateToCategory("barber"));
-        LL_CategoryMaid.setOnClickListener(v -> navigateToCategory("maid"));
+        // Set up click listeners for categories
+        LL_CategoryPlumber.setOnClickListener(v -> navigateToCategory(view, "plumber"));
+        LL_CategoryElectrician.setOnClickListener(v -> navigateToCategory(view, "electrician"));
+        LL_CategoryBarber.setOnClickListener(v -> navigateToCategory(view, "barber"));
+        LL_CategoryMaid.setOnClickListener(v -> navigateToCategory(view, "maid"));
     }
 
-    private void navigateToCategory(String category) {
-        // Create a new instance of Fragment 2
-        ConsumerHomeFragment2 consumerHomeFragment2 = new ConsumerHomeFragment2();
-
-        // Pass the category to Fragment 2 via Bundle
-        Bundle bundleToFragment2 = new Bundle();
-        bundleToFragment2.putString("category", category);
-        consumerHomeFragment2.setArguments(bundleToFragment2);
-
-        // Load Fragment2 into the same activity
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.FL_FragmentContainer, consumerHomeFragment2)
-                .addToBackStack(null) // Enable back navigation
-                .commit();
+    private void navigateToCategory(View view, String category) {
+        // Use NavController to pass the category to the next fragment
+        NavController navController = Navigation.findNavController(view);
+        Bundle bundle = new Bundle();
+        bundle.putString("category", category);
+        navController.navigate(R.id.action_consumerHomeFragment1_to_consumerHomeFragment2, bundle);
     }
 }

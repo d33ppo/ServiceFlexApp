@@ -85,6 +85,7 @@
 
                 <Spinner
                     android:id="@+id/SP_JobChoice"
+                    android:entries="@array/job_choice"
                     android:layout_width="322dp"
                     android:layout_height="48dp"
                     tools:ignore="TouchTargetSizeCheck"

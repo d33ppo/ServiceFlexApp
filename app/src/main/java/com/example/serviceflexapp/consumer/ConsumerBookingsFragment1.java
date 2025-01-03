@@ -2,60 +2,33 @@ package com.example.serviceflexapp.consumer;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.serviceflexapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConsumerBookingsFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Arrays;
+
 public class ConsumerBookingsFragment1 extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ConsumerBookingsFragment1() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConsumerBookingsFragment1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ConsumerBookingsFragment1 newInstance(String param1, String param2) {
-        ConsumerBookingsFragment1 fragment = new ConsumerBookingsFragment1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -68,28 +41,35 @@ public class ConsumerBookingsFragment1 extends Fragment {
         TextView providerNameTextView = rootView.findViewById(R.id.TV_Name);
         TextView providerExperienceTextView = rootView.findViewById(R.id.TV_YearsOfExperience);
         TextView providerQualificationsTextView = rootView.findViewById(R.id.TV_Education);
+        TextView providerAvailabilityTextView = rootView.findViewById(R.id.TV_Availability);
         TextView providerRatingTextView = rootView.findViewById(R.id.TV_ProviderRating);
+        TextView providerPricingTextView = rootView.findViewById(R.id.TV_Pricing);
         ImageView providerImageView = rootView.findViewById(R.id.imageView);
 
         // Retrieve data from the fragment's arguments
         Bundle args = getArguments();
         if (args != null) {
+            String providerId = args.getString("providerId");
             String providerName = args.getString("name");
             String providerYearsOfExperience = args.getString("yearsOfExperience");
             String providerQualifications = args.getString("qualifications");
             String providerRating = args.getString("rating");
+            String providerPriceRange = args.getString("priceRange");
             String providerImageUrl = args.getString("imageUrl");
 
             // Set the data in the UI components
             providerNameTextView.setText(providerName);
-            providerExperienceTextView.setText(providerYearsOfExperience);
-            providerQualificationsTextView.setText(providerQualifications);
-            providerRatingTextView.setText(providerRating);
+            providerExperienceTextView.setText(providerYearsOfExperience + " years of experience");
+            providerRatingTextView.setText("Rating: " + providerRating);
+            providerPricingTextView.setText("Pricing Range: " + providerPriceRange);  // Set the pricing value
 
             // Load the provider image using Glide
             Glide.with(requireContext())
                     .load(providerImageUrl)
                     .into(providerImageView);
+
+            // Fetch additional data (qualifications and availability) from Firebase
+            fetchAdditionalData(providerId, providerQualificationsTextView, providerAvailabilityTextView);
         }
 
         return rootView;
@@ -103,6 +83,35 @@ public class ConsumerBookingsFragment1 extends Fragment {
         bookNowButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
             navController.navigate(R.id.action_consumerBookingsFragment1_to_consumerBookingsFragment2);
+        });
+    }
+
+    private void fetchAdditionalData(String providerId, TextView qualificationsTextView, TextView availabilityTextView) {
+        if (providerId == null) return;
+
+        DatabaseReference providerRef = FirebaseDatabase.getInstance().getReference("providers").child(providerId);
+
+        providerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Extract additional data
+                    String qualifications = snapshot.child("qualifications").getValue(String.class);
+                    String[] availabilityArray = snapshot.child("availability").getValue(String[].class); // Assuming availability stored as array
+
+                    // Convert availability array to string
+                    String availabilityString = availabilityArray != null ? Arrays.toString(availabilityArray).replace("[", "").replace("]", "") : "Not Available";
+
+                    // Update UI components
+                    qualificationsTextView.setText(qualifications != null ? qualifications : "No qualifications available");
+                    availabilityTextView.setText("Available on: " + availabilityString);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle Firebase errors here if necessary
+            }
         });
     }
 }
