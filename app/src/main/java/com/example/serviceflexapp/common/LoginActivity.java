@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Initialize UI components
-        emailEditText = findViewById(R.id.ETV_Email); // Make sure these IDs match your XML layout
+        emailEditText = findViewById(R.id.ETV_Email);
         passwordEditText = findViewById(R.id.ETV_Password);
 
         // Initialize FirebaseAuth and DatabaseReference
@@ -78,6 +78,13 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.CTV_SignUp).setOnClickListener(v -> {
             // Navigate to the Sign Up Activity
             Intent intent = new Intent(LoginActivity.this, RegisterAsActivity.class); // Replace with your SignUpActivity
+            startActivity(intent);
+        });
+
+        // Handle forgot password click
+        findViewById(R.id.CTV_ForgotPassword).setOnClickListener(v -> {
+            // Navigate to the Forgot Password Activity
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
     }

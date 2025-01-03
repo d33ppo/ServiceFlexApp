@@ -43,7 +43,7 @@
 
 
             <Button
-                android:id="@+id/BTN_Chat"
+                android:id="@+id/BTN_Read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
@@ -57,7 +57,7 @@
                 tools:ignore="TouchTargetSizeCheck"/>
 
             <Button
-                android:id="@+id/BTN_Reschedule"
+                android:id="@+id/BTN_Delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
@@ -66,7 +66,7 @@
                 android:textSize="15sp"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Reschedule"
+                android:text="Delete"
                 tools:ignore="TouchTargetSizeCheck"/>
         </LinearLayout>
 

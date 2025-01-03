@@ -19,7 +19,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="NULL"/>
 
         <TextView
             android:id="@+id/TV_UpdateWorkProfile"
@@ -333,7 +334,7 @@
             android:id="@+id/Btn_Update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="204dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/orange_square"
             android:text="Update"
             android:textColor="@color/black"
