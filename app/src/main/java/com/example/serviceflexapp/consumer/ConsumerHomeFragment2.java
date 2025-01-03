@@ -1,6 +1,14 @@
 package com.example.serviceflexapp.consumer;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +19,93 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.serviceflexapp.R;
+import com.example.serviceflexapp.database.Provider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsumerHomeFragment2 extends Fragment {
 
+    private DatabaseReference databaseReference;
+    private String selectedCategory;
+    private RecyclerView recyclerView;
+    private ProviderAdapter adapter;
+    private List<Provider> providerList;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_consumer_home2, container, false);
+        View view = inflater.inflate(R.layout.fragment_consumer_home2, container, false);
+
+        // Initialize DatabaseReference
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        // Retrieve the selected category from the arguments
+        if (getArguments() != null) {
+            selectedCategory = getArguments().getString("category");
+        }
+
+        // Set the category title
+        TextView tvCategory = view.findViewById(R.id.TV_Category);
+        if (selectedCategory != null) {
+            tvCategory.setText(selectedCategory);
+        }
+
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize data list and adapter
+        providerList = new ArrayList<>();
+        NavController navController = Navigation.findNavController(view); // Get the NavController here
+        adapter = new ProviderAdapter(providerList, navController); // Pass NavController to Adapter
+        recyclerView.setAdapter(adapter);
+
+        // Fetch and display data based on the selected category
+        fetchAndDisplayData();
+
+        return view;
+    }
+
+    private void fetchAndDisplayData() {
+        databaseReference.child("Provider/category/" + selectedCategory)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        providerList.clear();
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                String firstName = snapshot.child("firstName").getValue(String.class);
+                                String priceRange = snapshot.child("priceRange").getValue(String.class);
+                                String imageURL = snapshot.child("imageURL").getValue(String.class);
+                                String rating = snapshot.child("rating").getValue(String.class);
+                                String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
+
+                                Provider provider = new Provider(firstName, priceRange, imageURL, rating, yearsOfExperience);
+                                providerList.add(provider);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Log.e("RealtimeDB", "No providers found for category: " + selectedCategory);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("RealtimeDB", "Error: " + databaseError.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -31,5 +117,23 @@ public class ConsumerHomeFragment2 extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.popBackStack();
         });
+    }
+
+    private void navigateToProviderDetails(View view, Provider provider) {
+        NavController navController = Navigation.findNavController(view);
+        Bundle bundle = new Bundle();
+
+        // Pass the category
+        bundle.putString("category", selectedCategory);
+
+        // Pass provider-specific data if needed
+        bundle.putString("providerId", provider.getProviderId());
+        bundle.putString("name", provider.getFirstName());
+        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
+        bundle.putString("rating", provider.getRating());
+        bundle.putString("priceRange", provider.getPriceRange());
+        bundle.putString("imageUrl", provider.getImageURL());
+
+        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment1, bundle);
     }
 }

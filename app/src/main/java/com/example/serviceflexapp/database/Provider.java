@@ -1,5 +1,7 @@
 package com.example.serviceflexapp.database;
 
+import java.util.List;
+
 public class Provider {
     private String providerId;
     private String firstName;
@@ -9,13 +11,18 @@ public class Provider {
     private String address;
     private int age;
     private String priceRange;
+    private String imageURL;
+    private String yearsOfExperience;
+    private String rating;
+    private String qualifications;
+    private String[] availability; // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
 
     // Default constructor required for calls to DataSnapshot.getValue(Provider.class)
     public Provider() {
     }
 
     // Constructor with all fields
-    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange) {
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String imageURL, String yearsOfExperience, String rating, String qualifications, String[] availability) {
         this.providerId = providerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +31,34 @@ public class Provider {
         this.address = address;
         this.age = age;
         this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.yearsOfExperience = yearsOfExperience;
+        this.rating = rating;
+        this.qualifications = qualifications;
+        this.availability = availability;
+    }
+
+    //Constructor for ProviderRegistrationPage2Fragment
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, String[] availability) {
+        this.providerId = providerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.age = age;
+        this.priceRange = priceRange;
+        this.qualifications = qualifications;
+        this.availability = availability;
+    }
+
+    //Constructor for Consumer Home Fragment2
+    public Provider(String firstName, String priceRange, String imageURL, String rating, String yearsOfExperience) {
+        this.firstName = firstName;
+        this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.rating = rating;
+        this.yearsOfExperience = yearsOfExperience;
     }
 
     // Getters and setters for all fields
@@ -90,4 +125,24 @@ public class Provider {
     public void setPriceRange(String priceRange) {
         this.priceRange = priceRange;
     }
+
+    public String getImageURL() {return imageURL;}
+
+    public void setImageURL(String imageURL) {this.imageURL = imageURL;}
+
+    public String getYearsOfExperience() {return yearsOfExperience;}
+
+    public void setYearsOfExperience(String yearsOfExperience) {this.yearsOfExperience = yearsOfExperience;}
+
+    public String getRating() {return rating;}
+
+    public void setRating(String rating) {this.rating = rating;}
+
+    public String getQualifications() {return qualifications;}
+
+    public void setQualifications(String qualifications) {this.qualifications = qualifications;}
+
+    public String[] getAvailability() {return availability;}
+
+    public void setAvailability(String[] availability) {this.availability = availability;}
 }

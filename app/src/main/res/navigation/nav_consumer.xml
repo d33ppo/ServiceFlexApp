@@ -111,6 +111,9 @@
         <action
             android:id="@+id/action_consumerHomeFragment2_to_consumerHomeFragment1"
             app:destination="@id/consumerHomeFragment" />
+        <action
+            android:id="@+id/action_consumerHomeFragment2_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/consumerProfileAccountInfo"
