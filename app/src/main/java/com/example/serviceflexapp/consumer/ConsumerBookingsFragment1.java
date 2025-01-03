@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.serviceflexapp.R;
 
 /**
@@ -61,6 +62,47 @@ public class ConsumerBookingsFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_consumer_bookings1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_consumer_bookings1, container, false);
+
+        // Initialize UI components
+        TextView providerNameTextView = rootView.findViewById(R.id.TV_Name);
+        TextView providerExperienceTextView = rootView.findViewById(R.id.TV_YearsOfExperience);
+        TextView providerQualificationsTextView = rootView.findViewById(R.id.TV_Education);
+        TextView providerRatingTextView = rootView.findViewById(R.id.TV_ProviderRating);
+        ImageView providerImageView = rootView.findViewById(R.id.imageView);
+
+        // Retrieve data from the fragment's arguments
+        Bundle args = getArguments();
+        if (args != null) {
+            String providerName = args.getString("name");
+            String providerYearsOfExperience = args.getString("yearsOfExperience");
+            String providerQualifications = args.getString("qualifications");
+            String providerRating = args.getString("rating");
+            String providerImageUrl = args.getString("imageUrl");
+
+            // Set the data in the UI components
+            providerNameTextView.setText(providerName);
+            providerExperienceTextView.setText(providerYearsOfExperience);
+            providerQualificationsTextView.setText(providerQualifications);
+            providerRatingTextView.setText(providerRating);
+
+            // Load the provider image using Glide
+            Glide.with(requireContext())
+                    .load(providerImageUrl)
+                    .into(providerImageView);
+        }
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button bookNowButton = view.findViewById(R.id.button2);
+        bookNowButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_consumerBookingsFragment1_to_consumerBookingsFragment2);
+        });
     }
 }

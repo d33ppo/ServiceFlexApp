@@ -10,6 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/IB_Previous7"
+            android:layout_width="84dp"
+            android:layout_height="58dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="NULL"
+            android:src="?attr/actionModeCloseDrawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/TV_Category"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/TV_Category"
             android:layout_width="wrap_content"
@@ -23,160 +37,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TV_Category">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="50dp"
-                android:gravity="center_horizontal">
 
-                <LinearLayout
-                    android:id="@+id/LL_Provider1"
-                    android:layout_width="350dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/orange_square"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="130dp"
-                        android:padding="5dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/IV_Provider1"
-                            android:layout_width="match_parent"
-                            android:layout_height="130dp"
-                            android:src="@drawable/brad_pitt"
-                            android:scaleType="fitXY"/>
-
-                        <TextView
-                            android:id="@+id/TV_ProviderName1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:text="Brad Pitt" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:id="@+id/TV_ProviderYearsOfExperience1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Years of Experience" />
-
-                        <TextView
-                            android:id="@+id/TV_ProviderQualifications1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Qualifications" />
-
-                        <TextView
-                            android:id="@+id/TV_ProviderStar1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Star Rating" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/LL_Provider2"
-                    android:layout_width="350dp"
-                    android:background="@drawable/orange_square"
-                    android:layout_marginBottom="30dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="130dp"
-                        android:padding="5dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/IV_Provider2"
-                            android:layout_width="match_parent"
-                            android:layout_height="130dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/hd_wallpaper_chris_pratt" />
-
-                        <TextView
-                            android:id="@+id/TV_ProviderName2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:text="Chris Pratt" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:id="@+id/TV_ProviderYearsOfExperience2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Years of Experience" />
-
-                        <TextView
-                            android:id="@+id/TV_ProviderQualifications2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Qualifications" />
-
-                        <TextView
-                            android:id="@+id/TV_ProviderStar2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:text="Star Rating" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

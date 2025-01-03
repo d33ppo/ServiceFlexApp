@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_consumer"
+    app:startDestination="@id/consumerHomeFragment">
+    <fragment
+        android:id="@+id/consumerProfileFragment"
+        android:name="com.example.serviceflexapp.consumer.ConsumerProfileFragment"
+        android:label="activity_consumer_profile"
+        tools:layout="@layout/fragment_consumer_profile" >
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerInboxFragment"
+            app:destination="@id/consumerInboxFragment" />
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerHomeFragment1"
+            app:destination="@id/consumerHomeFragment" />
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerProfileAccountInfo"
+            app:destination="@id/consumerProfileAccountInfo" />
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerProfileEWallet"
+            app:destination="@id/consumerProfileEWallet" />
+        <action
+            android:id="@+id/action_consumerProfileFragment2_to_consumerProfilePaymentHistory"
+            app:destination="@id/consumerProfilePaymentHistory" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerBookingsFragment"
+        android:name="com.example.serviceflexapp.consumer.ConsumerBookingsFragment1"
+        android:label="fragment_consumer_bookings"
+        tools:layout="@layout/fragment_consumer_bookings1">
+        <action
+            android:id="@+id/action_consumerBookingsFragment1_to_consumerInboxFragment"
+            app:destination="@id/consumerInboxFragment" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment1_to_consumerHomeFragment1"
+            app:destination="@id/consumerHomeFragment" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment1_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment1_to_consumerBookingsFragment2"
+            app:destination="@id/consumerBookingsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerBookingsFragment2"
+        android:name="com.example.serviceflexapp.consumer.ConsumerBookingsFragment2"
+        android:label="fragment_consumer_bookings2"
+        tools:layout="@layout/fragment_consumer_bookings2" >
+        <action
+            android:id="@+id/action_consumerBookingsFragment2_to_consumerBookingsFragment3"
+            app:destination="@id/consumerBookingsFragment3" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment2_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerHomeFragment"
+        android:name="com.example.serviceflexapp.consumer.ConsumerHomeFragment1"
+        android:label="fragment_consumer_home"
+        tools:layout="@layout/fragment_consumer_home1">
+        <action
+            android:id="@+id/action_consumerHomeFragment1_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
+        <action
+            android:id="@+id/action_consumerHomeFragment1_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+        <action
+            android:id="@+id/action_consumerHomeFragment1_to_consumerInboxFragment"
+            app:destination="@id/consumerInboxFragment" />
+        <action
+            android:id="@+id/action_consumerHomeFragment1_to_consumerHomeFragment2"
+            app:destination="@id/consumerHomeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerBookingsFragment3"
+        android:name="com.example.serviceflexapp.consumer.ConsumerBookingsFragment3"
+        android:label="fragment_consumer_bookings3"
+        tools:layout="@layout/fragment_consumer_bookings3" >
+        <action
+            android:id="@+id/action_consumerBookingsFragment3_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment3_to_consumerBookingsFragment23"
+            app:destination="@id/consumerBookingsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerInboxFragment"
+        android:name="com.example.serviceflexapp.consumer.ConsumerInboxFragment"
+        android:label="activity_consumer_inbox"
+        tools:layout="@layout/fragment_consumer_inbox" >
+        <action
+            android:id="@+id/action_consumerInboxFragment_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+        <action
+            android:id="@+id/action_consumerInboxFragment_to_consumerBookingsFragment1"
+            app:destination="@id/consumerBookingsFragment" />
+        <action
+            android:id="@+id/action_consumerInboxFragment_to_consumerHomeFragment1"
+            app:destination="@id/consumerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerHomeFragment2"
+        android:name="com.example.serviceflexapp.consumer.ConsumerHomeFragment2"
+        android:label="fragment_consumer_home2"
+        tools:layout="@layout/fragment_consumer_home2" >
+        <action
+            android:id="@+id/action_consumerHomeFragment2_to_consumerHomeFragment1"
+            app:destination="@id/consumerHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerProfileAccountInfo"
+        android:name="com.example.serviceflexapp.consumer.ConsumerProfileAccountInfo"
+        android:label="fragment_consumer_profile_account_info"
+        tools:layout="@layout/fragment_consumer_profile_account_info" >
+        <action
+            android:id="@+id/action_consumerProfileAccountInfo_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerProfilePaymentHistory"
+        android:name="com.example.serviceflexapp.consumer.ConsumerProfilePaymentHistory"
+        android:label="fragment_consumer_profile_payment_history"
+        tools:layout="@layout/fragment_consumer_profile_payment_history" >
+        <action
+            android:id="@+id/action_consumerProfilePaymentHistory_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerProfileEWallet"
+        android:name="com.example.serviceflexapp.consumer.ConsumerProfileEWallet"
+        android:label="fragment_consumer_profile_e_wallet"
+        tools:layout="@layout/fragment_consumer_profile_e_wallet" >
+        <action
+            android:id="@+id/action_consumerProfileEWallet_to_consumerProfileFragment2"
+            app:destination="@id/consumerProfileFragment" />
+    </fragment>
+</navigation>

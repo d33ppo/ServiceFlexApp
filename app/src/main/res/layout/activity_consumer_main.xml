@@ -1,10 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/clCustomer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".consumer.ConsumerMainActivity">
+
+    <!-- Basic FragmentContainerView -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/consumer_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/consumer_bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_consumer" />
+
+    <!-- Basic BottomNavigationView -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/consumer_bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bottom_background"
+        android:elevation="2dp"
+        app:backgroundTint="@color/grey"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/orange"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@color/orange"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/consumer_bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

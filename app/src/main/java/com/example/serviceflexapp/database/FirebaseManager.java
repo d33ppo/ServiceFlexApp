@@ -23,7 +23,7 @@ public class FirebaseManager {
     }
 
     //Service Provider Registration
-    public void registerServiceProvider(String providerID, String name, String specialty, String rate, String rating, String yearsOfExperience, String qualifications, String area){
+    public void registerServiceProvider(String providerID, String name, String specialty, String rate, String rating, String yearsOfExperience, String qualifications, String area, String imageURL){
         HashMap<String, Object> providerData = new HashMap<>();
         providerData.put("name", name);
         providerData.put("specialty", specialty);
@@ -32,7 +32,7 @@ public class FirebaseManager {
         providerData.put("yearsOfExperience", yearsOfExperience);
         providerData.put("qualifications", qualifications);
         providerData.put("area", area);
-
+        providerData.put("imageURL", imageURL);
         databaseReference.child("ServiceProviders").child(providerID).setValue(providerData);
     }
 

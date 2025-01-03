@@ -9,12 +9,30 @@ public class Provider {
     private String address;
     private int age;
     private String priceRange;
+    private String imageURL;
+    private String yearsOfExperience;
+    private String rating;
 
     // Default constructor required for calls to DataSnapshot.getValue(Provider.class)
     public Provider() {
     }
 
     // Constructor with all fields
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String imageURL, String yearsOfExperience, String rating) {
+        this.providerId = providerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.age = age;
+        this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.yearsOfExperience = yearsOfExperience;
+        this.rating = rating;
+    }
+
+    //Constructor for ProviderRegistrationPage2Fragment
     public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange) {
         this.providerId = providerId;
         this.firstName = firstName;
@@ -24,6 +42,14 @@ public class Provider {
         this.address = address;
         this.age = age;
         this.priceRange = priceRange;
+    }
+
+    //Constructor for Consumer Home Fragment2
+    public Provider(String firstName, String priceRange, String imageURL, String rating) {
+        this.firstName = firstName;
+        this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.rating = rating;
     }
 
     // Getters and setters for all fields
@@ -90,4 +116,16 @@ public class Provider {
     public void setPriceRange(String priceRange) {
         this.priceRange = priceRange;
     }
+
+    public String getImageURL() {return imageURL;}
+
+    public void setImageURL(String imageURL) {this.imageURL = imageURL;}
+
+    public String getYearsOfExperience() {return yearsOfExperience;}
+
+    public void setYearsOfExperience(String yearsOfExperience) {this.yearsOfExperience = yearsOfExperience;}
+
+    public String getRating() {return rating;}
+
+    public void setRating(String rating) {this.rating = rating;}
 }

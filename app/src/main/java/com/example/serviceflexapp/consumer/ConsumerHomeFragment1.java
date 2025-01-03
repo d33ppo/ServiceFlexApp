@@ -2,13 +2,24 @@ package com.example.serviceflexapp.consumer;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import android.widget.LinearLayout;
 
 import com.example.serviceflexapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,50 +28,56 @@ import com.example.serviceflexapp.R;
  */
 public class ConsumerHomeFragment1 extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ConsumerHomeFragment1() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConsumerHomeFragment1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ConsumerHomeFragment1 newInstance(String param1, String param2) {
-        ConsumerHomeFragment1 fragment = new ConsumerHomeFragment1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    LinearLayout LL_CategoryPlumber, LL_CategoryElectrician, LL_CategoryBarber, LL_CategoryMaid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_consumer_home1, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button categoryButton = view.findViewById(R.id.IB_Category);
+        categoryButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_consumerHomeFragment1_to_consumerHomeFragment2);
+        });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Initialize views
+        LL_CategoryPlumber = view.findViewById(R.id.LL_CategoryPlumber);
+        LL_CategoryElectrician = view.findViewById(R.id.LL_CategoryElectrician);
+        LL_CategoryBarber = view.findViewById(R.id.LL_CategoryBarber);
+        LL_CategoryMaid = view.findViewById(R.id.LL_CategoryMaid);
+
+        // Set up click listeners with category passing
+        LL_CategoryPlumber.setOnClickListener(v -> navigateToCategory("plumber"));
+        LL_CategoryElectrician.setOnClickListener(v -> navigateToCategory("electrician"));
+        LL_CategoryBarber.setOnClickListener(v -> navigateToCategory("barber"));
+        LL_CategoryMaid.setOnClickListener(v -> navigateToCategory("maid"));
+    }
+
+    private void navigateToCategory(String category) {
+        // Create a new instance of Fragment 2
+        ConsumerHomeFragment2 consumerHomeFragment2 = new ConsumerHomeFragment2();
+
+        // Pass the category to Fragment 2 via Bundle
+        Bundle bundleToFragment2 = new Bundle();
+        bundleToFragment2.putString("category", category);
+        consumerHomeFragment2.setArguments(bundleToFragment2);
+
+        // Load Fragment2 into the same activity
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.FL_FragmentContainer, consumerHomeFragment2)
+                .addToBackStack(null) // Enable back navigation
+                .commit();
     }
 }
