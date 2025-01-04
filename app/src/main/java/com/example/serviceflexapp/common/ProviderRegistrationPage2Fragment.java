@@ -56,6 +56,26 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         // Set the adapter to the Spinner
         jobChoiceSpinner.setAdapter(adapter);
 
+// Set an OnItemSelectedListener to handle item selection
+        jobChoiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Get the selected item
+                String selectedJob = parentView.getItemAtPosition(position).toString();
+
+                // Display the selected job using a Toast
+                Toast.makeText(requireContext(), "Selected: " + selectedJob, Toast.LENGTH_SHORT).show();
+
+                // Additional actions can be added here based on the selected job
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Handle the case where no item is selected (optional)
+                Toast.makeText(requireContext(), "No selection made", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         ETV_Age = view.findViewById(R.id.ETV_Age);
         ETV_MinPrice = view.findViewById(R.id.ETV_MinPrice);
         ETV_MaxPrice = view.findViewById(R.id.ETV_MaxPrice);
@@ -142,7 +162,13 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         String email = bundle.getString("email");
         String password = bundle.getString("password");
         String address = bundle.getString("address");
-        int age = Integer.parseInt(ETV_Age.getText().toString().trim());
+        int age;
+        try {
+            age = Integer.parseInt(ETV_Age.getText().toString().trim());
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Invalid age input.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String priceRange = ETV_MinPrice.getText().toString().trim() + " - " + ETV_MaxPrice.getText().toString().trim();
         String qualifications = ETV_Qualifications.getText().toString().trim();
 
@@ -199,6 +225,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
                         Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
 

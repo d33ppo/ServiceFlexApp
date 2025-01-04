@@ -15,7 +15,8 @@ public class Provider {
     private String yearsOfExperience;
     private String rating;
     private String qualifications;
-    private List<String> availability; // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
+    private List<String> availability;  // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
+    private String fcmToken; // New field
 
     // Default constructor required for calls to DataSnapshot.getValue(Provider.class)
     public Provider() {
@@ -39,8 +40,7 @@ public class Provider {
     }
 
     //Constructor for ProviderRegistrationPage2Fragment
-
-    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, List<String> availability) {
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, List<String> availability, String fcmToken) {
 
         this.providerId = providerId;
         this.firstName = firstName;
@@ -148,5 +148,9 @@ public class Provider {
     public List<String> getAvailability() {return availability;}
 
     public void setAvailability(List<String> availability) {this.availability = availability;}
+
+    public String getFcmToken() {return fcmToken;}
+
+    public void setFcmToken(String fcmToken) {this.fcmToken = fcmToken;}
 
 }
