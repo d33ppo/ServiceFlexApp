@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.serviceflexapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -18,11 +20,11 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     private List<Message> messages;
-    private OnDeleteClickListener onDeleteClickListener;
+    private FirebaseFirestore firestore;
 
     public MessageAdapter(List<Message> messages) {
         this.messages = messages;
-        this.onDeleteClickListener = onDeleteClickListener;
+        firestore = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -35,47 +37,45 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messages.get(position);
-        holder.senderText.setText("Your Account");
         holder.messageText.setText(message.getMessage());
 
-        // Set click listener for the delete button
+        // Set up delete button click listener
         holder.deleteButton.setOnClickListener(v -> {
-            // Get Firestore instance
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            String providerId = message.getProviderId(); // Get providerId
-            String messageId = message.getId();
-
-            // Ensure message ID and provider ID are valid
-            if (message.getId() != null && message.getProviderId() != null) {
-                // Delete the message from Firestore
-                db.collection("providers")
-                        .document(providerId)  // Access the provider document
-                        .collection("messages")  // Messages sub-collection
-                        .document(messageId)  // Delete the message by ID
-                        .delete()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                // Remove the message from the list and notify the adapter
-                                messages.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, messages.size());
-                            } else {
-                                Log.e("MessageAdapter", "Error deleting message", task.getException());
-                            }
-                        });
-            } else {
-                Log.e("MessageAdapter", "Message ID or Provider ID is null, cannot delete.");
-            }
+            String providerId = FirebaseAuth.getInstance().getUid();
+            String messageId = message.getMessageId(); // Assuming Message object has an ID field
+            deleteMessageFromFirestore(providerId, messageId, position);
         });
-    }
-
-    public interface OnDeleteClickListener {
-        void onDeleteClick(String messageId);
     }
 
     @Override
     public int getItemCount() {
         return messages.size();
+    }
+
+    private void deleteMessageFromFirestore(String providerId, String messageId, int position) {
+        if (providerId == null || messageId == null) {
+            Log.e("DeleteError", "providerId or messageId is null");
+            return; // Exit early if IDs are null
+        }
+
+        DocumentReference messageDocRef = firestore.collection("providers")
+                .document(providerId)
+                .collection("messages")
+                .document(messageId);
+
+        messageDocRef.delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("DeleteSuccess", "Message deleted successfully.");
+                    // You can also update the adapter or notify data changes here
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("DeleteError", "Failed to delete message", e);
+                });
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+        notifyDataSetChanged();
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {

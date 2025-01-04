@@ -3,21 +3,21 @@ package com.example.serviceflexapp.database;
 public class Message {
     private String providerId;
     private String message;
+    private String messageId;
     private long timestamp;
     private boolean read;
-    private String id;
-    private String messageId;
+
 
     public Message() {
-        // Empty constructor needed for Firestore
+
     }
 
-    public Message(String providerId, String message, long timestamp, boolean read, String messageId) {
+    public Message(String providerId, String message, String messageId, long timestamp, boolean read) {
         this.providerId = providerId;
         this.message = message;
+        this.messageId = messageId;
         this.timestamp = timestamp;
         this.read = read;
-        this.messageId = messageId;
     }
 
     public String getProviderId() {
@@ -52,11 +52,11 @@ public class Message {
         this.read = read;
     }
 
-    public String getId() {
+    public String getMessageId() {
         return messageId; // Add this method
     }
 
-    public void setId(String messageId) {
-        this.id = id; // Add this method
+    public void setMessageId(String messageId) {
+        this.messageId = messageId; // Add this method
     }
 }
