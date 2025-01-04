@@ -61,7 +61,7 @@ public class ProviderMainActivity extends AppCompatActivity {
         });
     }
 
-    private String getProviderId() {
+    public static String getProviderId() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // You can fetch additional provider data from Firestore or use the Firebase user ID
