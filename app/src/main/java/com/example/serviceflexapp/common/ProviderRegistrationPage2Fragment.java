@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,7 +116,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         return view;
     }
 
-    private void registerProvider(String[] availability) {
+    private void registerProvider(String[] availabilityArray) {
         Bundle bundle = getArguments();
         if (bundle == null) {
             Toast.makeText(getContext(), "Failed to retrieve data from previous page.", Toast.LENGTH_SHORT).show();
@@ -128,9 +129,15 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         String email = bundle.getString("email");
         String password = bundle.getString("password");
         String address = bundle.getString("address");
-        int age = Integer.parseInt(ETV_Age.getText().toString().trim());
+        int age;
+        try {
+            age = Integer.parseInt(ETV_Age.getText().toString().trim());
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Invalid age input.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String priceRange = ETV_MinPrice.getText().toString().trim() + " - " + ETV_MaxPrice.getText().toString().trim();
-        String qualifications = ETV_Qualifications.getText().toString().trim(); // Get qualifications input
+        String qualifications = ETV_Qualifications.getText().toString().trim();
 
         Log.d("ProviderRegistration", "First Name: " + firstName);
         Log.d("ProviderRegistration", "Last Name: " + lastName);
@@ -140,8 +147,11 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         Log.d("ProviderRegistration", "Address: " + address);
         Log.d("ProviderRegistration", "Age: " + age);
         Log.d("ProviderRegistration", "Price Range: " + priceRange);
-        Log.d("ProviderRegistration", "Qualifications: " + qualifications); // Log qualifications
-        Log.d("ProviderRegistration", "Availability: " + Arrays.toString(availability));
+        Log.d("ProviderRegistration", "Qualifications: " + qualifications);
+        Log.d("ProviderRegistration", "Availability: " + Arrays.toString(availabilityArray));
+
+        // Convert the array to a List
+        List<String> availability = new ArrayList<>(Arrays.asList(availabilityArray));
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -149,21 +159,35 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
                             String providerId = user.getUid();
-                            Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age, priceRange, qualifications, availability);
-
-                            // Set the role as "Provider" in the database
-                            mDatabase.child("users").child(providerId).child("role").setValue("Provider");
-
-                            // Save the provider details
-                            mDatabase.child("Provider").child(providerId).setValue(provider)
+                            FirebaseMessaging.getInstance().getToken()
                                     .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Log.d("ProviderRegistration", "Provider registered successfully.");
-                                            navigateToProviderMainActivity();
-                                        } else {
-                                            Log.e("ProviderRegistration", "Failed to register provider.", task1.getException());
-                                            Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
+                                        if (!task1.isSuccessful()) {
+                                            Log.w("FCM", "Fetching FCM registration token failed", task1.getException());
+                                            Toast.makeText(getContext(), "Failed to fetch FCM token. Please try again.", Toast.LENGTH_SHORT).show();
+                                            return;
                                         }
+
+                                        // Get the FCM token
+                                        String fcmToken = task1.getResult();
+                                        Log.d("FCM Token", fcmToken);
+
+                                        // Create a Provider object
+                                        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age, priceRange, qualifications, availability, fcmToken);
+
+                                        // Set the role as "Provider" in the database
+                                        mDatabase.child("users").child(providerId).child("role").setValue("Provider");
+
+                                        // Save the provider details
+                                        mDatabase.child("Provider").child(providerId).setValue(provider)
+                                                .addOnCompleteListener(task2 -> {
+                                                    if (task2.isSuccessful()) {
+                                                        Log.d("ProviderRegistration", "Provider registered successfully.");
+                                                        navigateToProviderMainActivity();
+                                                    } else {
+                                                        Log.e("ProviderRegistration", "Failed to register provider.", task2.getException());
+                                                        Toast.makeText(getContext(), "Failed to register provider. Please try again.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
                                     });
                         }
                     } else {
@@ -171,8 +195,8 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
                         Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
+
 
     private void navigateToProviderMainActivity() {
         Intent intent = new Intent(getActivity(), ProviderMainActivity.class);
