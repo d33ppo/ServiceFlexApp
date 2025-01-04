@@ -15,7 +15,7 @@ public class Provider {
     private String yearsOfExperience;
     private String rating;
     private String qualifications;
-    private List<String> availability; // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
+    private List<String> availability;  // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
     private String fcmToken; // New field
 
     // Default constructor required for calls to DataSnapshot.getValue(Provider.class)
