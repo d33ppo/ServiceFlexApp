@@ -58,19 +58,19 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TV_ProviderQualifications1"
+                android:id="@+id/TV_ProviderStar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Qualifications"
+                android:text="Star Rating"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TV_ProviderStar1"
+                android:id="@+id/TV_ProviderPriceRange1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Star Rating"
+                android:text="Price Range"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />

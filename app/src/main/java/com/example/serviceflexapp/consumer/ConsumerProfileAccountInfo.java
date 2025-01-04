@@ -1,6 +1,9 @@
 package com.example.serviceflexapp.consumer;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,16 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.serviceflexapp.R;
 
 public class ConsumerProfileAccountInfo extends Fragment {
 
-    public ConsumerProfileAccountInfo() {
-        super(R.layout.fragment_consumer_profile_account_info);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_consumer_profile_account_info, container, false);
     }
 
     @Override
@@ -27,6 +27,7 @@ public class ConsumerProfileAccountInfo extends Fragment {
         NavController navController = Navigation.findNavController(view);
 
         view.findViewById(R.id.IB_Previous).setOnClickListener(v ->
-                navController.navigate(R.id.action_consumerProfileAccountInfo_to_consumerProfileFragment2));
+                navController.navigate(R.id.action_consumerProfileAccountInfo_to_consumerProfileFragment2)
+        );
     }
 }

@@ -41,7 +41,13 @@ public class ConsumerBookingsFragment2 extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_consumer_bookings2, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize Firestore
@@ -71,6 +77,20 @@ public class ConsumerBookingsFragment2 extends Fragment {
             // Save the selected date and time to Firestore
             saveBookingData(formattedDateTime);
         });
+
+        // Handle navigation to the next fragment
+        Button nextConfirmButton = view.findViewById(R.id.BTN_Confirm);
+        nextConfirmButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3);
+        });
+
+        // Handle navigation back to the previous fragment
+        ImageButton previousButton = view.findViewById(R.id.IB_Previous6);
+        previousButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();
+        });
     }
 
     private void saveBookingData(String dateTime) {
@@ -89,25 +109,5 @@ public class ConsumerBookingsFragment2 extends Fragment {
                     // Error saving data
                     Toast.makeText(getContext(), "Failed to save booking", Toast.LENGTH_SHORT).show();
                 });
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_consumer_bookings2, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Button confirmButton = view.findViewById(R.id.BTN_Confirm);
-        confirmButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3);
-        });
-        ImageButton previousButton = view.findViewById(R.id.IB_Previous6);
-        previousButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.popBackStack();
-        });
     }
 }

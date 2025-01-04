@@ -24,7 +24,6 @@ public class ConsumerProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
-
         view.findViewById(R.id.BTN_AccountInfo).setOnClickListener(v ->
                 navController.navigate(R.id.action_consumerProfileFragment2_to_consumerProfileAccountInfo));
         view.findViewById(R.id.BTN_Ewallet).setOnClickListener(v ->

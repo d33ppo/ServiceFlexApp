@@ -13,9 +13,6 @@
             android:id="@+id/action_consumerProfileFragment2_to_consumerInboxFragment"
             app:destination="@id/consumerInboxFragment" />
         <action
-            android:id="@+id/action_consumerProfileFragment2_to_consumerBookingsFragment1"
-            app:destination="@id/consumerBookingsFragment" />
-        <action
             android:id="@+id/action_consumerProfileFragment2_to_consumerHomeFragment1"
             app:destination="@id/consumerHomeFragment" />
         <action
@@ -27,6 +24,9 @@
         <action
             android:id="@+id/action_consumerProfileFragment2_to_consumerProfilePaymentHistory"
             app:destination="@id/consumerProfilePaymentHistory" />
+        <action
+            android:id="@+id/action_consumerProfileFragment_to_consumerUpcomingBookings"
+            app:destination="@id/consumerUpcomingBookings" />
     </fragment>
     <fragment
         android:id="@+id/consumerBookingsFragment"
@@ -34,16 +34,10 @@
         android:label="fragment_consumer_bookings"
         tools:layout="@layout/fragment_consumer_bookings1">
         <action
-            android:id="@+id/action_consumerBookingsFragment1_to_consumerInboxFragment"
-            app:destination="@id/consumerInboxFragment" />
+            android:id="@+id/action_consumerBookingsFragment_to_consumerHomeFragment2"
+            app:destination="@id/consumerHomeFragment2" />
         <action
-            android:id="@+id/action_consumerBookingsFragment1_to_consumerHomeFragment1"
-            app:destination="@id/consumerHomeFragment" />
-        <action
-            android:id="@+id/action_consumerBookingsFragment1_to_consumerProfileFragment2"
-            app:destination="@id/consumerProfileFragment" />
-        <action
-            android:id="@+id/action_consumerBookingsFragment1_to_consumerBookingsFragment2"
+            android:id="@+id/action_consumerBookingsFragment_to_consumerBookingsFragment2"
             app:destination="@id/consumerBookingsFragment2" />
     </fragment>
     <fragment
@@ -52,20 +46,17 @@
         android:label="fragment_consumer_bookings2"
         tools:layout="@layout/fragment_consumer_bookings2" >
         <action
+            android:id="@+id/action_consumerBookingsFragment2_to_consumerBookingsFragment"
+            app:destination="@id/consumerBookingsFragment" />
+        <action
             android:id="@+id/action_consumerBookingsFragment2_to_consumerBookingsFragment3"
             app:destination="@id/consumerBookingsFragment3" />
-        <action
-            android:id="@+id/action_consumerBookingsFragment2_to_consumerBookingsFragment1"
-            app:destination="@id/consumerBookingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/consumerHomeFragment"
         android:name="com.example.serviceflexapp.consumer.ConsumerHomeFragment1"
         android:label="fragment_consumer_home"
         tools:layout="@layout/fragment_consumer_home1">
-        <action
-            android:id="@+id/action_consumerHomeFragment1_to_consumerBookingsFragment1"
-            app:destination="@id/consumerBookingsFragment" />
         <action
             android:id="@+id/action_consumerHomeFragment1_to_consumerProfileFragment2"
             app:destination="@id/consumerProfileFragment" />
@@ -75,6 +66,9 @@
         <action
             android:id="@+id/action_consumerHomeFragment1_to_consumerHomeFragment2"
             app:destination="@id/consumerHomeFragment2" />
+        <action
+            android:id="@+id/action_consumerHomeFragment_to_consumerUpcomingBookings"
+            app:destination="@id/consumerUpcomingBookings" />
     </fragment>
     <fragment
         android:id="@+id/consumerBookingsFragment3"
@@ -82,11 +76,11 @@
         android:label="fragment_consumer_bookings3"
         tools:layout="@layout/fragment_consumer_bookings3" >
         <action
-            android:id="@+id/action_consumerBookingsFragment3_to_consumerBookingsFragment1"
-            app:destination="@id/consumerBookingsFragment" />
-        <action
-            android:id="@+id/action_consumerBookingsFragment3_to_consumerBookingsFragment23"
+            android:id="@+id/action_consumerBookingsFragment3_to_consumerBookingsFragment2"
             app:destination="@id/consumerBookingsFragment2" />
+        <action
+            android:id="@+id/action_consumerBookingsFragment3_to_consumerHomeFragment"
+            app:destination="@id/consumerHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/consumerInboxFragment"
@@ -96,9 +90,6 @@
         <action
             android:id="@+id/action_consumerInboxFragment_to_consumerProfileFragment2"
             app:destination="@id/consumerProfileFragment" />
-        <action
-            android:id="@+id/action_consumerInboxFragment_to_consumerBookingsFragment1"
-            app:destination="@id/consumerBookingsFragment" />
         <action
             android:id="@+id/action_consumerInboxFragment_to_consumerHomeFragment1"
             app:destination="@id/consumerHomeFragment" />
@@ -111,6 +102,9 @@
         <action
             android:id="@+id/action_consumerHomeFragment2_to_consumerHomeFragment1"
             app:destination="@id/consumerHomeFragment" />
+        <action
+            android:id="@+id/action_consumerHomeFragment2_to_consumerBookingsFragment"
+            app:destination="@id/consumerBookingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/consumerProfileAccountInfo"
@@ -138,5 +132,32 @@
         <action
             android:id="@+id/action_consumerProfileEWallet_to_consumerProfileFragment2"
             app:destination="@id/consumerProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerUpcomingBookings"
+        android:name="com.example.serviceflexapp.consumer.ConsumerUpcomingBookings"
+        android:label="fragment_consumer_upcoming_bookings"
+        tools:layout="@layout/fragment_consumer_upcoming_bookings" >
+        <action
+            android:id="@+id/action_consumerUpcomingBookings_to_consumerInboxFragment"
+            app:destination="@id/consumerInboxFragment" />
+        <action
+            android:id="@+id/action_consumerUpcomingBookings_to_consumerProfileFragment"
+            app:destination="@id/consumerProfileFragment" />
+        <action
+            android:id="@+id/action_consumerUpcomingBookings_to_consumerHomeFragment"
+            app:destination="@id/consumerHomeFragment" />
+        <action
+            android:id="@+id/action_consumerUpcomingBookings_to_consumerCompletedBookings"
+            app:destination="@id/consumerCompletedBookings" />
+    </fragment>
+    <fragment
+        android:id="@+id/consumerCompletedBookings"
+        android:name="com.example.serviceflexapp.consumer.ConsumerCompletedBookings"
+        android:label="fragment_consumer_completed_bookings"
+        tools:layout="@layout/fragment_consumer_completed_bookings" >
+        <action
+            android:id="@+id/action_consumerCompletedBookings_to_consumerUpcomingBookings"
+            app:destination="@id/consumerUpcomingBookings" />
     </fragment>
 </navigation>
