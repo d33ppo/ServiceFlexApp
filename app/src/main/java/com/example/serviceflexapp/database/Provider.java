@@ -39,7 +39,9 @@ public class Provider {
     }
 
     //Constructor for ProviderRegistrationPage2Fragment
+
     public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, List<String> availability) {
+
         this.providerId = providerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +52,7 @@ public class Provider {
         this.priceRange = priceRange;
         this.qualifications = qualifications;
         this.availability = availability;
+        this.fcmToken = fcmToken;
     }
 
     //Constructor for Consumer Home Fragment2
@@ -145,4 +148,5 @@ public class Provider {
     public List<String> getAvailability() {return availability;}
 
     public void setAvailability(List<String> availability) {this.availability = availability;}
+
 }
