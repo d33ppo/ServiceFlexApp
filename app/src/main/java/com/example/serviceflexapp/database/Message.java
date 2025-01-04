@@ -1,31 +1,21 @@
 package com.example.serviceflexapp.database;
 
 public class Message {
-    private String providerId;
-    private String message;
     private String messageId;
+    private String message;
     private long timestamp;
     private boolean read;
 
-
     public Message() {
-
+        // Default constructor required for calls to DataSnapshot.getValue(Message.class)
     }
 
-    public Message(String providerId, String message, String messageId, long timestamp, boolean read) {
-        this.providerId = providerId;
-        this.message = message;
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
         this.messageId = messageId;
-        this.timestamp = timestamp;
-        this.read = read;
-    }
-
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
     }
 
     public String getMessage() {
@@ -50,13 +40,5 @@ public class Message {
 
     public void setRead(boolean read) {
         this.read = read;
-    }
-
-    public String getMessageId() {
-        return messageId; // Add this method
-    }
-
-    public void setMessageId(String messageId) {
-        this.messageId = messageId; // Add this method
     }
 }
