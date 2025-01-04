@@ -228,6 +228,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
 
     }
 
+
     private void navigateToProviderMainActivity() {
         Intent intent = new Intent(getActivity(), ProviderMainActivity.class);
         startActivity(intent);
