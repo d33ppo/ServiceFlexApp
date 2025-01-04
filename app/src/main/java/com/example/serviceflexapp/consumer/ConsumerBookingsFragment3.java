@@ -44,7 +44,7 @@ public class ConsumerBookingsFragment3 extends Fragment {
         // Initialize UI components
         rbEWallet = view.findViewById(R.id.RB_EWallet);
         rbCreditDebitCard = view.findViewById(R.id.RB_CreditDebitCard);
-        rbOnlineBanking = view.findViewById(R.id.RB_EOnlineBanking);
+        rbOnlineBanking = view.findViewById(R.id.RB_OnlineBanking);
         rbGPay = view.findViewById(R.id.RB_GPay);
         rbCash = view.findViewById(R.id.RB_Cash);
         finishButton = view.findViewById(R.id.BTN_Finish);

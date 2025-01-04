@@ -78,17 +78,15 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         BTN_Create.setOnClickListener(v -> {
             // Validate inputs
             if (isInputValid()) {
-                // Collect selected days into a String[]
-                List<String> selectedDays = new ArrayList<>();
-                if (CB_Monday.isChecked()) selectedDays.add("Monday");
-                if (CB_Tuesday.isChecked()) selectedDays.add("Tuesday");
-                if (CB_Wednesday.isChecked()) selectedDays.add("Wednesday");
-                if (CB_Thursday.isChecked()) selectedDays.add("Thursday");
-                if (CB_Friday.isChecked()) selectedDays.add("Friday");
-                if (CB_Saturday.isChecked()) selectedDays.add("Saturday");
-                if (CB_Sunday.isChecked()) selectedDays.add("Sunday");
-
-                String[] availability = selectedDays.toArray(new String[0]); // Convert List to String[]
+                // Collect selected days into an ArrayList
+                List<String> availability = new ArrayList<>();
+                if (CB_Monday.isChecked()) availability.add("Monday");
+                if (CB_Tuesday.isChecked()) availability.add("Tuesday");
+                if (CB_Wednesday.isChecked()) availability.add("Wednesday");
+                if (CB_Thursday.isChecked()) availability.add("Thursday");
+                if (CB_Friday.isChecked()) availability.add("Friday");
+                if (CB_Saturday.isChecked()) availability.add("Saturday");
+                if (CB_Sunday.isChecked()) availability.add("Sunday");
 
                 // Pass the availability array to registerProvider
                 registerProvider(availability);
@@ -130,7 +128,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void registerProvider(String[] availability) {
+    private void registerProvider(List<String>availability) {
         Bundle bundle = getArguments();
         if (bundle == null) {
             Toast.makeText(getContext(), "Failed to retrieve data from the previous page.", Toast.LENGTH_SHORT).show();
@@ -157,7 +155,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         Log.d("ProviderRegistration", "Age: " + age);
         Log.d("ProviderRegistration", "Price Range: " + priceRange);
         Log.d("ProviderRegistration", "Qualifications: " + qualifications);
-        Log.d("ProviderRegistration", "Availability: " + Arrays.toString(availability));
+        Log.d("ProviderRegistration", "Availability: " + availability);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
