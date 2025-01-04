@@ -25,8 +25,11 @@ import com.example.serviceflexapp.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ConsumerBookingsFragment2 extends Fragment {
@@ -35,6 +38,7 @@ public class ConsumerBookingsFragment2 extends Fragment {
     private TimePicker timePicker;
     private Button confirmButton;
     private FirebaseFirestore firestore;
+    private List<String> providerAvailability;
 
     public ConsumerBookingsFragment2() {
         // Required empty public constructor
@@ -58,6 +62,9 @@ public class ConsumerBookingsFragment2 extends Fragment {
         timePicker = view.findViewById(R.id.TP_PickTime);
         confirmButton = view.findViewById(R.id.BTN_Confirm);
 
+        // Load provider availability
+        loadProviderAvailability();
+
         // Handle the Confirm button click
         confirmButton.setOnClickListener(v -> {
             // Get selected date and time
@@ -65,17 +72,26 @@ public class ConsumerBookingsFragment2 extends Fragment {
             int selectedHour = timePicker.getHour();
             int selectedMinute = timePicker.getMinute();
 
-            // Format the date and time
+            // Format the date
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(selectedDateMillis);
-            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
-            calendar.set(Calendar.MINUTE, selectedMinute);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            String formattedDateTime = dateFormat.format(calendar.getTime());
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+            String selectedDay = dayFormat.format(calendar.getTime());
 
-            // Save the selected date and time to Firestore
-            saveBookingData(formattedDateTime);
+            // Check availability
+            if (providerAvailability != null && providerAvailability.contains(selectedDay)) {
+                calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+                calendar.set(Calendar.MINUTE, selectedMinute);
+
+                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+                String formattedDateTime = dateTimeFormat.format(calendar.getTime());
+
+                // Save booking data
+                saveBookingData(formattedDateTime);
+            } else {
+                Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Handle navigation to the next fragment
@@ -93,10 +109,30 @@ public class ConsumerBookingsFragment2 extends Fragment {
         });
     }
 
+    private void loadProviderAvailability() {
+        // Retrieve the selected category from the arguments
+        Bundle args = getArguments();
+        String providerId = args.getString("providerId");
+
+        firestore.collection("Provider")
+                .document(providerId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        List<String> availabilityArray = documentSnapshot.get("availability", List.class);
+                        if (availabilityArray != null) {
+                            providerAvailability = availabilityArray;
+                        } else {
+                            providerAvailability = null;
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to load provider availability.", Toast.LENGTH_SHORT).show());
+    }
+
     private void saveBookingData(String dateTime) {
         // Create a map with the data to save
-        Map<String, Object> bookingData = new HashMap<>();
-        bookingData.put("bookingDateTime", dateTime);
+        Map<String, Object> bookingData = Map.of("bookingDateTime", dateTime);
 
         // Save data to Firestore
         firestore.collection("Appointments Database")
