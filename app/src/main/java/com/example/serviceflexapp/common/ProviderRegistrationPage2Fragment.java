@@ -39,6 +39,8 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
+    String selectedJob;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Get the selected item
-                String selectedJob = parentView.getItemAtPosition(position).toString();
+                selectedJob = parentView.getItemAtPosition(position).toString();
 
                 // Display the selected job using a Toast
                 Toast.makeText(requireContext(), "Selected: " + selectedJob, Toast.LENGTH_SHORT).show();
@@ -202,13 +204,13 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
                                         Log.d("FCM Token", fcmToken);
 
                                         // Create a Provider object
-                                        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age, priceRange, qualifications, availability, fcmToken);
+                                        Provider provider = new Provider(providerId, firstName, lastName, phoneNumber, email, address, age, priceRange, qualifications, availability, fcmToken, selectedJob);
 
                                         // Set the role as "Provider" in the database
                                         mDatabase.child("users").child(providerId).child("role").setValue("Provider");
 
                                         // Save the provider details
-                                        mDatabase.child("Provider").child(providerId).setValue(provider)
+                                        mDatabase.child("Provider/" + selectedJob).child(providerId).setValue(provider)
                                                 .addOnCompleteListener(task2 -> {
                                                     if (task2.isSuccessful()) {
                                                         Log.d("ProviderRegistration", "Provider registered successfully.");

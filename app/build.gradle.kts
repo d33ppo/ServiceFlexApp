@@ -76,6 +76,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation(libs.firebase.messaging)
 
     // Testing
     testImplementation(libs.junit)

@@ -1,15 +1,16 @@
 package com.example.serviceflexapp.consumer;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,30 +21,35 @@ import java.util.List;
 
 public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> {
 
-    private final NavController navController; // NavController for navigation
+    Activity activity;
+    //private final NavController navController; // NavController for navigation
     private final List<Provider> providers;
 
-    public ProviderAdapter(List<Provider> providers, NavController navController) {
+
+    public ProviderAdapter(Activity activity, List<Provider> providers /*, NavController navController*/) {
         this.providers = providers;
-        this.navController = navController;
+        //this.navController = navController;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.provider_mini_info, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        View view = inflater.inflate(R.layout.provider_mini_info, parent, false);
+        return new ProviderAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Provider provider = providers.get(position);
 
-        // Load image using Glide
-        Glide.with(holder.itemView.getContext())
-                .load(provider.getImageURL())
-                .placeholder(R.drawable.brad_pitt) // Optional placeholder
-                .into(holder.imageView);
+            // Load image using Glide
+            Glide.with(holder.itemView.getContext())
+                    .load(provider.getImageURL())
+                    .placeholder(R.drawable.brad_pitt) // Optional placeholder
+                    .into(holder.imageView);
+
 
         holder.nameTextView.setText(provider.getFirstName());
         holder.priceRangeTextView.setText("Price Range: RM " + provider.getPriceRange());
@@ -61,7 +67,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             bundle.putString("imageURL", provider.getImageURL());
 
             // Trigger navigation to ConsumerBookingsFragment1 with the bundle
-            navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
+            //navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
         });
     }
 
@@ -74,13 +80,19 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         ImageView imageView;
         TextView nameTextView, yearsOfExperienceTextView, starRatingTextView, priceRangeTextView;
 
+        ConstraintLayout constraintLayout;
+        LinearLayout layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            constraintLayout = itemView.findViewById(R.id.layout_providerInfo);
+            layout = itemView.findViewById(R.id.LL_Provider1);
             imageView = itemView.findViewById(R.id.IV_Provider1);
             nameTextView = itemView.findViewById(R.id.TV_ProviderName1);
             priceRangeTextView = itemView.findViewById(R.id.TV_ProviderPriceRange1);
             yearsOfExperienceTextView = itemView.findViewById(R.id.TV_ProviderYearsOfExperience1);
             starRatingTextView = itemView.findViewById(R.id.TV_ProviderStar1);
+
         }
     }
 }
