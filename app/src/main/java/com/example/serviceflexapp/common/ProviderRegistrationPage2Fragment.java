@@ -45,40 +45,20 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
 
         Spinner jobChoiceSpinner = view.findViewById(R.id.SP_JobChoice);
 
-// Create a list of jobs (you can replace this with your own data)
+        // Create a list of jobs (you can replace this with your own data)
         List<String> jobList = Arrays.asList("Barber", "Electrician", "Plumber", "Maid");
 
-// Create an ArrayAdapter to bind the list to the Spinner
+        // Create an ArrayAdapter to bind the list to the Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, jobList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-// Set the adapter to the Spinner
+        // Set the adapter to the Spinner
         jobChoiceSpinner.setAdapter(adapter);
-
-// Set an OnItemSelectedListener to handle item selection
-        jobChoiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Get the selected item
-                String selectedJob = parentView.getItemAtPosition(position).toString();
-
-                // Display the selected job using a Toast
-                Toast.makeText(requireContext(), "Selected: " + selectedJob, Toast.LENGTH_SHORT).show();
-
-                // Additional actions can be added here based on the selected job
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Handle the case where no item is selected (optional)
-                Toast.makeText(requireContext(), "No selection made", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         ETV_Age = view.findViewById(R.id.ETV_Age);
         ETV_MinPrice = view.findViewById(R.id.ETV_MinPrice);
         ETV_MaxPrice = view.findViewById(R.id.ETV_MaxPrice);
-        ETV_Qualifications = view.findViewById(R.id.ETV_Qualifications); // Added for qualifications
+        ETV_Qualifications = view.findViewById(R.id.ETV_Qualifications);
 
         // Initialize checkboxes for availability
         CB_Monday = view.findViewById(R.id.CB_Monday);
@@ -96,29 +76,64 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         BTN_Create.setOnClickListener(v -> {
-            // Collect selected days into a String[]
-            List<String> selectedDays = new ArrayList<>();
-            if (CB_Monday.isChecked()) selectedDays.add("Monday");
-            if (CB_Tuesday.isChecked()) selectedDays.add("Tuesday");
-            if (CB_Wednesday.isChecked()) selectedDays.add("Wednesday");
-            if (CB_Thursday.isChecked()) selectedDays.add("Thursday");
-            if (CB_Friday.isChecked()) selectedDays.add("Friday");
-            if (CB_Saturday.isChecked()) selectedDays.add("Saturday");
-            if (CB_Sunday.isChecked()) selectedDays.add("Sunday");
+            // Validate inputs
+            if (isInputValid()) {
+                // Collect selected days into a String[]
+                List<String> selectedDays = new ArrayList<>();
+                if (CB_Monday.isChecked()) selectedDays.add("Monday");
+                if (CB_Tuesday.isChecked()) selectedDays.add("Tuesday");
+                if (CB_Wednesday.isChecked()) selectedDays.add("Wednesday");
+                if (CB_Thursday.isChecked()) selectedDays.add("Thursday");
+                if (CB_Friday.isChecked()) selectedDays.add("Friday");
+                if (CB_Saturday.isChecked()) selectedDays.add("Saturday");
+                if (CB_Sunday.isChecked()) selectedDays.add("Sunday");
 
-            String[] availability = selectedDays.toArray(new String[0]); // Convert List to String[]
+                String[] availability = selectedDays.toArray(new String[0]); // Convert List to String[]
 
-            // Pass the availability array to registerProvider
-            registerProvider(availability);
+                // Pass the availability array to registerProvider
+                registerProvider(availability);
+            }
         });
 
         return view;
     }
 
+    private boolean isInputValid() {
+        if (ETV_Age.getText().toString().trim().isEmpty()) {
+            showToast("Please enter your age.");
+            return false;
+        }
+        if (ETV_MinPrice.getText().toString().trim().isEmpty()) {
+            showToast("Please enter your minimum price.");
+            return false;
+        }
+        if (ETV_MaxPrice.getText().toString().trim().isEmpty()) {
+            showToast("Please enter your maximum price.");
+            return false;
+        }
+        if (ETV_Qualifications.getText().toString().trim().isEmpty()) {
+            showToast("Please enter your qualifications.");
+            return false;
+        }
+
+        // Check if at least one checkbox is selected for availability
+        if (!CB_Monday.isChecked() && !CB_Tuesday.isChecked() && !CB_Wednesday.isChecked() &&
+                !CB_Thursday.isChecked() && !CB_Friday.isChecked() && !CB_Saturday.isChecked() && !CB_Sunday.isChecked()) {
+            showToast("Please select at least one day of availability.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void registerProvider(String[] availability) {
         Bundle bundle = getArguments();
         if (bundle == null) {
-            Toast.makeText(getContext(), "Failed to retrieve data from previous page.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Failed to retrieve data from the previous page.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -128,9 +143,10 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         String email = bundle.getString("email");
         String password = bundle.getString("password");
         String address = bundle.getString("address");
+
         int age = Integer.parseInt(ETV_Age.getText().toString().trim());
         String priceRange = ETV_MinPrice.getText().toString().trim() + " - " + ETV_MaxPrice.getText().toString().trim();
-        String qualifications = ETV_Qualifications.getText().toString().trim(); // Get qualifications input
+        String qualifications = ETV_Qualifications.getText().toString().trim();
 
         Log.d("ProviderRegistration", "First Name: " + firstName);
         Log.d("ProviderRegistration", "Last Name: " + lastName);
@@ -140,7 +156,7 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
         Log.d("ProviderRegistration", "Address: " + address);
         Log.d("ProviderRegistration", "Age: " + age);
         Log.d("ProviderRegistration", "Price Range: " + priceRange);
-        Log.d("ProviderRegistration", "Qualifications: " + qualifications); // Log qualifications
+        Log.d("ProviderRegistration", "Qualifications: " + qualifications);
         Log.d("ProviderRegistration", "Availability: " + Arrays.toString(availability));
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -171,7 +187,6 @@ public class ProviderRegistrationPage2Fragment extends Fragment {
                         Toast.makeText(getContext(), "Failed to create user. Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
     private void navigateToProviderMainActivity() {
