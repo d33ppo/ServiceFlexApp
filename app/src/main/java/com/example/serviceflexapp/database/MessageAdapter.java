@@ -21,9 +21,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     private List<Message> messages;
     private FirebaseFirestore firestore;
+    private String userRole;
 
-    public MessageAdapter(List<Message> messages) {
+    public MessageAdapter(List<Message> messages, String userRole) {
         this.messages = messages;
+        this.userRole = userRole;
         firestore = FirebaseFirestore.getInstance();
     }
 
@@ -39,11 +41,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         Message message = messages.get(position);
         holder.messageText.setText(message.getMessage());
 
-        // Set up delete button click listener
         holder.deleteButton.setOnClickListener(v -> {
-            String providerId = FirebaseAuth.getInstance().getUid();
-            String messageId = message.getMessageId(); // Assuming Message object has an ID field
-            deleteMessageFromFirestore(providerId, messageId, position);
+            String userId = FirebaseAuth.getInstance().getUid();
+            String messageId = message.getMessageId();
+            deleteMessageFromFirestore(userId, messageId, position);
         });
     }
 
@@ -52,21 +53,24 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         return messages.size();
     }
 
-    private void deleteMessageFromFirestore(String providerId, String messageId, int position) {
-        if (providerId == null || messageId == null) {
-            Log.e("DeleteError", "providerId or messageId is null");
-            return; // Exit early if IDs are null
+    private void deleteMessageFromFirestore(String userId, String messageId, int position) {
+        if (userId == null || messageId == null) {
+            Log.e("DeleteError", "userId or messageId is null");
+            return;
         }
 
-        DocumentReference messageDocRef = firestore.collection("providers")
-                .document(providerId)
+        String collectionPath = userRole.equals("Provider") ? "providers" : "consumers";
+
+        DocumentReference messageDocRef = firestore.collection(collectionPath)
+                .document(userId)
                 .collection("messages")
                 .document(messageId);
 
         messageDocRef.delete()
                 .addOnSuccessListener(aVoid -> {
                     Log.d("DeleteSuccess", "Message deleted successfully.");
-                    // You can also update the adapter or notify data changes here
+                    messages.remove(position);
+                    notifyItemRemoved(position);
                 })
                 .addOnFailureListener(e -> {
                     Log.e("DeleteError", "Failed to delete message", e);
@@ -80,16 +84,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
-        TextView senderText;
         Button deleteButton;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.TV_ViewContentProvider);
-            senderText = itemView.findViewById(R.id.TV_SenderProvider);// Replace with your actual TextView ID
             deleteButton = itemView.findViewById(R.id.BTN_Delete);
         }
     }
 }
-
-
