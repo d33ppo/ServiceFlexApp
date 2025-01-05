@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsumerHomeFragment2 extends Fragment {
+public class ConsumerHomeFragment2 extends Fragment{
 
     private DatabaseReference databaseReference;
     private String selectedCategory;
@@ -43,17 +43,17 @@ public class ConsumerHomeFragment2 extends Fragment {
     private ProviderAdapter adapter;
     private List<Provider> providerList;
 
+    private NavController navController;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_consumer_home2, container, false);
 
         // Initialize DatabaseReference
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        // Retrieve the selected category from the arguments
         if (getArguments() != null) {
             selectedCategory = getArguments().getString("category");
+            databaseReference = FirebaseDatabase.getInstance().getReference("Provider").child(selectedCategory);
         }
 
         // Set the category title
@@ -63,13 +63,13 @@ public class ConsumerHomeFragment2 extends Fragment {
         }
 
         // Initialize RecyclerView
-        recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView = view.findViewById(R.id.RV_ProviderMiniInfo);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Initialize data list and adapter
+        // Initialize provider list and adapter
         providerList = new ArrayList<>();
-        NavController navController = Navigation.findNavController(view); // Get the NavController here
-        adapter = new ProviderAdapter(providerList, navController); // Pass NavController to Adapter
+        navController = Navigation.findNavController(getActivity(), R.id.consumer_nav_host_fragment); // Get the NavController here
+        adapter = new ProviderAdapter(getActivity(), providerList/*, navController*/, selectedCategory);
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -79,61 +79,48 @@ public class ConsumerHomeFragment2 extends Fragment {
     }
 
     private void fetchAndDisplayData() {
-        databaseReference.child("Provider/category/" + selectedCategory)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        providerList.clear();
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                String firstName = snapshot.child("firstName").getValue(String.class);
-                                String priceRange = snapshot.child("priceRange").getValue(String.class);
-                                String imageURL = snapshot.child("imageURL").getValue(String.class);
-                                String rating = snapshot.child("rating").getValue(String.class);
-                                String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                providerList.clear();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String providerID = snapshot.getKey();
+                        String firstName = snapshot.child("firstName").getValue(String.class);
+                        String priceRange = snapshot.child("priceRange").getValue(String.class);
+                        String imageURL = snapshot.child("imageURL").getValue(String.class);
+                        String rating = snapshot.child("rating").getValue(String.class);
+                        String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
 
-                                Provider provider = new Provider(firstName, priceRange, imageURL, rating, yearsOfExperience);
-                                providerList.add(provider);
-                            }
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Log.e("RealtimeDB", "No providers found for category: " + selectedCategory);
-                        }
+                        Provider provider = new Provider(providerID,firstName, priceRange, imageURL, rating, yearsOfExperience);
+                        providerList.add(provider);
                     }
+                    // Notify adapter after data is updated
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("RealtimeDB", "No providers found for category: " + selectedCategory);
+                }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e("RealtimeDB", "Error: " + databaseError.getMessage());
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("RealtimeDB", "Error: " + databaseError.getMessage());
+            }
+        });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adapter.setNavController(navController);
         ImageButton previousButton = view.findViewById(R.id.IB_Previous7);
         previousButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
+            navController = Navigation.findNavController(view);
             navController.popBackStack();
-        });
+        })
+
+        ;
     }
 
-    private void navigateToProviderDetails(View view, Provider provider) {
-        NavController navController = Navigation.findNavController(view);
-        Bundle bundle = new Bundle();
-
-        // Pass the category
-        bundle.putString("category", selectedCategory);
-
-        // Pass provider-specific data if needed
-        bundle.putString("providerId", provider.getProviderId());
-        bundle.putString("name", provider.getFirstName());
-        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
-        bundle.putString("rating", provider.getRating());
-        bundle.putString("priceRange", provider.getPriceRange());
-        bundle.putString("imageUrl", provider.getImageURL());
-
-        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
-    }
 }

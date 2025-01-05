@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.serviceflexapp.R;
+import com.example.serviceflexapp.database.Provider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -35,10 +43,14 @@ import java.util.Map;
 public class ConsumerBookingsFragment2 extends Fragment {
 
     private CalendarView calendarView;
+
+    Provider provider;
+
+    private DatabaseReference databaseReference;
     private TimePicker timePicker;
     private Button confirmButton;
     private FirebaseFirestore firestore;
-    private List<String> providerAvailability;
+    private List providerAvailability;
 
     public ConsumerBookingsFragment2() {
         // Required empty public constructor
@@ -93,12 +105,23 @@ public class ConsumerBookingsFragment2 extends Fragment {
                 Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Handle navigation to the next fragment
+// Handle navigation to the next fragment
         Button nextConfirmButton = view.findViewById(R.id.BTN_Confirm);
         nextConfirmButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3);
+            Bundle args = getArguments();
+            if (args != null) {
+                String providerId = args.getString("providerId");
+                if (providerId != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("providerId", providerId);
+                    NavController navController = Navigation.findNavController(view);
+                    navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3, bundle);
+                } else {
+                    Toast.makeText(getContext(), "Error: Provider ID not found", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Error: Arguments are null", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Handle navigation back to the previous fragment
@@ -113,8 +136,30 @@ public class ConsumerBookingsFragment2 extends Fragment {
         // Retrieve the selected category from the arguments
         Bundle args = getArguments();
         String providerId = args.getString("providerId");
+        String category = args.getString("category");
 
-        firestore.collection("Provider")
+        databaseReference = FirebaseDatabase.getInstance().getReference("Provider").child(category).child(providerId).child("availability");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Define the GenericTypeIndicator for List<String> (or any other type you expect)
+                    GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
+
+                    // Retrieve the list using the GenericTypeIndicator
+                    providerAvailability = snapshot.getValue(genericTypeIndicator);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("RealtimeDB", "Error: " + error.getMessage());
+            }
+        });
+
+
+
+        /*firestore.collection("Provider/"+category)
                 .document(providerId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -127,7 +172,7 @@ public class ConsumerBookingsFragment2 extends Fragment {
                         }
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to load provider availability.", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to load provider availability.", Toast.LENGTH_SHORT).show());*/
     }
 
     private void saveBookingData(String dateTime) {
@@ -146,4 +191,7 @@ public class ConsumerBookingsFragment2 extends Fragment {
                     Toast.makeText(getContext(), "Failed to save booking", Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 }
+

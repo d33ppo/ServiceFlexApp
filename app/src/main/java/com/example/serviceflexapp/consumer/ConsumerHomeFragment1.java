@@ -48,10 +48,10 @@ public class ConsumerHomeFragment1 extends Fragment {
         LL_CategoryMaid = view.findViewById(R.id.LL_CategoryMaid);
 
         // Set up click listeners for categories
-        LL_CategoryPlumber.setOnClickListener(v -> inflateCheck(view, "plumber"));
-        LL_CategoryElectrician.setOnClickListener(v -> inflateCheck(view, "electrician"));
-        LL_CategoryBarber.setOnClickListener(v -> inflateCheck(view, "barber"));
-        LL_CategoryMaid.setOnClickListener(v -> inflateCheck(view, "maid"));
+        LL_CategoryPlumber.setOnClickListener(v -> inflateCheck(view, "Plumber"));
+        LL_CategoryElectrician.setOnClickListener(v -> inflateCheck(view, "Electrician"));
+        LL_CategoryBarber.setOnClickListener(v -> inflateCheck(view, "Barber"));
+        LL_CategoryMaid.setOnClickListener(v -> inflateCheck(view, "Maid"));
     }
 
     private void navigateToCategory(View view, String category) {
@@ -59,12 +59,12 @@ public class ConsumerHomeFragment1 extends Fragment {
         NavController navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
         bundle.putString("category", category);
-        navController.navigate(R.id.action_consumerHomeFragment1_to_consumerHomeFragment2, bundle);
+        navController.navigate(R.id.action_consumerHomeFragment_to_consumerHomeFragment2, bundle);
     }
 
     private void inflateCheck(View view, String category) {
         // Reference to Firebase database for the selected category
-        DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("categories").child(category);
+        DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference("Provider/"  + category);
 
         categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

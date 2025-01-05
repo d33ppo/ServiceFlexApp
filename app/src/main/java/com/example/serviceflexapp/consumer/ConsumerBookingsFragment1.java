@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.serviceflexapp.R;
@@ -85,12 +86,19 @@ public class ConsumerBookingsFragment1 extends Fragment {
 
             // Retrieve the selected category from the arguments
             Bundle args = getArguments();
-            String providerId = args.getString("providerId");
+            if (args != null) {
+                String providerId = args.getString("providerId");
+                String category = args.getString("category");
 
-            // Pass the provider ID to the next fragment
-            Bundle bundle = new Bundle();
-            bundle.putString("providerId", providerId);
-            navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2);
+                // Pass the provider ID to the next fragment
+                Bundle bundle = new Bundle();
+                bundle.putString("providerId", providerId);
+                bundle.putString("category", category);
+                navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2, bundle);
+            }
+            else {
+                Toast.makeText(getContext(), "Error: Provider ID not found", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
