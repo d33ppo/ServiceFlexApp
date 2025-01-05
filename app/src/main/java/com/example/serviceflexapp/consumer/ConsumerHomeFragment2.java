@@ -43,6 +43,8 @@ public class ConsumerHomeFragment2 extends Fragment{
     private ProviderAdapter adapter;
     private List<Provider> providerList;
 
+    private NavController navController;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,8 +68,8 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         // Initialize provider list and adapter
         providerList = new ArrayList<>();
-        //NavController navController = Navigation.findNavController(view); // Get the NavController here
-        adapter = new ProviderAdapter(getActivity(), providerList);
+        navController = Navigation.findNavController(getActivity(), R.id.consumer_nav_host_fragment); // Get the NavController here
+        adapter = new ProviderAdapter(getActivity(), providerList/*, navController*/, selectedCategory);
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -83,13 +85,14 @@ public class ConsumerHomeFragment2 extends Fragment{
                 providerList.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String providerID = snapshot.getKey();
                         String firstName = snapshot.child("firstName").getValue(String.class);
                         String priceRange = snapshot.child("priceRange").getValue(String.class);
                         String imageURL = snapshot.child("imageURL").getValue(String.class);
                         String rating = snapshot.child("rating").getValue(String.class);
                         String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
 
-                        Provider provider = new Provider(firstName, priceRange, imageURL, rating, yearsOfExperience);
+                        Provider provider = new Provider(providerID,firstName, priceRange, imageURL, rating, yearsOfExperience);
                         providerList.add(provider);
                     }
                     // Notify adapter after data is updated
@@ -110,9 +113,10 @@ public class ConsumerHomeFragment2 extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adapter.setNavController(navController);
         ImageButton previousButton = view.findViewById(R.id.IB_Previous7);
         previousButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
+            navController = Navigation.findNavController(view);
             navController.popBackStack();
         })
 
@@ -120,7 +124,7 @@ public class ConsumerHomeFragment2 extends Fragment{
     }
 
     private void navigateToProviderDetails(View view, Provider provider) {
-        NavController navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
 
         // Pass the category

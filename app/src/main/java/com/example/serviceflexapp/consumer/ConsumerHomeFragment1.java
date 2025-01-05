@@ -59,7 +59,7 @@ public class ConsumerHomeFragment1 extends Fragment {
         NavController navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
         bundle.putString("category", category);
-        navController.navigate(R.id.action_consumerHomeFragment1_to_consumerHomeFragment2, bundle);
+        navController.navigate(R.id.action_consumerHomeFragment_to_consumerHomeFragment2, bundle);
     }
 
     private void inflateCheck(View view, String category) {
