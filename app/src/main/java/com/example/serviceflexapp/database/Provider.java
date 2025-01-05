@@ -67,6 +67,26 @@ public class Provider {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    //Constructor for Consumer Home Fragment2version2
+    public Provider(String providerId,String firstName, String priceRange, String imageURL, String rating, String yearsOfExperience) {
+        this.providerId = providerId;
+        this.firstName = firstName;
+        this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.rating = rating;
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    //Constructor for Consumer Booking Fragment 2
+    public Provider(String firstName, String priceRange, String imageURL, String rating, String yearsOfExperience, List<String> availability) {
+        this.firstName = firstName;
+        this.priceRange = priceRange;
+        this.imageURL = imageURL;
+        this.rating = rating;
+        this.yearsOfExperience = yearsOfExperience;
+        this.availability = availability;
+    }
+
     // Getters and setters for all fields
     public String getProviderId() {
         return providerId;

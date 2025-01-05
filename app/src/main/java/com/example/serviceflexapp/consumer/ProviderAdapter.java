@@ -2,6 +2,7 @@ package com.example.serviceflexapp.consumer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,13 +24,16 @@ import java.util.List;
 public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> {
 
     Activity activity;
-    //private final NavController navController; // NavController for navigation
+    private NavController navController = null; // NavController for navigation
     private final List<Provider> providers;
 
+    private String selectedCategory;
 
-    public ProviderAdapter(Activity activity, List<Provider> providers /*, NavController navController*/) {
+
+    public ProviderAdapter(Activity activity, List<Provider> providers /*, NavController navController*/, String selectedCategory) {
         this.providers = providers;
         //this.navController = navController;
+        this.selectedCategory = selectedCategory;
         this.activity = activity;
     }
 
@@ -59,17 +64,21 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         // Set up item click listener for navigation
         holder.itemView.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putString("providerId", provider.getProviderId()); // Pass provider ID to fetch detailed data later
+            bundle.putString("providerId", provider.getProviderId());
             bundle.putString("name", provider.getFirstName());
             bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
             bundle.putString("rating", provider.getRating());
             bundle.putString("priceRange", provider.getPriceRange());
             bundle.putString("imageURL", provider.getImageURL());
+            bundle.putString("category", selectedCategory);
+            Log.d("ProviderAdapter", "Navigating to ConsumerBookingsFragment with data: " + bundle);
 
-            // Trigger navigation to ConsumerBookingsFragment1 with the bundle
-            //navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
+
+            // Trigger navigation to ConsumerBookingsFragment
+            navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -94,5 +103,9 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             starRatingTextView = itemView.findViewById(R.id.TV_ProviderStar1);
 
         }
+    }
+
+    public void setNavController(NavController navController){
+        this.navController = navController;
     }
 }

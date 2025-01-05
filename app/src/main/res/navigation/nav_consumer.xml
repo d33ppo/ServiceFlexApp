@@ -58,13 +58,13 @@
         android:label="fragment_consumer_home"
         tools:layout="@layout/fragment_consumer_home1">
         <action
-            android:id="@+id/action_consumerHomeFragment1_to_consumerProfileFragment2"
+            android:id="@+id/action_consumerHomeFragment_to_consumerProfileFragment2"
             app:destination="@id/consumerProfileFragment" />
         <action
-            android:id="@+id/action_consumerHomeFragment1_to_consumerInboxFragment"
+            android:id="@+id/action_consumerHomeFragment_to_consumerInboxFragment"
             app:destination="@id/consumerInboxFragment" />
         <action
-            android:id="@+id/action_consumerHomeFragment1_to_consumerHomeFragment2"
+            android:id="@+id/action_consumerHomeFragment_to_consumerHomeFragment2"
             app:destination="@id/consumerHomeFragment2" />
         <action
             android:id="@+id/action_consumerHomeFragment_to_consumerUpcomingBookings"
