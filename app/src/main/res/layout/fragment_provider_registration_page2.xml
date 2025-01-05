@@ -161,8 +161,8 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/white_square"
                 android:ems="10"
+                android:hint="  Qualifications"
                 android:inputType="text"
-                android:text="  Qualifications"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TV_Qualifications" />

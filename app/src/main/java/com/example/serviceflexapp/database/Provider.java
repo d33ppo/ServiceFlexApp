@@ -15,14 +15,17 @@ public class Provider {
     private String yearsOfExperience;
     private String rating;
     private String qualifications;
-    private String[] availability; // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
+    private List<String> availability;  // String array for availability (e.g., ["Monday", "Wednesday", "Friday"])
+    private String fcmToken; // New field
+
+    private String categories;
 
     // Default constructor required for calls to DataSnapshot.getValue(Provider.class)
     public Provider() {
     }
 
     // Constructor with all fields
-    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String imageURL, String yearsOfExperience, String rating, String qualifications, String[] availability) {
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String imageURL, String yearsOfExperience, String rating, String qualifications, List<String> availability, String categories) {
         this.providerId = providerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,10 +39,11 @@ public class Provider {
         this.rating = rating;
         this.qualifications = qualifications;
         this.availability = availability;
+        this.categories = categories;
     }
 
     //Constructor for ProviderRegistrationPage2Fragment
-    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, String[] availability) {
+    public Provider(String providerId, String firstName, String lastName, String phoneNumber, String email, String address, int age, String priceRange, String qualifications, List<String> availability, String fcmToken, String categories) {
         this.providerId = providerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +54,8 @@ public class Provider {
         this.priceRange = priceRange;
         this.qualifications = qualifications;
         this.availability = availability;
+        this.fcmToken = fcmToken;
+        this.categories = categories;
     }
 
     //Constructor for Consumer Home Fragment2
@@ -142,7 +148,15 @@ public class Provider {
 
     public void setQualifications(String qualifications) {this.qualifications = qualifications;}
 
-    public String[] getAvailability() {return availability;}
+    public List<String> getAvailability() {return availability;}
 
-    public void setAvailability(String[] availability) {this.availability = availability;}
+    public void setAvailability(List<String> availability) {this.availability = availability;}
+
+    public String getFcmToken() {return fcmToken;}
+
+    public void setFcmToken(String fcmToken) {this.fcmToken = fcmToken;}
+
+    public String getCategories() {return categories;}
+
+    public void setCategories(String categories) {this.categories = categories;}
 }

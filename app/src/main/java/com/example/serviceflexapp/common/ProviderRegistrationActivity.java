@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.serviceflexapp.R;
+import com.example.serviceflexapp.provider.ProviderHomeFragment;
 import com.example.serviceflexapp.provider.ProviderMainActivity;
 
 public class ProviderRegistrationActivity extends AppCompatActivity {

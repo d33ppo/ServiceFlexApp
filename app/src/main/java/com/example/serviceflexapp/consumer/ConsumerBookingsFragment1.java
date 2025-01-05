@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ConsumerBookingsFragment1 extends Fragment {
 
@@ -52,7 +53,6 @@ public class ConsumerBookingsFragment1 extends Fragment {
             String providerId = args.getString("providerId");
             String providerName = args.getString("name");
             String providerYearsOfExperience = args.getString("yearsOfExperience");
-            String providerQualifications = args.getString("qualifications");
             String providerRating = args.getString("rating");
             String providerPriceRange = args.getString("priceRange");
             String providerImageUrl = args.getString("imageUrl");
@@ -82,6 +82,14 @@ public class ConsumerBookingsFragment1 extends Fragment {
         Button bookNowButton = view.findViewById(R.id.button2);
         bookNowButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(view);
+
+            // Retrieve the selected category from the arguments
+            Bundle args = getArguments();
+            String providerId = args.getString("providerId");
+
+            // Pass the provider ID to the next fragment
+            Bundle bundle = new Bundle();
+            bundle.putString("providerId", providerId);
             navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2);
         });
     }
@@ -94,17 +102,18 @@ public class ConsumerBookingsFragment1 extends Fragment {
         providerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String available = "";
                 if (snapshot.exists()) {
                     // Extract additional data
                     String qualifications = snapshot.child("qualifications").getValue(String.class);
-                    String[] availabilityArray = snapshot.child("availability").getValue(String[].class); // Assuming availability stored as array
+                    List<String> availabilityArray = snapshot.child("availability").getValue(List.class); // Assuming availability stored as array
 
-                    // Convert availability array to string
-                    String availabilityString = availabilityArray != null ? Arrays.toString(availabilityArray).replace("[", "").replace("]", "") : "Not Available";
-
+                    for(int n=0; n<availabilityArray.size();n++){
+                        available = available + availabilityArray.get(n) + ", ";
+                    }
                     // Update UI components
                     qualificationsTextView.setText(qualifications != null ? qualifications : "No qualifications available");
-                    availabilityTextView.setText("Available on: " + availabilityString);
+                    availabilityTextView.setText("Available on: " + available);
                 }
             }
 

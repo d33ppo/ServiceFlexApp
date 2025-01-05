@@ -28,7 +28,7 @@
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="4dp"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -81,6 +81,7 @@
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/orange_square"
+                    android:clickable="true"
                     android:orientation="vertical"
                     android:padding="5dp">
 
@@ -112,6 +113,7 @@
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/orange_square"
+                    android:clickable="true"
                     android:orientation="vertical"
                     android:padding="5dp">
 
@@ -142,6 +144,7 @@
                     android:layout_height="140dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/orange_square"
+                    android:clickable="true"
                     android:orientation="vertical"
                     android:padding="5dp">
 
