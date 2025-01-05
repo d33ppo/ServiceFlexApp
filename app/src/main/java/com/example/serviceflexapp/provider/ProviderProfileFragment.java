@@ -3,6 +3,7 @@ package com.example.serviceflexapp.provider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.auth.FirebaseUtil;
+import com.example.serviceflexapp.common.LoginActivity;
 import com.example.serviceflexapp.consumer.ConsumerMainActivity;
 import com.example.serviceflexapp.database.Provider;
 import com.example.serviceflexapp.model.ProviderModel;
@@ -40,7 +42,7 @@ public class ProviderProfileFragment extends Fragment {
 
     private DatabaseReference db;
     private FirebaseAuth firebaseAuth;
-    private String firstName, lastName;
+    private Button logout;
 
 
     @Override
@@ -50,6 +52,7 @@ public class ProviderProfileFragment extends Fragment {
         profileName=view.findViewById(R.id.TV_Name);
         username=view.findViewById(R.id.TV_Username);
         eWalletbalance=view.findViewById(R.id.TV_Ewallet);
+        logout=view.findViewById(R.id.btnLogout);
         db= FirebaseDatabase.getInstance().getReference("Provider");
         firebaseAuth=FirebaseAuth.getInstance();
 
@@ -65,6 +68,17 @@ public class ProviderProfileFragment extends Fragment {
         getUserData("firstName", "lastName", profileName);
         getUserData("firstName", username);
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseAuth.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(getActivity(), "Logout Successful !", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
     private void getUserData(String field, TextView text){
         FirebaseUser user = firebaseAuth.getCurrentUser();
