@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ConsumerBookingsFragment1 extends Fragment {
@@ -39,11 +40,12 @@ public class ConsumerBookingsFragment1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_consumer_bookings1, container, false);
 
         // Initialize UI components
+        TextView providerSelectedCategoryTextView = rootView.findViewById(R.id.TV_Category);
         TextView providerNameTextView = rootView.findViewById(R.id.TV_Name);
-        TextView providerExperienceTextView = rootView.findViewById(R.id.TV_YearsOfExperience);
+        TextView providerAgeTextView = rootView.findViewById(R.id.TV_Age1);
         TextView providerQualificationsTextView = rootView.findViewById(R.id.TV_Education);
         TextView providerAvailabilityTextView = rootView.findViewById(R.id.TV_Availability);
-        TextView providerRatingTextView = rootView.findViewById(R.id.TV_ProviderRating);
+        TextView providerEmailTextView = rootView.findViewById(R.id.TV_ProviderEmail);
         TextView providerPricingTextView = rootView.findViewById(R.id.TV_Pricing);
         ImageView providerImageView = rootView.findViewById(R.id.imageView);
 
@@ -52,24 +54,27 @@ public class ConsumerBookingsFragment1 extends Fragment {
         if (args != null) {
             String providerId = args.getString("providerId");
             String providerName = args.getString("name");
-            String providerYearsOfExperience = args.getString("yearsOfExperience");
-            String providerRating = args.getString("rating");
+            Integer providerAge = args.getInt("age");
+            String providerEmail = args.getString("email");
             String providerPriceRange = args.getString("priceRange");
             String providerImageUrl = args.getString("imageUrl");
+            String selectedCategory = args.getString("category");
 
             // Set the data in the UI components
-            providerNameTextView.setText(providerName);
-            providerExperienceTextView.setText(providerYearsOfExperience + " years of experience");
-            providerRatingTextView.setText("Rating: " + providerRating);
-            providerPricingTextView.setText("Pricing Range: " + providerPriceRange);  // Set the pricing value
+            providerSelectedCategoryTextView.setText(selectedCategory);
+            providerNameTextView.setText("Name: " + providerName);
+            providerAgeTextView.setText("Age: " + providerAge + " years old");
+            providerEmailTextView.setText("Email: " + providerEmail);
+            providerPricingTextView.setText("Pricing Range: RM " + providerPriceRange);  // Set the pricing value
 
             // Load the provider image using Glide
             Glide.with(requireContext())
                     .load(providerImageUrl)
+                    .placeholder(R.drawable.profile_circle_icon) // Optional placeholder
                     .into(providerImageView);
 
             // Fetch additional data (qualifications and availability) from Firebase
-            fetchAdditionalData(providerId, providerQualificationsTextView, providerAvailabilityTextView);
+            fetchAdditionalData(providerId, providerQualificationsTextView, providerAvailabilityTextView, selectedCategory);
         }
 
         return rootView;
@@ -78,6 +83,13 @@ public class ConsumerBookingsFragment1 extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Set up the navigation controller
+        ImageButton previousButton = view.findViewById(R.id.IB_Previous8);
+        previousButton.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.popBackStack();
+        });
 
         Button bookNowButton = view.findViewById(R.id.button2);
         bookNowButton.setOnClickListener(v -> {
@@ -96,10 +108,10 @@ public class ConsumerBookingsFragment1 extends Fragment {
         });
     }
 
-    private void fetchAdditionalData(String providerId, TextView qualificationsTextView, TextView availabilityTextView) {
+    private void fetchAdditionalData(String providerId, TextView qualificationsTextView, TextView availabilityTextView, String selectedCategory) {
         if (providerId == null) return;
 
-        DatabaseReference providerRef = FirebaseDatabase.getInstance().getReference("providers").child(providerId);
+        DatabaseReference providerRef = FirebaseDatabase.getInstance().getReference("Provider").child(selectedCategory).child(providerId);
 
         providerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -108,13 +120,17 @@ public class ConsumerBookingsFragment1 extends Fragment {
                 if (snapshot.exists()) {
                     // Extract additional data
                     String qualifications = snapshot.child("qualifications").getValue(String.class);
-                    List<String> availabilityArray = snapshot.child("availability").getValue(List.class); // Assuming availability stored as array
+                    GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
+                    List<String> availabilityArray = snapshot.child("availability").getValue(genericTypeIndicator);
 
-                    for(int n=0; n<availabilityArray.size();n++){
-                        available = available + availabilityArray.get(n) + ", ";
+                    for (int n = 0; n < availabilityArray.size(); n++) {
+                        available += availabilityArray.get(n);
+                        if (n < availabilityArray.size() - 1) {
+                            available += ", "; // Add a comma only if it's not the last element
+                        }
                     }
                     // Update UI components
-                    qualificationsTextView.setText(qualifications != null ? qualifications : "No qualifications available");
+                    qualificationsTextView.setText("Qualifications: " + (qualifications != null ? qualifications : "No qualifications available"));
                     availabilityTextView.setText("Available on: " + available);
                 }
             }

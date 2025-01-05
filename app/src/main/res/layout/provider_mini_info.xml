@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/brad_pitt" />
+                android:src="@drawable/profile_circle_icon" />
 
             <TextView
                 android:id="@+id/TV_ProviderName1"
@@ -50,19 +50,19 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/TV_ProviderYearsOfExperience1"
+                android:id="@+id/TV_ProviderAge1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Years of Experience"
+                android:text="Age"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TV_ProviderStar1"
+                android:id="@+id/TV_ProviderEmail1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Star Rating"
+                android:text="Email"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />

@@ -10,6 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/IB_Previous8"
+            android:layout_width="84dp"
+            android:layout_height="58dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="NULL"
+            android:src="?attr/actionModeCloseDrawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/TV_Category"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="367dp"
             android:layout_height="582dp"
@@ -52,11 +66,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/TV_YearsOfExperience"
+                    android:id="@+id/TV_Age1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Years of Experience"
+                    android:text="Age"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -82,11 +96,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/TV_ProviderRating"
+                    android:id="@+id/TV_ProviderEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Many stars"
+                    android:text="Email"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
