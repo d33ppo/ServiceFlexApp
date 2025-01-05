@@ -123,23 +123,4 @@ public class ConsumerHomeFragment2 extends Fragment{
         ;
     }
 
-    private void navigateToProviderDetails(View view, Provider provider) {
-        navController = Navigation.findNavController(view);
-        Bundle bundle = new Bundle();
-
-        // Pass the category
-        bundle.putString("category", selectedCategory);
-
-        // Pass provider-specific data if needed
-        bundle.putString("providerId", provider.getProviderId());
-        bundle.putString("name", provider.getFirstName());
-        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
-        bundle.putString("rating", provider.getRating());
-        bundle.putString("priceRange", provider.getPriceRange());
-        bundle.putString("imageUrl", provider.getImageURL());
-
-        navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
-    }
-
-
 }
