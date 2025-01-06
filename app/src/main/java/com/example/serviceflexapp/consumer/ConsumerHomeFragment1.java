@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.serviceflexapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 public class ConsumerHomeFragment1 extends Fragment {
 
     private LinearLayout LL_CategoryPlumber, LL_CategoryElectrician, LL_CategoryBarber, LL_CategoryMaid;
+
+    private String consumerId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +62,7 @@ public class ConsumerHomeFragment1 extends Fragment {
         // Use NavController to pass the category to the next fragment
         NavController navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
+        bundle.putString("consumerId", getConsumerId());
         bundle.putString("category", category);
         navController.navigate(R.id.action_consumerHomeFragment_to_consumerHomeFragment2, bundle);
     }
@@ -84,5 +89,16 @@ public class ConsumerHomeFragment1 extends Fragment {
                 Toast.makeText(requireContext(), "Error checking services: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static String getConsumerId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // You can fetch additional consumer data from Firestore or use the Firebase user ID
+            return user.getUid();  // This is the Firebase user ID, which can act as the consumer ID
+        } else {
+            // Handle error: User not logged in
+            return null;
+        }
     }
 }

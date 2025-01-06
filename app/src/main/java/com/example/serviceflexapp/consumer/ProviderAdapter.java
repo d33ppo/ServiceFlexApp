@@ -29,12 +29,14 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
 
     private String selectedCategory;
 
+    private String consumerId;
 
-    public ProviderAdapter(Activity activity, List<Provider> providers /*, NavController navController*/, String selectedCategory) {
+    public ProviderAdapter(Activity activity, List<Provider> providers /*, NavController navController*/, String selectedCategory, String consumerId) {
         this.providers = providers;
         //this.navController = navController;
         this.selectedCategory = selectedCategory;
         this.activity = activity;
+        this.consumerId = consumerId;
     }
 
     @NonNull
@@ -64,6 +66,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         // Set up item click listener for navigation
         holder.itemView.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
+            bundle.putString("consumerId", consumerId);
             bundle.putString("providerId", provider.getProviderId());
             bundle.putString("name", provider.getFirstName());
             bundle.putInt("age", provider.getAge());

@@ -44,7 +44,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.deleteButton.setOnClickListener(v -> {
             String userId = FirebaseAuth.getInstance().getUid();
             String messageId = message.getMessageId();
-            deleteMessageFromFirestore(userId, messageId, position);
+            if (userId == null) {
+                Log.e("DeleteError", "userId is null");
+            } else if (messageId == null) {
+                Log.e("DeleteError", "messageId is null");
+            } else {
+                deleteMessageFromFirestore(userId, messageId, position);
+            }
         });
     }
 
@@ -69,8 +75,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         messageDocRef.delete()
                 .addOnSuccessListener(aVoid -> {
                     Log.d("DeleteSuccess", "Message deleted successfully.");
-                    messages.remove(position);
-                    notifyItemRemoved(position);
+
+                    // Check if the position is valid
+                    if (position >= 0 && position < messages.size()) {
+                        messages.remove(position);
+                        notifyItemRemoved(position);
+                    } else {
+                        Log.e("DeleteError", "Invalid position: " + position);
+                    }
                 })
                 .addOnFailureListener(e -> {
                     Log.e("DeleteError", "Failed to delete message", e);

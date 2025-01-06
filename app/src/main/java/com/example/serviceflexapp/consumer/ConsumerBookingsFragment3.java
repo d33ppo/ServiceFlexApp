@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,23 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.serviceflexapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConsumerBookingsFragment3 extends Fragment {
 
     private RadioButton rbEWallet, rbCreditDebitCard, rbOnlineBanking, rbGPay, rbCash;
     private Button finishButton;
+
+    // Initialize Firestore
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public ConsumerBookingsFragment3() {
         // Required empty public constructor
@@ -41,6 +54,13 @@ public class ConsumerBookingsFragment3 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Retrieve providerId from arguments
+        String providerId = getArguments() != null ? getArguments().getString("providerId") : null;
+        if (providerId == null) {
+            Toast.makeText(getContext(), "Provider ID is missing.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Initialize UI components
         rbEWallet = view.findViewById(R.id.RB_EWallet);
         rbCreditDebitCard = view.findViewById(R.id.RB_CreditDebitCard);
@@ -52,19 +72,21 @@ public class ConsumerBookingsFragment3 extends Fragment {
         // Handle the Finish button click
         finishButton.setOnClickListener(v -> {
             if (rbEWallet.isChecked()) {
-                proceedToPayment("E-Wallet");
+                proceedToPayment("E-Wallet",providerId);
             } else if (rbCreditDebitCard.isChecked()) {
-                proceedToPayment("Credit/Debit Card");
+                proceedToPayment("Credit/Debit Card",providerId);
             } else if (rbOnlineBanking.isChecked()) {
-                proceedToPayment("Online Banking");
+                proceedToPayment("Online Banking",providerId);
             } else if (rbGPay.isChecked()) {
-                proceedToPayment("Google Pay");
+                proceedToPayment("Google Pay",providerId);
             } else if (rbCash.isChecked()) {
-                proceedToPayment("Cash");
+                proceedToPayment("Cash",providerId);
             } else {
                 // If no payment method is selected
                 Toast.makeText(getContext(), "Please select a payment method", Toast.LENGTH_SHORT).show();
             }
+
+            uploadAppointment(getArguments());
         });
 
         // Handle navigation to the previous fragment
@@ -75,12 +97,84 @@ public class ConsumerBookingsFragment3 extends Fragment {
         });
     }
 
-    private void proceedToPayment(String paymentMethod) {
+    private void proceedToPayment(String paymentMethod, String providerId) {
         // Handle the payment process based on the selected payment method
         Toast.makeText(getContext(), "Proceeding with " + paymentMethod, Toast.LENGTH_SHORT).show();
+
+        // Save the message to the provider's inbox
+        saveMessageToProviderInbox(paymentMethod, providerId);
 
         // Navigate to the next fragment or start payment process here
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerHomeFragment);
+    }
+
+    private void uploadAppointment(Bundle bundle) {
+        if (bundle != null) {
+            // Retrieve data from the bundle
+            String providerId = bundle.getString("providerId");
+            String consumerId = bundle.getString("consumerId"); // Assuming you have this in the bundle
+            String selectedDate = bundle.getString("date"); //
+            String selectedTime = bundle.getString("time");
+
+            Log.d("Bundle received","Bundle: " + bundle);
+            // Create a map for the appointment data
+            Map<String, Object> appointmentData = new HashMap<>();
+            appointmentData.put("bookingDate", selectedDate); // Store the formatted date
+            appointmentData.put("bookingTime", selectedTime); // Store the time
+            appointmentData.put("consumerId", consumerId); // Store the consumer ID
+
+            // Upload the appointment data to Firestore
+            firestore.collection("providers")
+                    .document(providerId)
+                    .collection("appointment")
+                    .document()
+                    .set(appointmentData)
+                    .addOnSuccessListener(documentReference -> {
+                        // Appointment uploaded successfully
+                        Toast.makeText(getContext(), "Appointment booked successfully!", Toast.LENGTH_SHORT).show();
+                    });
+        }
+    }
+
+    private void saveMessageToProviderInbox(String paymentMethod, String providerId) {
+        // Get the current logged-in consumer's ID
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String consumerId = currentUser != null ? currentUser.getUid() : null;
+
+        if (consumerId == null) {
+            // Handle the case when there is no logged-in user
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String message = "Booking confirmed with payment method: " + paymentMethod;
+
+        // Get the Firebase instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+// Create a new message reference with a generated ID
+        DocumentReference newMessageRef = db.collection("providers")
+                .document(providerId)
+                .collection("messages")
+                .document();  // This generates a unique document ID
+
+        String messageId = newMessageRef.getId();
+
+        Map<String, Object> messageData = new HashMap<>();
+        messageData.put("consumerName", currentUser.getDisplayName());
+        messageData.put("consumerId", consumerId);
+        messageData.put("providerId", providerId);
+        messageData.put("messageId", messageId);
+        messageData.put("message", message);
+        messageData.put("timestamp", System.currentTimeMillis());
+
+        newMessageRef.set(messageData)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Message sent to provider's inbox", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to send message to provider's inbox", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

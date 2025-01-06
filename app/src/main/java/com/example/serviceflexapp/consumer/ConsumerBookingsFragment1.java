@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.serviceflexapp.R;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ConsumerBookingsFragment1 extends Fragment {
@@ -97,14 +99,20 @@ public class ConsumerBookingsFragment1 extends Fragment {
 
             // Retrieve the selected category from the arguments
             Bundle args = getArguments();
-            String providerId = args.getString("providerId");
-            String category = args.getString("category");
+            if (args != null) {
+                String consumerId = args.getString("consumerId");
+                String providerId = args.getString("providerId");
+                String category = args.getString("category");
 
-            // Pass the provider ID to the next fragment
-            Bundle bundle = new Bundle();
-            bundle.putString("providerId", providerId);
-            bundle.putString("category", category);
-            navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2, bundle);
+                // Pass the provider ID to the next fragment
+                Bundle bundle = new Bundle();
+                bundle.putString("consumerId", consumerId);
+                bundle.putString("providerId", providerId);
+                bundle.putString("category", category);
+                navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2, bundle);
+            } else {
+                Toast.makeText(getContext(), "Error: Provider ID not found", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

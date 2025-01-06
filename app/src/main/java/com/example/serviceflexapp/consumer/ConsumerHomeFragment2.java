@@ -43,6 +43,8 @@ public class ConsumerHomeFragment2 extends Fragment{
     private ProviderAdapter adapter;
     private List<Provider> providerList;
 
+    private String consumerId;
+
     private NavController navController;
 
     @Override
@@ -53,6 +55,7 @@ public class ConsumerHomeFragment2 extends Fragment{
         // Initialize DatabaseReference
         if (getArguments() != null) {
             selectedCategory = getArguments().getString("category");
+            consumerId = getArguments().getString("consumerId");
             databaseReference = FirebaseDatabase.getInstance().getReference("Provider").child(selectedCategory);
         }
 
@@ -69,7 +72,7 @@ public class ConsumerHomeFragment2 extends Fragment{
         // Initialize provider list and adapter
         providerList = new ArrayList<>();
         navController = Navigation.findNavController(getActivity(), R.id.consumer_nav_host_fragment); // Get the NavController here
-        adapter = new ProviderAdapter(getActivity(), providerList/*, navController*/, selectedCategory);
+        adapter = new ProviderAdapter(getActivity(), providerList/*, navController*/, selectedCategory, consumerId);
         recyclerView.setAdapter(adapter);
 
         // Fetch and display data based on the selected category
@@ -122,7 +125,6 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         ;
     }
-
     private void navigateToProviderDetails(View view, Provider provider) {
         navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
@@ -140,6 +142,5 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
     }
-
 
 }
