@@ -70,16 +70,23 @@ public class ConsumerBookingsFragment2 extends Fragment {
 
             // Get selected date and time
 
+            String selectedDay = "";
+            boolean check = false;
 
             int selectedHour = timePicker.getHour();
             int selectedMinute = timePicker.getMinute();
 
-            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-            String selectedDay = dayFormat.format(calendar[0].getTime());
-            Log.d("Day", "Day: "+ selectedDay);
-
+            if(calendar[0] == null){
+                Toast.makeText(getContext(), "Please select a date.", Toast.LENGTH_SHORT).show();
+                check = false;
+            } else {
+                SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+                selectedDay = dayFormat.format(calendar[0].getTime());
+                Log.d("Day", "Day: " + selectedDay);
+                check = true;
+            }
             // Check availability
-            checkProviderAvailability(calendar[0], selectedDay, selectedHour, selectedMinute);
+            if(check == true)checkProviderAvailability(calendar[0], selectedDay, selectedHour, selectedMinute);
         });
 
         // Handle navigation back to the previous fragment
@@ -110,38 +117,52 @@ public class ConsumerBookingsFragment2 extends Fragment {
         // Log the providerId and category
         Log.d("LoadProviderAvailability", "Provider ID: " + providerId);
         Log.d("LoadProviderAvailability", "Category: " + category);
+        Log.d("Today date time", "Date: "+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.MONTH)+"/"+(calendar.get(Calendar.YEAR) - 1900)+" Time: "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Provider").child(category).child(providerId).child("availability");
+        calendar.set(Calendar.HOUR_OF_DAY,selectedHour);
+        calendar.set(Calendar.MINUTE,selectedMinute);
+        Log.d("Today date time", "Date: "+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.MONTH)+"/"+(calendar.get(Calendar.YEAR) - 1900)+" Time: "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE));
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Listening to database","fetch database");
-                if (snapshot.exists()) {
-                    // Define the GenericTypeIndicator for List<String>
-                    GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
-                    providerAvailability = snapshot.getValue(genericTypeIndicator);
-                    Log.d("LoadProviderAvailability", "Provider Availability: " + providerAvailability);
+        if(calendar.getTime().compareTo(Calendar.getInstance().getTime()) < 0){
+            Toast.makeText(getContext(), "Please select a date after today.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if((selectedHour<8) || selectedHour > 17){
+            Toast.makeText(getContext(), "Please select an appointment in working hours. (8 am to 5 pm)", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Provider").child(category).child(providerId).child("availability");
 
-                    // Check if the selected day is available
-                    if (providerAvailability != null && providerAvailability.contains(selectedDay)) {
-                        // Prepare booking data in a bundle
-                        prepareBookingBundle(calendar, selectedHour, selectedMinute);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.d("Listening to database", "fetch database");
+                    if (snapshot.exists()) {
+                        // Define the GenericTypeIndicator for List<String>
+                        GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {
+                        };
+                        providerAvailability = snapshot.getValue(genericTypeIndicator);
+                        Log.d("LoadProviderAvailability", "Provider Availability: " + providerAvailability);
+
+                        // Check if the selected day is available
+                        if (providerAvailability != null && providerAvailability.contains(selectedDay)) {
+                            // Prepare booking data in a bundle
+                            prepareBookingBundle(calendar, selectedHour, selectedMinute);
+                        } else {
+                            Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
+                        Log.d("LoadProviderAvailability", "No data found for the specified provider.");
+                        Toast.makeText(getContext(), "No availability data found for the provider.", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Log.d("LoadProviderAvailability", "No data found for the specified provider.");
-                    Toast.makeText(getContext(), "No availability data found for the provider.", Toast.LENGTH_SHORT).show();
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("LoadProviderAvailability", "Error: " + error.getMessage());
-                Toast.makeText(getContext(), "Failed to load provider availability.", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("LoadProviderAvailability", "Error: " + error.getMessage());
+                    Toast.makeText(getContext(), "Failed to load provider availability.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void prepareBookingBundle(Calendar calendar, int selectedHour, int selectedMinute) {
