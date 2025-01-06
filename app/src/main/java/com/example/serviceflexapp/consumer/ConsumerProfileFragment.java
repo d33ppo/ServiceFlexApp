@@ -1,5 +1,6 @@
 package com.example.serviceflexapp.consumer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,10 +10,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.serviceflexapp.R;
+import com.example.serviceflexapp.common.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +27,9 @@ public class ConsumerProfileFragment extends Fragment {
     private TextView Username;
     private DatabaseReference db;
     private FirebaseAuth Auth;
+    private Button logout;
+
+
     public ConsumerProfileFragment() {
         super(R.layout.fragment_consumer_profile);
     }
@@ -43,8 +49,21 @@ public class ConsumerProfileFragment extends Fragment {
         Auth = FirebaseAuth.getInstance();
         Name = view.findViewById(R.id.TV_Name);
         Username = view.findViewById(R.id.TV_Username);
+        logout = view.findViewById(R.id.BTN_Logout);
         setUserData("firstName","lastName",Name);
         setUserData("lastName",Username);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Auth.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(getActivity(), "Logout Successful !", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
     public void setUserData(String field1, String field2, TextView text){
         FirebaseUser user = Auth.getCurrentUser();
