@@ -128,6 +128,7 @@ public class ConsumerBookingsFragment3 extends Fragment {
             appointmentData.put("bookingDate", selectedDate); // Store the formatted date
             appointmentData.put("bookingTime", selectedTime); // Store the time
             appointmentData.put("consumerId", consumerId); // Store the consumer ID
+            appointmentData.put("isCompleted", false); // Store the completion status
 
             // Upload the appointment data to Firestore
             firestore.collection("providers")

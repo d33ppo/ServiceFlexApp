@@ -57,8 +57,8 @@
         android:label="fragment_provider_home"
         tools:layout="@layout/fragment_provider_home" >
         <action
-            android:id="@+id/action_providerHomeFragment_to_providerBookingsFragment"
-            app:destination="@id/providerBookingsFragment" />
+            android:id="@+id/action_providerHomeFragment_to_providerBookingsPage1Fragment"
+            app:destination="@id/providerBookingsPage1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/providerProfileAccountInfo"
