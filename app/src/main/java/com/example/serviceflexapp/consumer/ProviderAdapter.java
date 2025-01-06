@@ -54,14 +54,14 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             // Load image using Glide
             Glide.with(holder.itemView.getContext())
                     .load(provider.getImageURL())
-                    .placeholder(R.drawable.brad_pitt) // Optional placeholder
+                    .placeholder(R.drawable.profile_circle_icon) // Optional placeholder
                     .into(holder.imageView);
 
 
         holder.nameTextView.setText(provider.getFirstName());
         holder.priceRangeTextView.setText("Price Range: RM " + provider.getPriceRange());
-        holder.yearsOfExperienceTextView.setText("Experience: " + provider.getYearsOfExperience() + " years");
-        holder.starRatingTextView.setText("Rating: " + provider.getRating() + " stars");
+        holder.ageTextView.setText("Age: " + provider.getAge() + " years old");
+        holder.emailTextView.setText("Email: " + provider.getEmail());
 
         // Set up item click listener for navigation
         holder.itemView.setOnClickListener(view -> {
@@ -69,8 +69,8 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             bundle.putString("consumerId", consumerId);
             bundle.putString("providerId", provider.getProviderId());
             bundle.putString("name", provider.getFirstName());
-            bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
-            bundle.putString("rating", provider.getRating());
+            bundle.putInt("age", provider.getAge());
+            bundle.putString("email", provider.getEmail());
             bundle.putString("priceRange", provider.getPriceRange());
             bundle.putString("imageURL", provider.getImageURL());
             bundle.putString("category", selectedCategory);
@@ -90,7 +90,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView nameTextView, yearsOfExperienceTextView, starRatingTextView, priceRangeTextView;
+        TextView nameTextView, ageTextView, emailTextView, priceRangeTextView;
 
         ConstraintLayout constraintLayout;
         LinearLayout layout;
@@ -102,8 +102,8 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
             imageView = itemView.findViewById(R.id.IV_Provider1);
             nameTextView = itemView.findViewById(R.id.TV_ProviderName1);
             priceRangeTextView = itemView.findViewById(R.id.TV_ProviderPriceRange1);
-            yearsOfExperienceTextView = itemView.findViewById(R.id.TV_ProviderYearsOfExperience1);
-            starRatingTextView = itemView.findViewById(R.id.TV_ProviderStar1);
+            ageTextView = itemView.findViewById(R.id.TV_ProviderAge1);
+            emailTextView = itemView.findViewById(R.id.TV_ProviderEmail1);
 
         }
     }

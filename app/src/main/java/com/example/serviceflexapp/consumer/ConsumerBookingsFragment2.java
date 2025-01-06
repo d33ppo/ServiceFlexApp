@@ -175,3 +175,4 @@ public class ConsumerBookingsFragment2 extends Fragment {
         navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3, nextBundle);
     }
 }
+

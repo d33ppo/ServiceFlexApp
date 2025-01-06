@@ -92,10 +92,10 @@ public class ConsumerHomeFragment2 extends Fragment{
                         String firstName = snapshot.child("firstName").getValue(String.class);
                         String priceRange = snapshot.child("priceRange").getValue(String.class);
                         String imageURL = snapshot.child("imageURL").getValue(String.class);
-                        String rating = snapshot.child("rating").getValue(String.class);
-                        String yearsOfExperience = snapshot.child("yearsOfExperience").getValue(String.class);
+                        String email = snapshot.child("email").getValue(String.class);
+                        Integer age = snapshot.child("age").getValue(Integer.class);
 
-                        Provider provider = new Provider(providerID,firstName, priceRange, imageURL, rating, yearsOfExperience);
+                        Provider provider = new Provider(providerID,firstName, priceRange, imageURL, email, age);
                         providerList.add(provider);
                     }
                     // Notify adapter after data is updated
@@ -125,7 +125,6 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         ;
     }
-
     private void navigateToProviderDetails(View view, Provider provider) {
         navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
@@ -136,13 +135,12 @@ public class ConsumerHomeFragment2 extends Fragment{
         // Pass provider-specific data if needed
         bundle.putString("providerId", provider.getProviderId());
         bundle.putString("name", provider.getFirstName());
-        bundle.putString("yearsOfExperience", provider.getYearsOfExperience());
-        bundle.putString("rating", provider.getRating());
+        bundle.putInt("age", provider.getAge());
+        bundle.putString("email", provider.getEmail());
         bundle.putString("priceRange", provider.getPriceRange());
         bundle.putString("imageUrl", provider.getImageURL());
 
         navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
     }
-
 
 }
