@@ -5,9 +5,13 @@ public class Message {
     private String message;
     private long timestamp;
     private boolean read;
+    private String consumerName;
 
     public Message() {
         // Default constructor required for calls to DataSnapshot.getValue(Message.class)
+    }
+    public String getConsumerName() {
+        return consumerName;
     }
 
     public String getMessageId() {

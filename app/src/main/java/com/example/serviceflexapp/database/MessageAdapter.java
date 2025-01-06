@@ -40,6 +40,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messages.get(position);
         holder.messageText.setText(message.getMessage());
+        holder.consumerName.setText(message.getConsumerName() != null && !message.getConsumerName().isEmpty() ? message.getConsumerName() : "System");
 
         holder.deleteButton.setOnClickListener(v -> {
             String userId = FirebaseAuth.getInstance().getUid();
@@ -97,11 +98,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         Button deleteButton;
+        TextView consumerName;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             messageText = itemView.findViewById(R.id.TV_ViewContentProvider);
             deleteButton = itemView.findViewById(R.id.BTN_Delete);
+            consumerName = itemView.findViewById(R.id.TV_SenderProvider);
         }
     }
 }
