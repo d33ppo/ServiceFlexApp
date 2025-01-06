@@ -44,7 +44,7 @@ public class ProviderMainActivity extends AppCompatActivity {
                 navController.navigate(R.id.providerHomeFragment); // Navigate to the home fragment
                 return true;
             } else if (itemId == R.id.bottom_booking) {
-                navController.navigate(R.id.providerBookingsFragment); // Navigate to the bookings fragment
+                navController.navigate(R.id.providerBookingsPage1Fragment); // Navigate to the bookings fragment
                 return true;
             } else if (itemId == R.id.bottom_inbox) {
                 // Pass the providerId to the Inbox Fragment
