@@ -54,20 +54,6 @@
 
 
             <Button
-                android:id="@+id/BTN_Read"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="3"
-                android:backgroundTint="#FFFFFF"
-                android:text="Read"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <Button
                 android:id="@+id/BTN_Delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

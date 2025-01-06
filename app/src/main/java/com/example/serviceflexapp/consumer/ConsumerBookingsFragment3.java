@@ -23,8 +23,11 @@ import android.widget.Toast;
 import com.example.serviceflexapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -57,6 +60,8 @@ public class ConsumerBookingsFragment3 extends Fragment {
             return;
         }
 
+        FirebaseUser consumerId = FirebaseAuth.getInstance().getCurrentUser();
+
         // Initialize UI components
         rbEWallet = view.findViewById(R.id.RB_EWallet);
         rbCreditDebitCard = view.findViewById(R.id.RB_CreditDebitCard);
@@ -68,15 +73,15 @@ public class ConsumerBookingsFragment3 extends Fragment {
         // Handle the Finish button click
         finishButton.setOnClickListener(v -> {
             if (rbEWallet.isChecked()) {
-                proceedToPayment("E-Wallet",providerId);
+                proceedToPayment("E-Wallet", providerId);
             } else if (rbCreditDebitCard.isChecked()) {
-                proceedToPayment("Credit/Debit Card",providerId);
+                proceedToPayment("Credit/Debit Card", providerId);
             } else if (rbOnlineBanking.isChecked()) {
-                proceedToPayment("Online Banking",providerId);
+                proceedToPayment("Online Banking", providerId);
             } else if (rbGPay.isChecked()) {
-                proceedToPayment("Google Pay",providerId);
+                proceedToPayment("Google Pay", providerId);
             } else if (rbCash.isChecked()) {
-                proceedToPayment("Cash",providerId);
+                proceedToPayment("Cash", providerId);
             } else {
                 // If no payment method is selected
                 Toast.makeText(getContext(), "Please select a payment method", Toast.LENGTH_SHORT).show();
@@ -113,34 +118,65 @@ public class ConsumerBookingsFragment3 extends Fragment {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
-        String message = "Booking confirmed with payment method: " + paymentMethod;
 
-        // Get the Firebase instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DatabaseReference consumerRef = FirebaseDatabase.getInstance()
+                .getReference("Consumer")
+                .child(consumerId);
 
-// Create a new message reference with a generated ID
-        DocumentReference newMessageRef = db.collection("providers")
-                .document(providerId)
-                .collection("messages")
-                .document();  // This generates a unique document ID
+        consumerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Fetch firstName and lastName
+                    String firstName = snapshot.child("firstName").getValue(String.class);
+                    String lastName = snapshot.child("lastName").getValue(String.class);
 
-        String messageId = newMessageRef.getId();
-
-        Map<String, Object> messageData = new HashMap<>();
-        messageData.put("consumerName", currentUser.getDisplayName());
-        messageData.put("consumerId", consumerId);
-        messageData.put("providerId", providerId);
-        messageData.put("messageId", messageId);
-        messageData.put("message", message);
-        messageData.put("timestamp", System.currentTimeMillis());
-
-        newMessageRef.set(messageData)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getContext(), "Message sent to provider's inbox", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Failed to send message to provider's inbox", Toast.LENGTH_SHORT).show();
+                    if (firstName == null || lastName == null) {
+                        Toast.makeText(getContext(), "Consumer name is incomplete", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                });
+
+                    // Combine firstName and lastName
+                    String consumerName = firstName + " " + lastName;
+
+                    // Message to be saved
+                    String message = consumerName + " booked a service with payment method: " + paymentMethod;
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference newMessageRef = db.collection("providers")
+                            .document(providerId)
+                            .collection("messages")
+                            .document(); // Generates a unique document ID
+
+                    String messageId = newMessageRef.getId();
+
+                    // Data to be saved
+                    Map<String, Object> messageData = new HashMap<>();
+                    messageData.put("consumerName", consumerName);
+                    messageData.put("consumerId", consumerId);
+                    messageData.put("providerId", providerId);
+                    messageData.put("messageId", messageId);
+                    messageData.put("message", message);
+                    messageData.put("timestamp", System.currentTimeMillis());
+
+                    // Save message to Firestore
+                    newMessageRef.set(messageData)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Message sent to provider's inbox", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Failed to send message to provider's inbox", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(getContext(), "Consumer data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
