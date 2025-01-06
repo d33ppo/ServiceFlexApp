@@ -85,11 +85,13 @@ public class ConsumerBookingsFragment1 extends Fragment {
 
             // Retrieve the selected category from the arguments
             Bundle args = getArguments();
+            String consumerId = args.getString("consumerId");
             String providerId = args.getString("providerId");
             String category = args.getString("category");
 
             // Pass the provider ID to the next fragment
             Bundle bundle = new Bundle();
+            bundle.putString("consumerId", consumerId);
             bundle.putString("providerId", providerId);
             bundle.putString("category", category);
             navController.navigate(R.id.action_consumerBookingsFragment_to_consumerBookingsFragment2, bundle);
