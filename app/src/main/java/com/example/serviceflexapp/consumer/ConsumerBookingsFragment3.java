@@ -135,6 +135,28 @@ public class ConsumerBookingsFragment3 extends Fragment {
                         // Appointment uploaded successfully
                         Toast.makeText(getContext(), "Appointment booked successfully!", Toast.LENGTH_SHORT).show();
                     });
+
+            String category = bundle.getString("category");
+            Log.d("Bundle received","Bundle: " + bundle);
+            // Create a map for the appointment data
+            Map<String, Object> appointmentDataConsumers = new HashMap<>();
+            appointmentDataConsumers.put("bookingDate", selectedDate); // Store the formatted date
+            appointmentDataConsumers.put("bookingTime", selectedTime); // Store the time
+            appointmentDataConsumers.put("providerId", providerId); // Store the consumer ID
+            appointmentDataConsumers.put("isCompleted", false); // Store the completion status
+            appointmentDataConsumers.put("category", category); // Store the consumer ID
+
+
+            // Upload the appointment data to Firestore consumers collection
+            firestore.collection("consumers")
+                    .document(consumerId)
+                    .collection("appointment")
+                    .document()
+                    .set(appointmentDataConsumers)
+                    .addOnSuccessListener(documentReference -> {
+                        // Appointment uploaded successfully
+                        Toast.makeText(getContext(), "Appointment booked successfully!", Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
