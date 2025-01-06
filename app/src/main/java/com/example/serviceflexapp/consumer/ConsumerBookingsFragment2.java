@@ -69,8 +69,6 @@ public class ConsumerBookingsFragment2 extends Fragment {
         confirmButton.setOnClickListener(v -> {
 
             // Get selected date and time
-
-
             int selectedHour = timePicker.getHour();
             int selectedMinute = timePicker.getMinute();
 

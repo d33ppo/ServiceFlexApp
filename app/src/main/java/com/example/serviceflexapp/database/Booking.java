@@ -4,15 +4,15 @@ public class Booking {
     private String consumerId;
     private String bookingDate;
     private String bookingTime;
-    private boolean bookingStatus;
+    private boolean isCompleted;
     private String firstName;
     private String address;
 
-    public Booking(String consumerId, String bookingDate, String bookingTime, boolean bookingStatus, String firstName, String address) {
+    public Booking(String consumerId, String bookingDate, String bookingTime, boolean isCompleted, String firstName, String address) {
         this.consumerId = consumerId;
         this.bookingDate = bookingDate;
         this.bookingTime = bookingTime;
-        this.bookingStatus = bookingStatus;
+        this.isCompleted = isCompleted;
         this.firstName = firstName;
         this.address = address;
     }
@@ -49,12 +49,12 @@ public class Booking {
         this.bookingTime = bookingTime;
     }
 
-    public boolean getBookingStatus() {
-        return bookingStatus;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    public void setBookingStatus(boolean bookingStatus) {
-        this.bookingStatus = bookingStatus;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
     public String getFirstName() {

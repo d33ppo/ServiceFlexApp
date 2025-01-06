@@ -29,11 +29,11 @@
                 android:layout_width="114dp"
                 android:layout_height="69dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/BTN_Reschedule"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.363"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/TV_AddressUpcomingBooking"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile_circle_icon" />
 
             <ImageView
@@ -53,8 +53,9 @@
                 android:layout_height="70dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="22 December 2025"
-                android:textSize="16sp"
+                android:text="2025-01-18"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -69,12 +70,14 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="13:00"
-                android:textSize="16sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/TV_AddressUpcomingBooking"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TV_Date" />
+                app:layout_constraintTop_toBottomOf="@+id/TV_Date"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/TV_Sender"
@@ -85,6 +88,7 @@
                 android:text="Martha Salmah"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,22 +101,9 @@
                 android:text="Jalan Universiti, Kuala Lumpur"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/IV_Mail"
                 app:layout_constraintTop_toBottomOf="@id/TV_Sender" />
-
-            <Button
-                android:id="@+id/BTN_Reschedule"
-                android:layout_width="121dp"
-                android:layout_height="53dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:backgroundTint="@color/white"
-                android:text="Reschedule"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

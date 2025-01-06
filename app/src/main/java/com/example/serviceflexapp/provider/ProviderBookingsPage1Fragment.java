@@ -109,14 +109,14 @@ public class ProviderBookingsPage1Fragment extends Fragment {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Assuming the document contains fields: title, date, and time
                             String consumerId = document.getString("consumerId");
-                            String bookingDate = document.getString("booingDate");
+                            String bookingDate = document.getString("bookingDate");
                             String bookingTime = document.getString("bookingTime");
 
                             // Fetch consumer's first name from Realtime Database
-                            realTimeDb.child(consumerId).child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
+                            realTimeDb.child(consumerId).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String firstName = snapshot.getValue(String.class);
+                                    String firstName = snapshot.child("firstName").getValue(String.class);
                                     String address = snapshot.child("address").getValue(String.class);
 
                                     // Add the booking to the list
