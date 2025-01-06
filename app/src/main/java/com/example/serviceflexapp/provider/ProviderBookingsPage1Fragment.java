@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.database.Booking;
 import com.example.serviceflexapp.database.BookingAdapter;
+import com.example.serviceflexapp.database.BookingAdapterProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +46,7 @@ public class ProviderBookingsPage1Fragment extends Fragment {
 
     //Dennis code's start here
     private RecyclerView recyclerView;
-    private BookingAdapter bookingAdapter;
+    private BookingAdapterProvider bookingAdapter;
     private List<Booking> upcomingBookings;
     private Button btnCompleted;
 
@@ -66,7 +67,7 @@ public class ProviderBookingsPage1Fragment extends Fragment {
 
         // Initialize booking list and adapter
         upcomingBookings = new ArrayList<>();
-        bookingAdapter = new BookingAdapter(upcomingBookings);
+        bookingAdapter = new BookingAdapterProvider(upcomingBookings);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(bookingAdapter);
@@ -120,7 +121,7 @@ public class ProviderBookingsPage1Fragment extends Fragment {
                                     String address = snapshot.child("address").getValue(String.class);
 
                                     // Add the booking to the list
-                                    upcomingBookings.add(new Booking(bookingDate, bookingTime, firstName, address));
+                                    upcomingBookings.add(new Booking(consumerId, bookingDate, bookingTime,false, firstName, address));
 
                                     // Notify adapter about data changes
                                     bookingAdapter.notifyDataSetChanged();

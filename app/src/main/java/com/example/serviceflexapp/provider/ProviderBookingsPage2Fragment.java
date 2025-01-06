@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.database.Booking;
 import com.example.serviceflexapp.database.BookingAdapter;
+import com.example.serviceflexapp.database.BookingAdapterProviderCompleted;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +39,7 @@ public class ProviderBookingsPage2Fragment extends Fragment {
 
     //Dennis code's start here
     private RecyclerView recyclerView;
-    private BookingAdapter bookingAdapter;
+    private BookingAdapterProviderCompleted bookingAdapter;
     private List<Booking> completedBookings;
 
     @Nullable
@@ -61,7 +62,7 @@ public class ProviderBookingsPage2Fragment extends Fragment {
         //Dennis code's start here
         recyclerView = view.findViewById(R.id.RV_BookingsComplete);
         completedBookings = new ArrayList<>();
-        bookingAdapter = new BookingAdapter(completedBookings);
+        bookingAdapter = new BookingAdapterProviderCompleted(completedBookings);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(bookingAdapter);
