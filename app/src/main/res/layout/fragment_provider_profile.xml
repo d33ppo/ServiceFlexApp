@@ -238,7 +238,7 @@
         android:padding="15dp"
         android:text="Logout -->"
         android:textColor="@color/black"
-        android:textSize="13sp"
+        android:textSize="12sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="2.0"
