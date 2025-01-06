@@ -105,12 +105,23 @@ public class ConsumerBookingsFragment2 extends Fragment {
                 Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Handle navigation to the next fragment
+// Handle navigation to the next fragment
         Button nextConfirmButton = view.findViewById(R.id.BTN_Confirm);
         nextConfirmButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3);
+            Bundle args = getArguments();
+            if (args != null) {
+                String providerId = args.getString("providerId");
+                if (providerId != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("providerId", providerId);
+                    NavController navController = Navigation.findNavController(view);
+                    navController.navigate(R.id.action_consumerBookingsFragment2_to_consumerBookingsFragment3, bundle);
+                } else {
+                    Toast.makeText(getContext(), "Error: Provider ID not found", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Error: Arguments are null", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Handle navigation back to the previous fragment

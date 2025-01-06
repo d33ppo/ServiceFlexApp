@@ -122,7 +122,6 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         ;
     }
-
     private void navigateToProviderDetails(View view, Provider provider) {
         navController = Navigation.findNavController(view);
         Bundle bundle = new Bundle();
@@ -140,6 +139,5 @@ public class ConsumerHomeFragment2 extends Fragment{
 
         navController.navigate(R.id.action_consumerHomeFragment2_to_consumerBookingsFragment, bundle);
     }
-
 
 }
