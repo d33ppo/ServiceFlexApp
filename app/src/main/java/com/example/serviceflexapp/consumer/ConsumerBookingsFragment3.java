@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,9 @@ public class ConsumerBookingsFragment3 extends Fragment {
 
     private RadioButton rbEWallet, rbCreditDebitCard, rbOnlineBanking, rbGPay, rbCash;
     private Button finishButton;
+
+    // Initialize Firestore
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public ConsumerBookingsFragment3() {
         // Required empty public constructor
@@ -81,6 +85,8 @@ public class ConsumerBookingsFragment3 extends Fragment {
                 // If no payment method is selected
                 Toast.makeText(getContext(), "Please select a payment method", Toast.LENGTH_SHORT).show();
             }
+
+            uploadAppointment(getArguments());
         });
 
         // Handle navigation to the previous fragment
@@ -101,6 +107,34 @@ public class ConsumerBookingsFragment3 extends Fragment {
         // Navigate to the next fragment or start payment process here
         NavController navController = Navigation.findNavController(requireView());
         navController.navigate(R.id.action_consumerBookingsFragment3_to_consumerHomeFragment);
+    }
+
+    private void uploadAppointment(Bundle bundle) {
+        if (bundle != null) {
+            // Retrieve data from the bundle
+            String providerId = bundle.getString("providerId");
+            String consumerId = bundle.getString("consumerId"); // Assuming you have this in the bundle
+            String selectedDate = bundle.getString("date"); //
+            String selectedTime = bundle.getString("time");
+
+            Log.d("Bundle received","Bundle: " + bundle);
+            // Create a map for the appointment data
+            Map<String, Object> appointmentData = new HashMap<>();
+            appointmentData.put("bookingDate", selectedDate); // Store the formatted date
+            appointmentData.put("bookingTime", selectedTime); // Store the time
+            appointmentData.put("consumerId", consumerId); // Store the consumer ID
+
+            // Upload the appointment data to Firestore
+            firestore.collection("providers")
+                    .document(providerId)
+                    .collection("appointment")
+                    .document()
+                    .set(appointmentData)
+                    .addOnSuccessListener(documentReference -> {
+                        // Appointment uploaded successfully
+                        Toast.makeText(getContext(), "Appointment booked successfully!", Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 
     private void saveMessageToProviderInbox(String paymentMethod, String providerId) {
