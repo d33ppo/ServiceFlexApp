@@ -68,13 +68,13 @@ public class Provider {
     }
 
     //Constructor for Consumer Home Fragment2version2
-    public Provider(String providerId,String firstName, String priceRange, String imageURL, String rating, String yearsOfExperience) {
+    public Provider(String providerId,String firstName, String priceRange, String imageURL, String email, int age) {
         this.providerId = providerId;
         this.firstName = firstName;
         this.priceRange = priceRange;
         this.imageURL = imageURL;
-        this.rating = rating;
-        this.yearsOfExperience = yearsOfExperience;
+        this.email = email;
+        this.age = age;
     }
 
     //Constructor for Consumer Booking Fragment 2
