@@ -36,6 +36,8 @@ public class ConsumerBookingsFragment2 extends Fragment {
     private DatabaseReference databaseReference;
     private Bundle nextBundle;
 
+    final Calendar[] calendar = new Calendar[1];
+
     public ConsumerBookingsFragment2() {
         // Required empty public constructor
     }
@@ -55,22 +57,29 @@ public class ConsumerBookingsFragment2 extends Fragment {
         timePicker = view.findViewById(R.id.TP_PickTime);
         confirmButton = view.findViewById(R.id.BTN_Confirm);
 
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                calendar[0] = Calendar.getInstance();
+                calendar[0].set(year, month, dayOfMonth);
+                Log.d("Selected date millis",calendar[0].toString());
+            }
+        });
         // Handle the Confirm button click
         confirmButton.setOnClickListener(v -> {
+
             // Get selected date and time
-            long selectedDateMillis = calendarView.getDate();
+
+
             int selectedHour = timePicker.getHour();
             int selectedMinute = timePicker.getMinute();
 
-            // Format the date
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(selectedDateMillis);
-
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-            String selectedDay = dayFormat.format(calendar.getTime());
+            String selectedDay = dayFormat.format(calendar[0].getTime());
+            Log.d("Day", "Day: "+ selectedDay);
 
             // Check availability
-            checkProviderAvailability(selectedDay, selectedHour, selectedMinute);
+            checkProviderAvailability(calendar[0], selectedDay, selectedHour, selectedMinute);
         });
 
         // Handle navigation back to the previous fragment
@@ -81,7 +90,8 @@ public class ConsumerBookingsFragment2 extends Fragment {
         });
     }
 
-    private void checkProviderAvailability(String selectedDay, int selectedHour, int selectedMinute) {
+    private void checkProviderAvailability(Calendar calendar, String selectedDay, int selectedHour, int selectedMinute) {
+        Log.d("Selected Day and Time","Day: "+selectedDay+" Time: "+selectedHour+selectedMinute);
         // Retrieve the selected category from the arguments
         Bundle args = getArguments();
         if (args == null) {
@@ -116,7 +126,7 @@ public class ConsumerBookingsFragment2 extends Fragment {
                     // Check if the selected day is available
                     if (providerAvailability != null && providerAvailability.contains(selectedDay)) {
                         // Prepare booking data in a bundle
-                        prepareBookingBundle(selectedHour, selectedMinute);
+                        prepareBookingBundle(calendar, selectedHour, selectedMinute);
                     } else {
                         Toast.makeText(getContext(), "Selected date is not within the provider's availability.", Toast.LENGTH_SHORT).show();
                     }
@@ -134,11 +144,11 @@ public class ConsumerBookingsFragment2 extends Fragment {
         });
     }
 
-    private void prepareBookingBundle(int selectedHour, int selectedMinute) {
-        // Retrieve the selected date from the CalendarView
+    private void prepareBookingBundle(Calendar calendar, int selectedHour, int selectedMinute) {
+        /*// Retrieve the selected date from the CalendarView
         long selectedDateMillis = calendarView.getDate();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(selectedDateMillis);
+        calendar.setTimeInMillis(selectedDateMillis);*/
 
         // Format the date and time
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
