@@ -97,4 +97,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:24.7.1")
     implementation("com.google.firebase:firebase-inappmessaging-display")
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.paypal.sdk:paypal-android-sdk:2.16.0")
 }
