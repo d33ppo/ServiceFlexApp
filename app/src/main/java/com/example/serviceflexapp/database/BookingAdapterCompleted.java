@@ -24,7 +24,7 @@ public class BookingAdapterCompleted extends RecyclerView.Adapter<BookingAdapter
     @Override
     public BookingCompletedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.bookings_cardview_upcoming, parent, false);
+                .inflate(R.layout.bookings_cardview_completed, parent, false);
         return new BookingCompletedViewHolder(view);
     }
 
@@ -51,7 +51,7 @@ public class BookingAdapterCompleted extends RecyclerView.Adapter<BookingAdapter
             tvFirstName = itemView.findViewById(R.id.TV_Sender);
             tvBookingDate = itemView.findViewById(R.id.TV_Date);
             tvBookingTime = itemView.findViewById(R.id.TV_Time);
-            tvAddress = itemView.findViewById(R.id.TV_AddressUpcomingBooking);
+            tvAddress = itemView.findViewById(R.id.TV_AddressCompletedBooking);
         }
     }
 }

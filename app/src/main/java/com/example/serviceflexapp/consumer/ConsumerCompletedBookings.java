@@ -74,7 +74,8 @@ public class ConsumerCompletedBookings extends Fragment {
         // Fetch completed bookings from Firestore
         db.collection("consumers")
                 .document(consumerId)
-                .collection("completedAppointments")
+                .collection("appointment")
+                .whereEqualTo("isCompleted", true)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

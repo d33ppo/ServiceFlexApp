@@ -79,6 +79,7 @@ public class ConsumerUpcomingBookings extends Fragment {
         db.collection("consumers")
                 .document(consumerId)
                 .collection("appointment")
+                .whereEqualTo("isCompleted", false)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
