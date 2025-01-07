@@ -67,6 +67,20 @@
             android:exported="false" />
 
 
+        <!--paypal-->
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.paypal.android.sdk.payments.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
