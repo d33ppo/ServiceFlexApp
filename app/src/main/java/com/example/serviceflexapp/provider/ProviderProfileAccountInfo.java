@@ -50,7 +50,7 @@ public class ProviderProfileAccountInfo extends Fragment {
         address=view.findViewById(R.id.ETV_Address);
         update=view.findViewById(R.id.Button_Update);
         firebaseAuth=FirebaseAuth.getInstance();
-        db= FirebaseDatabase.getInstance().getReference("Provider");
+        db = FirebaseDatabase.getInstance().getReference("Provider");
         getUserData("firstName", firstname);
         getUserData("lastName", lastname);
         getUserData("phoneNumber", phonenumber);

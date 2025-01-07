@@ -103,7 +103,7 @@ public class ProviderBookingsPage2Fragment extends Fragment {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String consumerId = document.getString("consumerId");
-                                String bookingDate = document.getString("booingDate");
+                                String bookingDate = document.getString("bookingDate");
                                 String bookingTime = document.getString("bookingTime");
 
                                 // Fetch consumer's first name and address from Realtime Database

@@ -54,7 +54,7 @@ import java.util.Map;
 
 public class ConsumerBookingsFragment3 extends Fragment {
 
-    private RadioButton rbPaypal, rbCreditDebitCard, rbOnlineBanking, rbGPay, rbCash;
+    private RadioButton rbPaypal, rbCreditDebitCard, rbOnlineBanking, rbEWallet, rbCash;
     private Button finishButton;
 
     // Initialize Firestore
@@ -105,7 +105,7 @@ public class ConsumerBookingsFragment3 extends Fragment {
         rbPaypal = view.findViewById(R.id.RB_PayPal);
         rbCreditDebitCard = view.findViewById(R.id.RB_CreditDebitCard);
         rbOnlineBanking = view.findViewById(R.id.RB_OnlineBanking);
-        rbGPay = view.findViewById(R.id.RB_GPay);
+        rbEWallet = view.findViewById(R.id.RB_EWallet);
         rbCash = view.findViewById(R.id.RB_Cash);
         finishButton = view.findViewById(R.id.BTN_Finish);
 
@@ -117,8 +117,8 @@ public class ConsumerBookingsFragment3 extends Fragment {
                 proceedToPayment("Credit/Debit Card", providerId);
             } else if (rbOnlineBanking.isChecked()) {
                 proceedToPayment("Online Banking", providerId);
-            } else if (rbGPay.isChecked()) {
-                proceedToPayment("Google Pay", providerId);
+            } else if (rbEWallet.isChecked()) {
+                proceedToPayment("E Wallet", providerId);
             } else if (rbCash.isChecked()) {
                 proceedToPayment("Cash", providerId);
             } else {
