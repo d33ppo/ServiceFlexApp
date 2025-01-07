@@ -79,6 +79,7 @@ public class ConsumerUpcomingBookings extends Fragment {
         db.collection("consumers")
                 .document(consumerId)
                 .collection("appointment")
+                .whereEqualTo("isCompleted", false)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -89,6 +90,7 @@ public class ConsumerUpcomingBookings extends Fragment {
                             String bookingDate = document.getString("bookingDate");
                             String bookingTime = document.getString("bookingTime");
                             String category = document.getString("category");
+                            boolean isCompleted = document.getBoolean("isCompleted");
                             Log.d("FirestoreDebug", "Inside line 86 for loop.");
                             Log.d("FirestoreDebug", "providerId: " + providerId);
                             Log.d("FirestoreDebug", "category: " + category);
@@ -100,11 +102,10 @@ public class ConsumerUpcomingBookings extends Fragment {
                                     String providerAddress = snapshot.child("address").getValue(String.class);
                                     String providerId = snapshot.child("providerId").getValue(String.class);
 
-
                                     Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                                     // Add the booking to the list
-                                    upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, category));
+                                    upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, category, isCompleted));
 
                                         bookingAdapter.notifyDataSetChanged();
                                 }
@@ -131,7 +132,7 @@ public class ConsumerUpcomingBookings extends Fragment {
                 Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                 // Add the booking to the list
-                upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress));
+                upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, false));
 
                 // Notify the adapter to update the RecyclerView
                 recyclerView.post(() -> {

@@ -28,22 +28,24 @@ public class Booking {
     }
 
     //Constructor for ConsumerCompletedBookings
-    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address) {
+    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address, boolean isCompleted) {
         this.providerId = providerId;
         this.bookingDate = bookingDate;
         this.bookingTime = bookingTime;
         this.firstName = firstName;
         this.address = address;
+        this.isCompleted = isCompleted;
     }
 
     // Constructor for ConsumerUpcomingBookings
-    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address, String category) {
+    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address, String category, boolean isCompleted) {
         this.providerId = providerId;
         this.bookingDate = bookingDate;
         this.bookingTime = bookingTime;
         this.firstName = firstName;
         this.address = address;
         this.category = category;
+        this.isCompleted = isCompleted;
     }
 
     public String getConsumerId() {

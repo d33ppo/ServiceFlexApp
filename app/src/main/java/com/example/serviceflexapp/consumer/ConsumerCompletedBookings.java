@@ -74,7 +74,8 @@ public class ConsumerCompletedBookings extends Fragment {
         // Fetch completed bookings from Firestore
         db.collection("consumers")
                 .document(consumerId)
-                .collection("completedAppointments")
+                .collection("appointment")
+                .whereEqualTo("isCompleted", true)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -85,6 +86,7 @@ public class ConsumerCompletedBookings extends Fragment {
                             String bookingDate = document.getString("bookingDate");
                             String bookingTime = document.getString("bookingTime");
                             String category = document.getString("category");
+                            boolean isCompleted = document.getBoolean("isCompleted");
 
                             Log.d("FirestoreDebug", "Processing providerId: " + providerId);
 
@@ -99,7 +101,7 @@ public class ConsumerCompletedBookings extends Fragment {
                                     Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                                     // Add the booking to the list
-                                    completedBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress));
+                                    completedBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, isCompleted));
 
                                     // Notify the adapter to update the RecyclerView
                                     bookingAdapter.notifyDataSetChanged();
