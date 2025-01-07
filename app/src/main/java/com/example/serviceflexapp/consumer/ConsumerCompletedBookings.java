@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.serviceflexapp.R;
 import com.example.serviceflexapp.database.Booking;
 import com.example.serviceflexapp.database.BookingAdapter;
+import com.example.serviceflexapp.database.BookingAdapterCompleted;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +32,7 @@ import java.util.List;
 public class ConsumerCompletedBookings extends Fragment {
 
     private RecyclerView recyclerView;
-    private BookingAdapter bookingAdapter;
+    private BookingAdapterCompleted bookingAdapter;
     private List<Booking> completedBookings;
 
     @Nullable
@@ -48,7 +49,7 @@ public class ConsumerCompletedBookings extends Fragment {
 
         // Initialize booking list and adapter
         completedBookings = new ArrayList<>();
-        bookingAdapter = new BookingAdapter(completedBookings);
+        bookingAdapter = new BookingAdapterCompleted(completedBookings);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(bookingAdapter);
@@ -92,11 +93,13 @@ public class ConsumerCompletedBookings extends Fragment {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String providerName = snapshot.child("firstName").getValue(String.class);
                                     String providerAddress = snapshot.child("address").getValue(String.class);
+                                    String providerId = snapshot.child("providerId").getValue(String.class);
+
 
                                     Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                                     // Add the booking to the list
-                                    completedBookings.add(new Booking(bookingDate, bookingTime, providerName, providerAddress));
+                                    completedBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress));
 
                                     // Notify the adapter to update the RecyclerView
                                     bookingAdapter.notifyDataSetChanged();

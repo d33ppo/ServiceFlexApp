@@ -7,6 +7,8 @@ public class Booking {
     private boolean isCompleted;
     private String firstName;
     private String address;
+    private String providerId;
+    private String category;
 
     public Booking(String consumerId, String bookingDate, String bookingTime, boolean isCompleted, String firstName, String address) {
         this.consumerId = consumerId;
@@ -23,6 +25,25 @@ public class Booking {
         this.bookingTime = bookingTime;
         this.firstName = firstName;
         this.address = address;
+    }
+
+    //Constructor for ConsumerCompletedBookings
+    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address) {
+        this.providerId = providerId;
+        this.bookingDate = bookingDate;
+        this.bookingTime = bookingTime;
+        this.firstName = firstName;
+        this.address = address;
+    }
+
+    // Constructor for ConsumerUpcomingBookings
+    public Booking(String providerId, String bookingDate, String bookingTime, String firstName, String address, String category) {
+        this.providerId = providerId;
+        this.bookingDate = bookingDate;
+        this.bookingTime = bookingTime;
+        this.firstName = firstName;
+        this.address = address;
+        this.category = category;
     }
 
     public String getConsumerId() {
@@ -71,5 +92,13 @@ public class Booking {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

@@ -90,17 +90,21 @@ public class ConsumerUpcomingBookings extends Fragment {
                             String bookingTime = document.getString("bookingTime");
                             String category = document.getString("category");
                             Log.d("FirestoreDebug", "Inside line 86 for loop.");
+                            Log.d("FirestoreDebug", "providerId: " + providerId);
+                            Log.d("FirestoreDebug", "category: " + category);
 
                             realTimeDb.child(category).child(providerId).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String providerName = snapshot.child("firstName").getValue(String.class);
                                     String providerAddress = snapshot.child("address").getValue(String.class);
+                                    String providerId = snapshot.child("providerId").getValue(String.class);
+
 
                                     Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                                     // Add the booking to the list
-                                    upcomingBookings.add(new Booking(bookingDate, bookingTime, providerName, providerAddress));
+                                    upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, category));
 
                                         bookingAdapter.notifyDataSetChanged();
                                 }
@@ -127,7 +131,7 @@ public class ConsumerUpcomingBookings extends Fragment {
                 Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
                 // Add the booking to the list
-                upcomingBookings.add(new Booking(bookingDate, bookingTime, providerName, providerAddress));
+                upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress));
 
                 // Notify the adapter to update the RecyclerView
                 recyclerView.post(() -> {
