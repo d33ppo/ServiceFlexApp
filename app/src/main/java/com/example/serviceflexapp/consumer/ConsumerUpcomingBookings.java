@@ -65,56 +65,55 @@ public class ConsumerUpcomingBookings extends Fragment {
                 navController.navigate(R.id.action_consumerUpcomingBookings_to_consumerCompletedBookings));
     }
 
+
     private void loadUpcomingBookings() {
+        Log.d("DebugFlow", "Loading upcoming bookings...");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DatabaseReference realTimeDb = FirebaseDatabase.getInstance().getReference("Provider"); // Path to provider details
+        DatabaseReference realTimeDb = FirebaseDatabase.getInstance().getReference("Provider");
         String consumerId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Assuming the consumer is logged in
 
-        // Access the collection path: providers -> providerId -> appointment
-        db.collection("providers")
-                .get()  // Fetch all providers
+        Log.d("DebugFlow", "Consumer ID: " + consumerId);
+
+        // Fetch provider IDs from the 'consumers' collection
+        db.collection("consumers")
+                .document(consumerId)
+                .collection("appointment")
+                .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot providerDocument : task.getResult()) {
-                            String providerId = providerDocument.getId(); // The provider document ID
+                        Log.d("FirestoreDebug", "Fetched providers for consumer.");
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Get the providerId from the document ID
+                            String providerId = document.getString("providerId");
+                            String bookingDate = document.getString("bookingDate");
+                            String bookingTime = document.getString("bookingTime");
+                            String category = document.getString("category");
+                            Log.d("FirestoreDebug", "Inside line 86 for loop.");
+                            Log.d("FirestoreDebug", "providerId: " + providerId);
+                            Log.d("FirestoreDebug", "category: " + category);
 
-                            // Retrieve the appointments for the specific provider and filter by consumerId
-                            db.collection("providers")
-                                    .document(providerId)
-                                    .collection("appointment")
-                                    .whereEqualTo("consumerId", consumerId) // Fetch only appointments for the current consumer
-                                    .whereEqualTo("isCompleted", false) // Fetch only upcoming appointments
-                                    .get()
-                                    .addOnCompleteListener(appointmentTask -> {
-                                        if (appointmentTask.isSuccessful()) {
-                                            for (QueryDocumentSnapshot appointmentDocument : appointmentTask.getResult()) {
-                                                String bookingDate = appointmentDocument.getString("bookingDate");
-                                                String bookingTime = appointmentDocument.getString("bookingTime");
+                            realTimeDb.child(category).child(providerId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String providerName = snapshot.child("firstName").getValue(String.class);
+                                    String providerAddress = snapshot.child("address").getValue(String.class);
+                                    String providerId = snapshot.child("providerId").getValue(String.class);
 
-                                                // Fetch provider's name and address from Realtime Database
-                                                realTimeDb.child(providerId).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        String providerName = snapshot.child("name").getValue(String.class);
-                                                        String providerAddress = snapshot.child("address").getValue(String.class);
 
-                                                        // Add the booking to the list
-                                                        upcomingBookings.add(new Booking(bookingDate, bookingTime, providerName, providerAddress));
+                                    Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
 
-                                                        // Notify adapter about data changes
-                                                        bookingAdapter.notifyDataSetChanged();
-                                                    }
+                                    // Add the booking to the list
+                                    upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress, category));
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-                                                        Log.e("RealtimeDbError", "Error fetching provider data", error.toException());
-                                                    }
-                                                });
-                                            }
-                                        } else {
-                                            Log.e("FirestoreError", "Error fetching appointments", appointmentTask.getException());
-                                        }
-                                    });
+                                        bookingAdapter.notifyDataSetChanged();
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("RealtimeDbError", "Error fetching provider data", error.toException());
+                                }
+                            });
+                            Log.d("FirestoreDebug", "Fetched providerId: " + providerId);
                         }
                     } else {
                         Log.e("FirestoreError", "Error fetching providers", task.getException());
@@ -122,4 +121,29 @@ public class ConsumerUpcomingBookings extends Fragment {
                 });
     }
 
+    private void fetchProviderDetails(String providerId, String bookingDate, String bookingTime, DatabaseReference realTimeDb) {
+        realTimeDb.child(providerId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String providerName = snapshot.child("name").getValue(String.class);
+                String providerAddress = snapshot.child("address").getValue(String.class);
+
+                Log.d("RealtimeDbDebug", "Provider Name: " + providerName + ", Address: " + providerAddress);
+
+                // Add the booking to the list
+                upcomingBookings.add(new Booking(providerId, bookingDate, bookingTime, providerName, providerAddress));
+
+                // Notify the adapter to update the RecyclerView
+                recyclerView.post(() -> {
+                    Log.d("RecyclerViewDebug", "Notifying adapter of data change.");
+                    bookingAdapter.notifyDataSetChanged();
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("RealtimeDbError", "Error fetching provider data", error.toException());
+            }
+        });
+    }
 }
