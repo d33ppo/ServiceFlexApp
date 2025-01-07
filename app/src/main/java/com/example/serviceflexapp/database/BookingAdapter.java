@@ -3,14 +3,20 @@ package com.example.serviceflexapp.database;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.serviceflexapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {
 
@@ -36,6 +42,38 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.tvBookingDate.setText(booking.getBookingDate());
         holder.tvBookingTime.setText(booking.getBookingTime());
         holder.tvAddress.setText(booking.getAddress());
+
+        holder.completed.setOnClickListener( v -> {
+            FirebaseFirestore fs = FirebaseFirestore.getInstance();
+            fs.collection("consumers")
+                    .document(FirebaseAuth.getInstance().getUid())
+                    .collection("appointment")
+                    .whereEqualTo("providerId",booking.getProviderId())
+                    .whereEqualTo("bookingDate", booking.getBookingDate())
+                    .whereEqualTo("bookingTime", booking.getBookingTime())
+                    .whereEqualTo("category", booking.getCategory())
+                    .whereEqualTo("isCompleted", false)
+                    .get()
+                    .addOnCompleteListener( task -> {
+                        if(task.isSuccessful()){
+                            // Get the first matching document
+                            DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                            String appointmentId = document.getId();
+
+                            Map<String, Object> setCompleted = new HashMap<>();
+                            setCompleted.put("bookingDate", booking.getBookingDate());
+                            setCompleted.put("bookingTime", booking.getBookingTime());
+                            setCompleted.put("providerId", booking.getProviderId());
+                            setCompleted.put("category", booking.getCategory());
+                            setCompleted.put("isCompleted", true);
+                            fs.collection("consumers")
+                                    .document(FirebaseAuth.getInstance().getUid())
+                                    .collection("appointment")
+                                    .document(appointmentId)
+                                    .set(setCompleted);
+                        }
+                    });
+        });
     }
 
     @Override
@@ -45,6 +83,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     static class BookingViewHolder extends RecyclerView.ViewHolder {
         TextView tvFirstName, tvBookingDate, tvBookingTime, tvAddress;
+        Button completed;
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,6 +91,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             tvBookingDate = itemView.findViewById(R.id.TV_Date);
             tvBookingTime = itemView.findViewById(R.id.TV_Time);
             tvAddress = itemView.findViewById(R.id.TV_AddressUpcomingBooking);
+            completed = itemView.findViewById(R.id.BTN_Completed);
         }
     }
 }
